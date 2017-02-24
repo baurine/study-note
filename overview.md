@@ -53,3 +53,7 @@ contains a [note](https://github.com/baurine/simple-pull-refresh-layout/blob/mas
 1. [Understand Gitflow](./tools/understand-git-flow.md)
 1. TODO: Git
 1. ...
+
+### Android
+
+1. [Custom Gson TypeAdapter](./android/gson-adapter.md)
