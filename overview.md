@@ -44,6 +44,10 @@ contains a [note](https://github.com/baurine/simple-pull-refresh-layout/blob/mas
 1. [Jing Sketch Study](https://github.com/baurine/jing-sketch-xcode)
 1. [Make Icons](https://github.com/baurine/makeicons)
 
+### Tools
+
+1. [Git Hooks Sample](https://github.com/baurine/git-hooks-sample)
+
 ## Other notes
 
 ### Tools
@@ -57,3 +61,7 @@ contains a [note](https://github.com/baurine/simple-pull-refresh-layout/blob/mas
 ### Android
 
 1. [Custom Gson TypeAdapter](./android/gson-adapter.md)
+
+### Database
+
+1. [PostgreSQL Study Note](./database/postgresql-study-note.md)
