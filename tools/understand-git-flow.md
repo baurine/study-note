@@ -89,3 +89,21 @@ version name | version code
 - y：次版本号，一位数。同一个大版本内，有显著的新的 feature 发布，可以将此值加 1。
 - zz: 开发版本号，两位数。每次基于 dev 分支创建 staging 分支后，dev 分支进入到下一个版本的开发，就将 dev 分支上的此值加 1，同时 mmm 重置为 1，比如从 `1.0.6.23` 变为 `1.0.7.1`。当 mmm 的值增加到 999 再加 1 时，zz 值也将加 1。
 - mmm：构建版本号或者说内部开发版本号，三位数。当 dev 每次构建时，mmm 将加 1，当 staging 和 master 有 bug 修复时，mmm 将加 1。
+
+### 实际情况
+
+上面的模式是一种理想化的模式，并不一定适合所有情况。因此还是需要根据实际情况做一些灵活的调整。
+
+以我司某个为客户开发的 rails 项目为例，采用敏捷开发方式，每周一个 sprint。
+
+依然有三个日常分支：develop，staging，master。
+
+日常在 develop 开发新 feature，理论上来说，应该是等每个 sprint 所有 feature 开发完成后统一布署到 staging 上供客户验收，测试。但是 PM 和客户会更希望每完成一个 feature 就马上进行体验，于是乎，我们每次往 develop 分支上合并代码后，都会马上把 develop 分支同时 push 到 staging 分支，并将 staging 分支布署到 staging 服务器。在这种情况下，其实 staging 分支并不是必需的，直接把 develop 分支布署到 staging 服务器就行了。
+
+但是，当某一天，客户验收满意后，决定只把 staging 上的部分功能布署到 production 服务器上，这下就有点棘手了，我一般的做法是将此时和 develop 分支同步的 staging 分支 `rebase -i HEAD~n`，然后从中小心地删除不需要的提交，然后再做一些微小的修改，再重新 `push -f origin staging`，并布署到 staging 服务器，检查无误后，直接将 staging 分支 `push -f` 到 master 分支，并打上 tag，然后将 master 分支布署到 production 服务器。
+
+(后来我想，遇到这种情况，只把 staging 上的部分功能布署到 production 上，采用功能开关是不是一种更好的办法？但是会造成逻辑的复杂性上升。)
+
+staging 和 production 上紧急的 bug 依然直接在 staging 和 master 分支修复，并 merge 或 cherry-pick 回 develop。
+
+周而复始。

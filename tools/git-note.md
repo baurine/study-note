@@ -215,7 +215,7 @@ Switch to another branch:
 Reset some files by `git checkout`:
 
     $ git checkout -- file_name
-    $ git checkout .  // reset all files?
+    $ git checkout .  // reset all modified files
 
 Force change a branch point to another node by `git branch -f`, it is really very useful, very cool:
 
@@ -431,6 +431,7 @@ origin/master 反映的是远程分支的状态，因此在本地是不可修改
 
 **Git Pull:**
 
+    $ git checkout master
     $ git pull
     // =
     $ git fetch; git merge origin/master;
