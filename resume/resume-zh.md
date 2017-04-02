@@ -2,17 +2,17 @@
 
 132-4043-8867 | 2008.hbl@gmail.com | 1986 | 男
 
-如果您求贤若渴，您还可以通过以下链接对我进行深入的了解：
+您还可以通过以下链接对我进行深入的了解：
 
 1. 个人博客 - <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
-1. StackOverflow (当前得分 965) - <http://stackoverflow.com/users/2998877/spark-bao>
+1. StackOverflow (当前得分 1005) - <http://stackoverflow.com/users/2998877/spark-bao>
 1. Study Notes Overview - <https://github.com/baurine/study-note/blob/master/README.md>
 
 ## 教育背景
 
 - 2004 - 2008，北京化工大学 (211 院校) 电子信息工程，本科。
-- 具备英语口语交流，阅读及写作能力。略懂日语 (自学)。
+- 具备英语口语交流，阅读及写作能力，具有外企工作经历。
 
 ## 个人概述及技能
 
@@ -110,3 +110,7 @@
 
 1. 2010/9 - 2013/7，豌豆荚，C++ 开发
    - 作为主力工程师参与豌豆荚 Windows 客户端 1.x 与 2.0 的开发，经历了用户数从几十万到数千万的增长。
+
+## 业余爱好
+
+跑步，游泳，骑行，健身。羽毛球和乒乓球打得也还可以。参加过奥运半程铁人三项。
