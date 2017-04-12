@@ -461,8 +461,28 @@ Verbs:
 
 ### Full Text Search
 
-[PostgreSQL Full Text Search](https://www.postgresql.org/docs/current/static/textsearch.html).
+[*PostgreSQL Full Text Search*](https://www.postgresql.org/docs/current/static/textsearch.html)
 
     SELECT 'a fat cat sat on a mat and ate a fat rat'::tsvector @@ 'cat & rat'::tsquery;
 
     SELECT to_tsvector('fat cats ate fat rats') @@ to_tsquery('fat & rat');
+
+### Having and where
+
+[*Postgres contains in array function*](<https://coderwall.com/p/lkgvdq/postgres-contains-in-array-function>)
+
+    select users.email, array_agg(tags.name)
+    from users
+      join user_tags on users.email = user_tags.email
+      join tags on tags.id = user_tags.tag_id
+    group by users.email
+    having '{1, 2}'::int[] <@ array_agg(tags.id);
+
+**having 和 where 的区别：**
+
+- where 执行在 group 之前，分组前过滤；  
+- having 执行在 group 之后，先得到分组结果，再从分组中过滤结果；
+- having 必须用和 group 配套使用，且在 group 之后，而 where 无此限制
+- where 条件中不能使用聚合函数，而 having 可以。这也是 having 使用的最大场景。因为如果你在 having 中不使用聚合结果，那完全可以直接用 where 替代嘛。比如上例中，我们在 having 中使用了 array_agg 聚合函数，而在 where 中就无法使用它。
+
+导致这些区别的根本原因在于，where 配合 group 用来产生聚合结果，它是聚合结果的因，所以当然不能在它的语句中使用聚合结果，而 having 是在有了聚合结果后进一步过滤，所以它可以使用聚合结果。

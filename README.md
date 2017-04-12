@@ -72,6 +72,10 @@ contains a [note](https://github.com/baurine/simple-pull-refresh-layout/blob/mas
 
 1. [Custom Gson TypeAdapter](./android/gson-adapter.md)
 
+### Web
+
+1. [Ruby Note](./web/ruby-note.md)
+
 ### Database
 
 1. [PostgreSQL Study Note](./database/postgresql-study-note.md)
