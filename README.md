@@ -20,6 +20,10 @@ contains a [note](https://github.com/baurine/simple-pull-refresh-layout/blob/mas
 
 1. [Leetcode](https://github.com/baurine/leetcode)
 
+### Tools
+
+1. [Git Hooks Sample](https://github.com/baurine/git-hooks-sample)
+
 ### Android
 
 1. [MultiTypeAdapter](https://github.com/baurine/multi-type-adapter)
@@ -38,15 +42,15 @@ contains a [note](https://github.com/baurine/simple-pull-refresh-layout/blob/mas
 
 ### Fronted
 
-1. [Sike React](https://github.com/baurine/sike-react)
 1. [Sike CSS](https://github.com/baurine/sike-css)
+1. [Sike React](https://github.com/baurine/sike-react)
 1. [Vue Study](https://github.com/baurine/vue-study)
-1. [Meteor Study](https://github.com/baurine/meteor-study)
 
 ### Web
 
 1. [Rails Study](https://github.com/baurine/rails-study)
 1. [GraphQL Study](https://github.com/baurine/graphql-study)
+1. [Meteor Study](https://github.com/baurine/meteor-study)
 
 ### Desgin
 
@@ -54,11 +58,11 @@ contains a [note](https://github.com/baurine/simple-pull-refresh-layout/blob/mas
 1. [Jing Sketch Study](https://github.com/baurine/jing-sketch-xcode)
 1. [Make Icons](https://github.com/baurine/makeicons)
 
-### Tools
-
-1. [Git Hooks Sample](https://github.com/baurine/git-hooks-sample)
-
 ## Note only notes
+
+### Basic
+
+1. [YAML Note](./basic/yaml-note.md)
 
 ### Tools
 
@@ -68,15 +72,18 @@ contains a [note](https://github.com/baurine/simple-pull-refresh-layout/blob/mas
 1. [Understand Gitflow](./tools/understand-git-flow.md)
 1. [tmux](./tools/tmux.md)
 
-### Android
-
-1. [Custom Gson TypeAdapter](./android/gson-adapter.md)
-
-### Web
-
-1. [Ruby Note](./web/ruby-note.md)
-
 ### Database
 
 1. [PostgreSQL Study Note](./database/postgresql-study-note.md)
 1. [MongoDB Study Note](./database/mongodb-study-note.md)
+
+### Android
+
+1. [Custom Gson TypeAdapter](./android/gson-adapter.md)
+1. [Gitlab CI For Android App Project](./android/gitlab-ci-for-android-app-project.md)
+
+### Web
+
+1. [Ruby Note](./web/ruby-note.md)
+1. [Docker Note](./web/docker-note.md)
+1. [Gitlab CI Note](./web/gitlab-ci-note.md)
