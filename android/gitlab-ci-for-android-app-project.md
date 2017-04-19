@@ -50,11 +50,11 @@ executing:
 
 > For more information, please consult the Android web site at http://developer.android.com/sdk/
 
-从这个说明可以看出，我们可以用 android 这个可执行程序来得到 platform-tools，build-tools，platforms 及 SDK 中必需的其它内容，以及更新版本的 tools。
+从这个说明可以看出，我们可以用 android 这个可执行程序来下载得到 platform-tools，build-tools，platforms 及 SDK 中必需的其它内容，以及更新版本的 tools。
 
 tools 目录是 Android SDK 的基础，而 android 文件是 tools 目录中最重要的程序。
 
-最新版的 Android SDK (实际只包含 tools 目录) 可以从 <https://developer.android.com/studio/index.html#downloads> 下载，以前文件名格式是 `android-sdk_r${tools_version}-${os_platform}.zip`，比如 tools version 为 24.3.3，用于 macOS 的下载包，文件名为 `android-sdk_r24.3.3-macosx.zip`，但是由于这个 sdk 只包含 tools 目录，所以现在前缀由 `android-sdk` 改名为 `tools` 了，比如 `tools_r25.2.3-linux.zip`。
+最新的 Android SDK (实际只包含 tools 目录) 可以从 <https://developer.android.com/studio/index.html#downloads> 下载，以前文件名格式是 `android-sdk_r${tools_version}-${os_platform}.zip`，比如 tools version 为 24.3.3，用于 macOS 的下载包，文件名为 `android-sdk_r24.3.3-macosx.zip`，但是由于这个 sdk 只包含 tools 目录，所以现在前缀由 `android-sdk` 改名为 `tools` 了，比如 `tools_r25.2.3-linux.zip`。
 
 tools 目录中的程序与把 Android 工程构建成 APK 没什么关系，因此，这个 tools 我们直接使用最新版本就可以。
 
@@ -121,4 +121,97 @@ platform-tools 目录里的内容仍然和把 Android 工程构建成 APK 没什
 
 另外，也可以考虑在 `.gitlab-ci.yml` 中使用 cache 关键字来缓存下载的文件，从而提升构建速度。(cache 可以在多个 pipelines 间共享吗? 如果可以的话，那么上面方法二和方法三比较好。-- 答案是可以的，从 Gitlab 9.0 开始，cache 的内容默认是在 Jobs 和 Pipelines 间共享。)
 
-从 Docker Hub 上发现了一个比较新的用于构建 Android App 的镜像：[jangrewe/gitlab-ci-android](https://hub.docker.com/r/jangrewe/gitlab-ci-android/)，可用于 buildToolVersion 为 25.0.2，compileSdkVersion 为 25 的 android 工程的构建。
+从 Docker Hub 上发现了一个比较新的用于构建 Android App 的镜像：[jangrewe/gitlab-ci-android](https://hub.docker.com/r/jangrewe/gitlab-ci-android/)，可用于 buildToolsVersion 为 25.0.2，compileSdkVersion 为 25 的 android 工程的构建。
+
+所以，最简单方便的办法应该是这样，直接从 Docker Hub 上找一个已经安装好最新的 Android SDK 环境的镜像，然后修改 Android 工程 app 目录中的 `build.gradle`，把 buildToolsVersion 和 compileSdkVersion 的值改成和镜像一致，这样，这个镜像就开箱即用了，我们不用在启动镜像后再去安装一些 sdk 的包，当然，gradle 的安装包和依赖的库还是要下载的，但我们可以用 `cache` 关键字把下载结果缓存住，下面是一个简单的示例 `.gitlab-ci.yml`：
+
+    image: jangrewe/gitlab-ci-android
+
+    stages:
+    - test
+
+    before_script:
+    - export GRADLE_USER_HOME=$(pwd)/.gradle
+    - chmod +x ./gradlew
+
+    cache:
+    key: ${CI_PROJECT_ID}
+    paths:
+        - .gradle/
+
+    checkstyle:
+    stage: test
+    script:
+        - ./gradlew checkstyle
+
+    local-test:
+    stage: test
+    script:
+        
+        - ./gradlew test
+
+## Note 2
+
+buildToolsVersion，compileSdkVersion，support 库版本之间的关系
+
+上面讲到，不同的工程我们可以指定不同的 buildToolsVersion 和 compileSdkVersion，实际上，这些值，我们应该尽量使用最新的值，一旦有新版本发布，就应该用新版本取代旧版本。比如最新的稳定的 android 7.1.1 是 API Level 25，那么我们就把 compileSdkVersion 升级到 25。最新的 buildToolsVersion 是 25.0.2，最新的 support 库是 25.3.1，那么 `build.gradle` 应该是这样的：
+
+    android {
+        compileSdkVersion 25
+        buildToolsVersion "25.0.2"
+    }
+
+    dependencies {
+        compile 'com.android.support:appcompat-v7:25.3.1'
+        ...
+    }
+
+这三个值的大版本号最好是保持一致，比如，如果由于某种原因，我们 support 库必须用 24.x.y 的版本，那么我们就把 compileSdkVersion 也改回 24，把 buildToolsVersion 改回 24.m.n 版本。
+
+所有的 support 库中的类都处于 com.android.support 包名之下，support 库细分成很多单独的库，这样可以只选择自己需要的那部分功能，减小 APK 体积。
+
+support 库包含的所有单独的库 (来自 [Support Library Packages](https://developer.android.com/topic/libraries/support-library/packages.html))：
+
+- v4 Support Libraries
+  - v4 compat library
+  - v4 core-utils library
+  - v4 core-ui library
+  - v4 media-compat library
+  - v4 fragment library
+- Multidex Support Library
+- v7 Support Libraries
+  - v7 appcompat library
+  - v7 cardview library
+  - v7 gridlayout library
+  - v7 mediarouter library
+  - v7 palette library
+  - v7 recyclerview library
+  - v7 preference library
+- v8 Support Library
+- v13 Support Library
+- v14 Preference Support Library
+- v17 Leanback Library
+- v17 Preference Library for TV
+- Annotations Support Library
+- Design Support Library
+- Custom Tabs Support Library
+- Percent Support Library
+- ExifInterface Support Library
+- Recommendation Support Library for TV
+
+其中一部分带有 v4, v7 这种版本后缀，曾经它们表示这个库向后兼容到的最低版本，但现在这已经失去意义了，因为从某个版本开始，所有的支持库最低只支持到 API 9，而从 26.0.0 开始，所有的支持库最低只支持到 API 14 (Android 4.0)。
+
+其中 v4 的支持库被 v7 appcompat 依赖，而 v7 appcompat 几乎是我们目前所有项目必须依赖的，所以 v4 支持库一般不用显式依赖。
+
+一般项目常用到的支持库：
+
+    dependencies {
+        compile 'com.android.support:appcompat-v7:25.3.1'
+
+        compile 'com.android.support:recyclerview-v7:25.3.1'
+        compile 'com.android.support:cardview-v7:25.3.1'
+        compile 'com.android.support:design:25.3.1'
+        ...
+    }
+
+Design Support 库中包含了支持 Material Design 的各种组件，比如 FAB，TabLayout，SnackBar 等。
