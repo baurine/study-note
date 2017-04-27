@@ -486,3 +486,27 @@ Verbs:
 - where 条件中不能使用聚合函数，而 having 可以。这也是 having 使用的最大场景。因为如果你在 having 中不使用聚合结果，那完全可以直接用 where 替代嘛。比如上例中，我们在 having 中使用了 array_agg 聚合函数，而在 where 中就无法使用它。
 
 导致这些区别的根本原因在于，where 配合 group 用来产生聚合结果，它是聚合结果的因，所以当然不能在它的语句中使用聚合结果，而 having 是在有了聚合结果后进一步过滤，所以它可以使用聚合结果。
+
+### Extension
+
+想使用 psql 的 [intarray](https://www.postgresql.org/docs/9.5/static/intarray.html) 功能来比较 2 个事物的相关性。(比如有 2 个用户，都被多个 tag 所标记，通过计算这 2 个 tag 数组的交集以及交集的多少来得到他们的相关性。)
+
+这个功能属于 psql 的扩展 (extension)，使用之前要先下载安装，所幸的是这个扩展是 psql 自带的，已经在安装包中了，只是默认处于未使用状态，我们用 `create extension` 命令来使用它，使用 `\dx` 命令查看已使用的扩展。
+
+    postgres=# create extension intarray
+    postgres=# \dx 
+
+    postgres=# select '{1,2,3}'::int[] & '{2,3,4}'::int[];
+    ?column?
+    --------
+    {2,3}
+
+    postgres=# select icount('{1,2,3}'::int[] & '{2,3,4}'::int[]) as count;
+    count
+    -----
+    2
+
+修改 extension 用 `alter extension` 命令，删除用 `drop extension`，官方文档如下：
+
+1. [CREATE EXTENSION](https://www.postgresql.org/docs/9.1/static/sql-createextension.html)
+1. [Additional Supplied Modules](https://www.postgresql.org/docs/9.1/static/contrib.html)

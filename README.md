@@ -35,12 +35,13 @@ contains a [note](https://github.com/baurine/simple-pull-refresh-layout/blob/mas
 1. [Dagger2 Study](https://github.com/baurine/dagger2-study)
 1. [Instagram Material](https://github.com/baurine/instagram-material)
 1. [Shield](https://github.com/baurine/shield)
+1. [Android Test Study](https://github.com/baurine/android-test-study)
 
 ### iOS
 
 1. [Lolita](https://github.com/baurine/lolita)
 
-### Fronted
+### Frontend
 
 1. [Sike CSS](https://github.com/baurine/sike-css)
 1. [Sike React](https://github.com/baurine/sike-react)
