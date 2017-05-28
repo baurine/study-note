@@ -19,8 +19,8 @@
 1. zsh
 1. iTerm
 1. [tmux](./tmux.md)
-1. TotalSpace
-1. Alfred
+1. ~~TotalSpace~~ (用了一段时间，觉得不是很需要)
+1. ~~Alfred~~ (用了一段时间，觉得并不是很需要它的高级功能，而基本功能用 Spotlight 就够了)
 
 **iTerm**
 
@@ -35,11 +35,11 @@
 - `-------`
 - `cmd + n`：新建窗口 (勾选上 Preference --> Profile --> General --> "Reuse previous session's directory")
 
-**TotalSpace2**
+**TotalSpace2 (Deprecated)**
 
 简化 Mac 的多桌面切换。Serria 系统以上需要关闭系统完整性校验功能才能使用。
 
-**Alfred**
+**Alfred (Deprecated)**
 
 替代系统自带的 Spotlight。
 

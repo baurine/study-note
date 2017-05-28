@@ -51,6 +51,10 @@ Fetch code from remote:
     // or
     $ git pull [--rebase]
 
+Fetch code and delete removed branches:
+
+    $ git fetch -p
+
 Commit for PR:
 
     $ git checkout master

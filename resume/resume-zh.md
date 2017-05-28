@@ -1,12 +1,10 @@
 # 黄宝灵
 
-132-4043-8867 | 2008.hbl@gmail.com | 1986 | 男
-
-您还可以通过以下链接对我进行深入的了解：
+您可以通过以下链接对我进行深入的了解：
 
 1. 个人博客 - <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
-1. StackOverflow (当前得分 1005) - <http://stackoverflow.com/users/2998877/spark-bao>
+1. StackOverflow (当前得分 1108) - <http://stackoverflow.com/users/2998877/spark-bao>
 1. Study Notes Overview - <https://github.com/baurine/study-note/blob/master/README.md>
 
 ## 教育背景
@@ -55,7 +53,7 @@
 
 ### 后端
 
-1. 使用 Rails 开发网站和 API。
+1. 使用 Rails 开发网站和 API，完整阅读过《Ruby on Rails Tutorial》及《Agile Web Developement》。
 1. 简单了解并使用过 Meteor。
 1. 理解 GraphQL 思想。
 1. 会使用 PostgreSQL 及其全文搜索功能。
@@ -67,6 +65,7 @@
 ### 其它
 
 1. 熟练 Git 操作，会使用 `git reflog` 拯救误操作，`git rebase -i` 修改历史，熟悉 Gitflow, Git hooks。
+1. 使用 Docker 进行持续集成。
 1. 日常 Vim。
 
 ## 项目经验
@@ -83,15 +82,15 @@
    - 一款简洁的天气应用。
    - MVP + DataBinding。
    - 抽取出 MultiTypeAdapter，SimplePullRefreshLayout，SwipeBackView，PermissionUtil 4 个单独的库。
-1. 公司新版网站 (Web)
-   - 部分参与，采用 Meteor + React 开发。
-   - Meteor 提供数据，React 显示数据。
-   - 组件化思想，使用 React 实现每一个单独的 Component，然后在后台定义每一个页面由哪些 Compoent 组成。
 1. PodKnife (Web)
    - 一个 Podcast 的搜索引擎，主要负责后端和用 React 实现的前端部分。
    - 采用 Rails + React-Rails 开发。
    - 借助 React-Rails gem，在 Rails 中使用 React Component 作为 View，并使用服务端渲染来优化 SEO。
    - 使用 PostgreSQL 的全文搜索功能实现搜索功能。
+1. 公司新版网站 (Web)
+   - 部分参与，采用 Meteor + React 开发。
+   - Meteor 提供数据，React 显示数据。
+   - 组件化思想，使用 React 实现每一个单独的 Component，然后在后台定义每一个页面由哪些 Compoent 组成。
 1. MeShare (APP)
    - 一个智能摄像头的 APP 端，查看监控状况及对摄像头进行远程控制。
    - 作为核心开发人员，使用 C++ 为上层的 Android/iOS/Windows 应用编写底层核心功能库，用于和智能设备进行网络通信并进行各种控制。贡献了超过 70% 的 代码。

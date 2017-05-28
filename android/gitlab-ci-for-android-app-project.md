@@ -128,26 +128,25 @@ platform-tools 目录里的内容仍然和把 Android 工程构建成 APK 没什
     image: jangrewe/gitlab-ci-android
 
     stages:
-    - test
+      - test
 
     before_script:
-    - export GRADLE_USER_HOME=$(pwd)/.gradle
-    - chmod +x ./gradlew
+      - export GRADLE_USER_HOME=$(pwd)/.gradle
+      - chmod +x ./gradlew
 
     cache:
-    key: ${CI_PROJECT_ID}
-    paths:
+      key: ${CI_PROJECT_ID}
+      paths:
         - .gradle/
 
     checkstyle:
-    stage: test
-    script:
+      stage: test
+      script:
         - ./gradlew checkstyle
 
     local-test:
-    stage: test
-    script:
-        
+      stage: test
+      script:
         - ./gradlew test
 
 ## Note 2
