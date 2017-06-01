@@ -53,7 +53,7 @@
 
 ### 后端
 
-1. 使用 Rails 开发网站和 API，完整阅读过《Ruby on Rails Tutorial》及《Agile Web Developement》。
+1. 使用 Rails 开发网站和 API，完整阅读过《Ruby on Rails Tutorial》、《Agile Web Developement》、《Programing Ruby》。
 1. 简单了解并使用过 Meteor。
 1. 理解 GraphQL 思想。
 1. 会使用 PostgreSQL 及其全文搜索功能。
