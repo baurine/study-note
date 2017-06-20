@@ -41,8 +41,7 @@ tools 目录，里面有 android，emulator，mksdcard 这几个重要的可执�
 
 > To start the SDK Manager, please execute the program "android".
 
-> From the command-line you can also directly trigger an update by
-executing:
+> From the command-line you can also directly trigger an update by executing:
 
 >     tools/android update sdk --no-ui
 
@@ -106,6 +105,22 @@ platform-tools 目录里的内容仍然和把 Android 工程构建成 APK 没什
 目前最新的 Android 系统是 7.1.1，对应的 API Level 是 25，所以对应的目录是 `android-25`。
 
 我们在 `build.gradle` 中指定的 `compileSdkVersion` 的值，就是指 android api sdk 的版本。
+
+Android 官网上也有一点关于这些 tools 的介绍 - [Update the IDE and SDK Tools](https://developer.android.com/studio/intro/update.html):
+
+> Android SDK Build-Tools
+
+>   Required. Includes tools to build Android apps. See the SDK Build Tools Release Notes.
+
+> Android SDK Platform-Tools
+
+>   Required. Includes various tools required by the Android platform, including the adb tool.
+
+> Android SDK Tools
+
+>   Required. Includes essential tools such as ProGuard. See the SDK Tools Release Notes.
+
+> ...
 
 另外，关于 gradle，如果 gradle 一开始未安装，构建开始时会先去下载安装这个 gradle，这个 gradle 的体积也不小。在 android studio 的默认配置中，gradle 的版本变化不大，在 android studio 2.3 之前很长时间稳定在使用 gradle 2.14 上，androud studio 2.3 之后使用 gradle 3.3。
 
@@ -214,3 +229,25 @@ support 库包含的所有单独的库 (来自 [Support Library Packages](https:
     }
 
 Design Support 库中包含了支持 Material Design 的各种组件，比如 FAB，TabLayout，SnackBar 等。
+
+## Note 3
+
+在 Google I/O 2017 之前，上面这些 support 库，在使用之前必须通过 sdk manager 下载到本地。在 Google I/O 2017 上，Google 宣布发布 google maven 仓库，部分最新的 support 库，architecture components 库，databinding 库等可以直接从 google maven 库获取，而不再需要用 sdk manager 下载到本地，但这些库的老版本及 google play service / firebase 等并没有放到 google maven 中。详细说明见 android 官网上的文章 - [Add Build Dependencies](https://developer.android.com/studio/build/dependencies.html#google-maven)。
+
+可以通过 google maven 获取的库包括 (限最新版本)：
+
+- Android Support Library
+- Architecture Components Library
+- Constraint Layout Library
+- Android Test Support Library
+- Databinding Library
+- Android Instant App Library
+
+google maven 的配置，将 google maven 地址写到 module 级别的 build.gradle 中：
+
+    repositories {
+        maven {
+            url 'https://maven.google.com'
+            // Alternative URL is 'https://dl.google.com/dl/android/maven2/'
+        }
+    }
