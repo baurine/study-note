@@ -493,8 +493,8 @@ Verbs:
 
 这个功能属于 psql 的扩展 (extension)，使用之前要先下载安装，所幸的是这个扩展是 psql 自带的，已经在安装包中了，只是默认处于未使用状态，我们用 `create extension` 命令来使用它，使用 `\dx` 命令查看已使用的扩展。
 
-    postgres=# create extension intarray
-    postgres=# \dx 
+    postgres=# create extension intarray;
+    postgres=# \dx
 
     postgres=# select '{1,2,3}'::int[] & '{2,3,4}'::int[];
     ?column?
