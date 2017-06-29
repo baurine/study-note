@@ -23,37 +23,41 @@ JDK 我们一般安装 JDK 8.0 就行，而 Android SDK 有多个版本，我们
 
 我们一步一步来解决。
 
-我们先来区分 tools，platform-tools，build-tools 这三个目录的作用。
+我们先来区分 tools，platform-tools，build-tools, platforms 这几个目录的作用。
 
-tools 目录，里面有 android，emulator，mksdcard 这几个重要的可执行程序，emulator 是模拟器程序，mksdcard 也应该是模拟器有关。这里面最重要的就是 android 可执行程序了，它可以用来通过命令行创建 android 工程，创建不同版本的模拟器。它还有一个作用就是，它可以用来通过命令行升级整个 SDK。
+### tools 目录
+
+tools 目录，里面有 android，emulator，mksdcard，bin/avdmanager，bin/sdkmanager 这几个重要的可执行程序，emulator 是模拟器程序，mksdcard 也应该是模拟器有关。这里面最重要的就是 android 可执行程序了，它可以用来通过命令行创建 android 工程，创建不同版本的模拟器。它还有一个作用就是，它可以用来通过命令行升级整个 SDK。
 
 事实上，首次下载 Android SDK 安装包 (以 `android-sdk_r24.3.3-macosx.zip` 为例)，解压后，里面其实没有什么文件，基本是空的，只有一个 tools 目录。还有一个 `SDK Readme.txt` 的文本文件，这个说明的内容是：
 
-> Welcome to the Android SDK!
+    Welcome to the Android SDK!
 
-> The Android SDK archive initially contains only the basic SDK tools. It does not contain an Android platform or any third-party libraries. In fact, it doesn't even have all the tools you need to develop an application.
+    The Android SDK archive initially contains only the basic SDK tools. It does not contain an Android platform or any third-party libraries. In fact, it doesn't even have all the tools you need to develop an application.
 
-> In order to start developing applications, you must install the Platform-tools and at least one version of the Android platform, using the SDK Manager.
+    In order to start developing applications, you must install the Platform-tools and at least one version of the Android platform, using the SDK Manager.
+    
+    Platform-tools contains build tools that are periodically updated to support new features in the Android platform (which is why they are separate from basic SDK tools), including adb, dexdump, and others.
 
-> Platform-tools contains build tools that are periodically updated to support new features in the Android platform (which is why they are separate from basic SDK tools), including adb, dexdump, and others.
+    To install Platform-tools, Android platforms and other add-ons, you must have an Internet connection, so if you plan to use the SDK while offline, please make sure to download the necessary components while online.
 
-> To install Platform-tools, Android platforms and other add-ons, you must have an Internet connection, so if you plan to use the SDK while offline, please make sure to download the necessary components while online.
+    To start the SDK Manager, please execute the program "android".
+    
+    From the command-line you can also directly trigger an update by executing:
 
-> To start the SDK Manager, please execute the program "android".
+        tools/android update sdk --no-ui
 
-> From the command-line you can also directly trigger an update by executing:
+    Tip: use --help to see the various command-line options.
 
->     tools/android update sdk --no-ui
+    For more information, please consult the Android web site at http://developer.android.com/sdk/
 
-> Tip: use --help to see the various command-line options.
-
-> For more information, please consult the Android web site at http://developer.android.com/sdk/
-
-从这个说明可以看出，我们可以用 android 这个可执行程序来下载得到 platform-tools，build-tools，platforms 及 SDK 中必需的其它内容，以及更新版本的 tools。
+从这个说明可以看出，我们可以用 android 这个可执行程序来下载得到 platform-tools，build-tools，platforms 及 SDK 中必需的其它内容，以及更新版本的 tools (自我升级)。
 
 tools 目录是 Android SDK 的基础，而 android 文件是 tools 目录中最重要的程序。
 
 最新的 Android SDK (实际只包含 tools 目录) 可以从 <https://developer.android.com/studio/index.html#downloads> 下载，以前文件名格式是 `android-sdk_r${tools_version}-${os_platform}.zip`，比如 tools version 为 24.3.3，用于 macOS 的下载包，文件名为 `android-sdk_r24.3.3-macosx.zip`，但是由于这个 sdk 只包含 tools 目录，所以现在前缀由 `android-sdk` 改名为 `tools` 了，比如 `tools_r25.2.3-linux.zip`。
+
+(2017/6/29，时隔数月，再回来看这篇文章，发现 Google 又改规则了，Fuck! 以 2017/6/29 日为例，linux 平台下最新的 tools 下载包名改为 `sdk-tools-linux-3859397.zip`，文件名已经无法体现版本号了，某个 docker 镜像 Dockerfile 的更新显示了这个巨变：[Thanks for messing everything up, Google](https://github.com/jangrewe/gitlab-ci-android/commit/e08dcd22351310fccb613a194300cd75b26c2a2c))
 
 tools 目录中的程序与把 Android 工程构建成 APK 没什么关系，因此，这个 tools 我们直接使用最新版本就可以。
 
@@ -66,9 +70,13 @@ PS：目前最新的 tools 目录中的 android 程序已经不推荐使用了�
     For command-line tools, use tools/bin/sdkmanager and tools/bin/avdmanager
     *************************************************************************
 
+### platform-tools 目录
+
 说完 tools 目录，我们再来看 platform-tools 目录，这个目录有 adb，fastboot，sqlite。fastboot 用于刷机。最重要的当然是 adb 了，我们需要用这个来连接手机，进行 apk 的安装，调试。
 
 platform-tools 目录里的内容仍然和把 Android 工程构建成 APK 没什么关系，因此，这个目录也可以直接使用最新版。
+
+### build-tools 目录
 
 最后再来看 build-tools 目录，首先，打开这个目录后，是以版本号命名的各个文件夹。从这可以看出一点，build-tools 与版本关系比较密切，不同的 android 项目可能使用不同的 build-tools 版本，而 tools 目录和 platform-tools 目录，所有项目都可以使用相同版本的 tools 和 platform-tools。
 
@@ -94,6 +102,8 @@ platform-tools 目录里的内容仍然和把 Android 工程构建成 APK 没什
 
 这里面用到的工具绝大部分都在 build-tools 目录中，有一部分可能在 JDK 的目录中。
 
+### platforms 目录
+
 最后，我们还缺什么呢，还缺了最最重要的，就是 android api sdk，每一个版本的 android 系统就有一个对应的 android api sdk，对应的文件是 android.jar。这些文件放在 platforms 目录下的对应版本目录中：
 
     > cd platforms
@@ -106,23 +116,25 @@ platform-tools 目录里的内容仍然和把 Android 工程构建成 APK 没什
 
 我们在 `build.gradle` 中指定的 `compileSdkVersion` 的值，就是指 android api sdk 的版本。
 
+### 官网上的区分
+
 Android 官网上也有一点关于这些 tools 的介绍 - [Update the IDE and SDK Tools](https://developer.android.com/studio/intro/update.html):
 
-> Android SDK Build-Tools
+    Android SDK Build-Tools
+        Required. Includes tools to build Android apps. See the SDK Build Tools Release Notes.
 
->   Required. Includes tools to build Android apps. See the SDK Build Tools Release Notes.
+    Android SDK Platform-Tools
+        Required. Includes various tools required by the Android platform, including the adb tool.
 
-> Android SDK Platform-Tools
+    Android SDK Tools
+        Required. Includes essential tools such as ProGuard. See the SDK Tools Release Notes.
+    ...
 
->   Required. Includes various tools required by the Android platform, including the adb tool.
-
-> Android SDK Tools
-
->   Required. Includes essential tools such as ProGuard. See the SDK Tools Release Notes.
-
-> ...
+### Gradle
 
 另外，关于 gradle，如果 gradle 一开始未安装，构建开始时会先去下载安装这个 gradle，这个 gradle 的体积也不小。在 android studio 的默认配置中，gradle 的版本变化不大，在 android studio 2.3 之前很长时间稳定在使用 gradle 2.14 上，androud studio 2.3 之后使用 gradle 3.3。
+
+### 方案
 
 了解了以上信息后，我们可以开始考虑如何来构建我们持续集成方案了，有以下几种方法：
 
@@ -136,7 +148,9 @@ Android 官网上也有一点关于这些 tools 的介绍 - [Update the IDE and 
 
 另外，也可以考虑在 `.gitlab-ci.yml` 中使用 cache 关键字来缓存下载的文件，从而提升构建速度。(cache 可以在多个 pipelines 间共享吗? 如果可以的话，那么上面方法二和方法三比较好。-- 答案是可以的，从 Gitlab 9.0 开始，cache 的内容默认是在 Jobs 和 Pipelines 间共享。)
 
-从 Docker Hub 上发现了一个比较新的用于构建 Android App 的镜像：[jangrewe/gitlab-ci-android](https://hub.docker.com/r/jangrewe/gitlab-ci-android/)，可用于 buildToolsVersion 为 25.0.2，compileSdkVersion 为 25 的 android 工程的构建。
+从 Docker Hub 上发现了一个比较新的用于构建 Android App 的镜像：[jangrewe/gitlab-ci-android](https://hub.docker.com/r/jangrewe/gitlab-ci-android/)，它的 [Github 地址](https://github.com/jangrewe/gitlab-ci-android)，可用于 buildToolsVersion 为 25.0.2 (2017/6/29 日发现已升级为 25.0.3)，compileSdkVersion 为 25 的 android 工程的构建。
+
+[Thanks for messing everything up, Google](https://github.com/jangrewe/gitlab-ci-android/commit/e08dcd22351310fccb613a194300cd75b26c2a2c) 此次提交体现了最近这个镜像较大的改变。
 
 所以，最简单方便的办法应该是这样，直接从 Docker Hub 上找一个已经安装好最新的 Android SDK 环境的镜像，然后修改 Android 工程 app 目录中的 `build.gradle`，把 buildToolsVersion 和 compileSdkVersion 的值改成和镜像一致，这样，这个镜像就开箱即用了，我们不用在启动镜像后再去安装一些 sdk 的包，当然，gradle 的安装包和依赖的库还是要下载的，但我们可以用 `cache` 关键字把下载结果缓存住，下面是一个简单的示例 `.gitlab-ci.yml`：
 
