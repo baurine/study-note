@@ -46,7 +46,7 @@
 ## Chrome 插件
 
 - Vimium
-- Octotree
+- Octotree / Sourcegraph
 - JSONView
 - Postman
 - Grammarly
@@ -61,3 +61,5 @@
 **Octotree**
 
 Code tree for Github, super useful! Github 的完美搭档。
+
+但是新出的 [Sourcegraph](https://about.sourcegraph.com/) 比 Octotree 更强大，可用来替代 Octotree。
