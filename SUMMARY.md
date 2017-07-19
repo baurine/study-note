@@ -23,5 +23,6 @@
 
 * Web
   1. [Ruby Note](web/ruby-note.md)
+  1. [Rails Note](web/rails-note.md)
   1. [Docker Note](web/docker-note.md)
   1. [Gitlab CI Note](web/gitlab-ci-note.md)

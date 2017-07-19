@@ -222,16 +222,27 @@ Add one or multiple rows records at one query string.
 
 `GROUP BY ...`
 
-**Notice!** After group, you must and only aggregate for result, you can't just use `select *` to see all column, you must use `count(*)` or some other aggregation methods to aggregate the result, or select the only column you grouped by, in this case, you can `select rating`, I think it implicitly means `select DISTINCT(rating)`, grouped column will automatically be distincted.
-
-`WITH ... AS` means table view?
-
     SELECT ROUND(rating),
     count(*)
     FROM movies
     GROUP BY ROUND(rating)
     ORDER BY 1;
     // the '1' means the result first column, so here means the 'ROUND(rating)'
+
+**Notice!** After group, you must and only aggregate for result, you can't just use `select *` to see all column, you must use `count(*)` or some other aggregation methods to aggregate the result, or select the only column you grouped by, in this case, you can `select rating`, I think it implicitly means `select DISTINCT(rating)`, grouped column will automatically be distincted.
+
+~~(上面这句话不对，深深地误导了我。单表的时候是这样，但是如果多表进行 join，比如 users 表和 comments 表进行 join，用 users.id 进行 group，用 count(comments.id) 进行 order，是可以 select users.* 的)~~
+
+(No No No! 上面的结论也是不对的，并不是因为 join 了才可以 `select *`，而是因为用的是 users.id 进行 group by，这才是最根本的原因，无论 join 与否。总结就是，如果你 group by 的列是 primary key，那么就可以 `select *`，否则，只能 select group by 的那一列和聚合结果，以下是测试结果：)
+
+    select * from reviews group by id; // work!
+
+    select * from reviews group by rating;  // wrong
+    ERROR:  column "reviews.id" must appear in the GROUP BY clause or be used in an aggregate function
+    LINE 1: select * from reviews group by rating;
+                   ^
+
+`WITH ... AS` means table view?
 
     SELECT
     CASE
@@ -422,6 +433,33 @@ After add index:
     INNER JOIN guests
     ON guests.id=rentings.guest_id;
 
+除了 inner join，还有 left join，它们的区别，举个例子，两个表，用户表 users 和评论表 reviews，有些用户可以多个评论，但也有一些用户没有评论。假设我现在想知道每个用户有多少个评论。此时，如果你用 inner join，那些没有评论的用户，就不会出现在结果。这也许是你想要的，但也许不是，你想要的是，即使没有评论的用户，也要出现在结果中，比如我想用评论数为所有用户排序，不能说因为它的评论数为 0，就不在这个用户排序结果中了。那么，这时候，我们就该用 left join 了。下面是示例代码：
+
+    select users.*, count(reviews.id) from users inner join reviews on reviews.user_id = users.id group by users.id order by count(reviews.id) desc;
+    // inner join，只会得到评论数不为 0 的用户
+    // 此时，因为是 group by users.id，所以 select 时，只能 select users.* 或聚合结果，并不能 select *，因为 * 里包括了 reviews.*
+    // select 中的 count(reviews.id)，结果和 count(*) 是一样的。但如果用 left join，结果是不一样
+
+    select users.*, count(reviews.id) from users left join reviews on reviews.user_id = users.id group by users.id order by count(reviews.id) desc;
+    // left join，也可以得到评论数为 0 的用户
+    // select 中的 count(reviews.id)，为什么要用 count(reviews.id)，或者 count(reviews.*) 也行，但就是不能用 count(*)，因为对于评论数为 0 的用户，count(reviews.id) 可以得到正确的结果 0，而 count(*) 则会得到错误的结果 1
+
+Join 的分类：
+
+- Inner Join
+- Outer Join
+  - Left [Outer] Join
+  - Right [Outer] Join
+  - Full [Outer] Join
+
+Some visual explanations:
+
+1. [What is the difference between "INNER JOIN" and "OUTER JOIN"?](https://stackoverflow.com/questions/38549/what-is-the-difference-between-inner-join-and-outer-join)
+1. [sql 之 left join、right join、inner join 的区别](http://www.cnblogs.com/pcjim/articles/799302.html)
+   - left join (左联接) - 返回包括左表中的所有记录和右表中联结字段相等的记录
+   - right join (右联接) - 返回包括右表中的所有记录和左表中联结字段相等的记录
+   - inner join (等值连接) - 只返回两个表中联结字段相等的行
+
 ### 14. Select Distinct Data in Postgres
 
     SELECT distinct title
@@ -486,6 +524,8 @@ Verbs:
 - where 条件中不能使用聚合函数，而 having 可以。这也是 having 使用的最大场景。因为如果你在 having 中不使用聚合结果，那完全可以直接用 where 替代嘛。比如上例中，我们在 having 中使用了 array_agg 聚合函数，而在 where 中就无法使用它。
 
 导致这些区别的根本原因在于，where 配合 group 用来产生聚合结果，它是聚合结果的因，所以当然不能在它的语句中使用聚合结果，而 having 是在有了聚合结果后进一步过滤，所以它可以使用聚合结果。
+
+(只有 where 不能使用聚合函数，而不光 having，select 和 order 也可以使用聚合函数，因为只有 where 是用来产生产生数据的，而 select/order/having 是用来操作结果的)
 
 ### Extension
 
