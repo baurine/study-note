@@ -4,11 +4,11 @@
 
 所有笔记使用 Markdown 格式书写，并遵循 [Markdown 书写风格指南](http://einverne.github.io/markdown-style-guide/zh.html)。
 
-[一个良好的文档排版示例](https://developer.android.com/topic/libraries/data-binding/index.html)。
+这里有[一个良好的文档排版示例](https://developer.android.com/topic/libraries/data-binding/index.html)。
 
-----
+笔记的目录：[SUMMARY.md](./SUMMARY.md) (因为同时使用 GitBook 来生成网页版的笔记。)
 
-# Notes Overview
+另外，还有一些笔记散落在各个单独的项目 (但并不是每个项目都有 note) 之中，以下是项目的汇总。
 
 ## Projects and its notes
 
@@ -31,11 +31,14 @@ contains a [note](https://github.com/baurine/simple-pull-refresh-layout/blob/mas
 1. [SwipeBackView](https://github.com/baurine/swipebackview)
 1. [PermissionUtil](https://github.com/baurine/permission-util)
 1. [Android Databinding Study](https://github.com/baurine/android-data-binding-study)
-1. [Checkstyle Sample](https://github.com/baurine/checkstyle-sample)
 1. [Dagger2 Study](https://github.com/baurine/dagger2-study)
+1. [Android Test Study](https://github.com/baurine/android-test-study)
+1. [RxJava Study](https://github.com/baurine/rxjava-study)
+1. [Android Architecture Components Study](https://github.com/baurine/architecture-components-study)
+1. [Android Location Study](https://github.com/baurine/android-location-study)
+1. [Checkstyle Sample](https://github.com/baurine/checkstyle-sample)
 1. [Instagram Material](https://github.com/baurine/instagram-material)
 1. [Shield](https://github.com/baurine/shield)
-1. [Android Test Study](https://github.com/baurine/android-test-study)
 
 ### iOS
 
@@ -58,33 +61,3 @@ contains a [note](https://github.com/baurine/simple-pull-refresh-layout/blob/mas
 1. [Sike Desgin](https://github.com/baurine/sike-design)
 1. [Jing Sketch Study](https://github.com/baurine/jing-sketch-xcode)
 1. [Make Icons](https://github.com/baurine/makeicons)
-
-## Note only notes
-
-### Basic
-
-1. [YAML Note](./basic/yaml-note.md)
-
-### Tools
-
-1. [Vim](./tools/vim.md)
-1. [VS Code](./tools/vscode.md)
-1. [Git Note](./tools/git-note.md)
-1. [Understand Gitflow](./tools/understand-git-flow.md)
-1. [tmux](./tools/tmux.md)
-
-### Database
-
-1. [PostgreSQL Study Note](./database/postgresql-study-note.md)
-1. [MongoDB Study Note](./database/mongodb-study-note.md)
-
-### Android
-
-1. [Custom Gson TypeAdapter](./android/gson-adapter.md)
-1. [Gitlab CI For Android App Project](./android/gitlab-ci-for-android-app-project.md)
-
-### Web
-
-1. [Ruby Note](./web/ruby-note.md)
-1. [Docker Note](./web/docker-note.md)
-1. [Gitlab CI Note](./web/gitlab-ci-note.md)
