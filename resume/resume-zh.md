@@ -1,10 +1,10 @@
-# 黄宝灵
+# [姓名]
 
 您可以通过以下链接对我进行深入的了解：
 
 1. 个人博客 - <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
-1. StackOverflow (当前得分 1108) - <http://stackoverflow.com/users/2998877/spark-bao>
+1. StackOverflow (当前得分 1218) - <http://stackoverflow.com/users/2998877/spark-bao>
 1. Study Notes Overview - <https://github.com/baurine/study-note/blob/master/README.md>
 
 ## 教育背景
@@ -44,10 +44,10 @@
 
 ### 前端
 
-1. 掌握 ES6 语法，箭头函数等特性。
-1. 掌握 Promise 的使用。
+1. 理解原型链，掌握 ES6 语法，箭头函数等特性。
+1. 掌握 Promise / Generator / Async 的使用。
 1. 理解 React 思想。
-1. 理解 Redux 思想，Middleware，Thunk，参与作者教学视频的中文翻译 ([链接](https://github.com/Mr-Wiredancer/getting-started-with-redux))。
+1. 理解 Redux 思想，Middleware，Thunk，Saga，参与作者教学视频的中文翻译 ([链接](https://github.com/Mr-Wiredancer/getting-started-with-redux))。
 1. 理解 Vue 思想，参与 Vue 2.0 的文档翻译 ([链接](https://github.com/hayeah/vuejs.org))。
 1. 使用 React Native 开发跨平台应用。
 
