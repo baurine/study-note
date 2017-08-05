@@ -28,17 +28,17 @@ rvm 其实跟 rails 没有什么关系，但 rvm 是 rails 开发中常用的工
 
 如果没有所需要的 ruby 版本，则用 `rvm install` 安装，安装之前可以用 `rvm list known` 查看一下当前都有哪些版本，然后从中选一个。
 
-    > rvm install 2.4
+    > rvm install 2.4.1
 
 如果已经安装了所需版本，但不是当前使用的版本，则用 `rvm use` 切换版本：
 
-    > rvm use 2.4
+    > rvm use 2.4.1
 
 用 `rvm current` 查看当前使用的 ruby 版本，当然用上面的 `rvm list` 也是可以的。
 
 我们可以把目标版本号写到当前目录下的 `.ruby-version` 配置文件中，这样，每次进入这个目录时，就会自动切换到这个 ruby 版本，不需要我们再手动运行 `rvm use` 来切换。
 
-    > echo '2.4' > .ruby-version
+    > echo '2.4.1' > .ruby-version
 
 然后，我们创建一个 gemset 来存放此工程用到的所有 gem，一般 gemset 的名称为项目名称，或加上环境，比如 `myweb`，`myweb_staging`，`myweb_production`：
 
@@ -54,14 +54,21 @@ rvm 其实跟 rails 没有什么关系，但 rvm 是 rails 开发中常用的工
 
     > echo 'myweb' > .ruby-gemset
 
-需要注意的是，gemset 是与 ruby 版本号相关的，如果在 ruby 2.4 下创建，那么就只有在 ruby 2.4 下生效，如果切换了另一个 ruby 版本，这个 gemset 就不存在。所以，实际这个 gemset 的全名是 `2.4@myweb`，可以用 `rvm use` 命令一步到位，同时指定使用的 ruby 版本和 gemset：
+需要注意的是，gemset 是与 ruby 版本号相关的，如果在 ruby 2.4.1 下创建，那么就只有在 ruby 2.4.1 下生效，如果切换了另一个 ruby 版本，这个 gemset 就不存在。所以，实际这个 gemset 的全名是 `2.4.1@myweb`，可以用 `rvm use` 命令一步到位，同时指定使用的 ruby 版本和 gemset：
 
-    > rvm use 2.4@myweb
+    > rvm use 2.4.1@myweb
 
 可以把 `.ruby-version` 和 `.ruby-gemset` 的内容写到一个配置文件 `.versions.conf` 中，格式如下：
 
-    ruby=ruby-2.4
+    ruby=ruby-2.4.1
     ruby-gemset=myweb
+
+当你使用了一个新的 gemset 后，你会发现，执行 `rails s` 或 `bin/rails s` 出错，提示 rails 不存在之类的错误，于是你继续 `bundle`，仍然提示 bundle 不存在。你感到一阵困惑后马上醒悟过来，因为使用了 gemset 后，所有的 gem 都从相应的 gemset 中取，而 rails 和 bundle 也是 gem，此时的 gemset 是空的，什么都没有，自然提示找不到 rails 和 bundle。
+
+所以，新建 gemset 后，要重装先安装 bundler，再用 bundler 的 bundle 命令去安装其它 gem。
+
+    > gem install bunlder
+    > bundle
 
 ## sort by associate count
 
