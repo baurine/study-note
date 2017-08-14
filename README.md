@@ -6,7 +6,7 @@
 
 这里有[一个良好的文档排版示例](https://developer.android.com/topic/libraries/data-binding/index.html)。
 
-笔记的目录：[SUMMARY.md](./SUMMARY.md) (因为同时使用 GitBook 来生成网页版的笔记。[GitBook 地址](https://baurine.gitbooks.io/study-note/))
+笔记目录：[SUMMARY.md](./SUMMARY.md) | [在 Gitbook 上阅读](https://baurine.gitbooks.io/study-note/)
 
 另外，还有一些笔记散落在各个单独的项目 (但并不是每个项目都有 note) 之中，以下是项目的汇总。
 
