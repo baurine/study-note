@@ -20,6 +20,7 @@
     * [ReactNative Misc](frontend/react-native-misc.md)
 * Web
     * [Ruby Note](web/ruby-note.md)
+    * [Ruby Metaprogramming Note](web/ruby-metaprogramming-note.md)
     * [Rails Misc Note](web/rails-note.md)
     * [Docker Note](web/docker-note.md)
     * [Gitlab CI Note](web/gitlab-ci-note.md)
