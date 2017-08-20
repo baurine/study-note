@@ -23,6 +23,7 @@
     * [Rails Misc Note](web/rails-note.md)
     * [Docker Note](web/docker-note.md)
     * [Gitlab CI Note](web/gitlab-ci-note.md)
+    * [Deployment](web/deployment.md)
 * Database
     * [PostgreSQL Study Note](database/postgresql-study-note.md)
     * [MongoDB Study Note](database/mongodb-study-note.md)
