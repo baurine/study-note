@@ -52,6 +52,15 @@ EC2 其实就是一台虚拟主机，云主机，我们可以用 SSH 远程登�
 
 网上的教程都建议新建一个 deploy 的普通用户来进行部署，我觉得 deploy 和 ubunut 用户的作用是一样的，就跳过了这一步。
 
+2017/9/3 update：后来学习到，通过将 ssh 命令的各种参数 (key，用户名，服务器地址) 配置到 `~/.ssh/config` 中，就可以避免每次在命令行输一长串命令，比如上面的命令 `ssh -i ~/.ssh/aws-ec2.pem ubuntu@52.34.86.207`，我在 `~/.ssh/config` 中增加一条如下的配置：
+
+    Host my-ec2
+      HostName 52.27.68.65
+      User ubuntu
+      IdentityFile ~/.ssh/aws-ec2.pem
+
+这样以后只用输入 `ssh my-ec2` 就可以登录到 EC2 上了。
+
 ### Step 4 - 配置基本的开发环境
 
 更新和安装系统套件，参考 [Ruby on Rails 实战圣经 - 网站布署](https://ihower.tw/rails/deployment-cn.html)。
