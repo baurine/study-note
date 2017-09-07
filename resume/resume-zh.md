@@ -1,10 +1,12 @@
 # [姓名]
 
-您可以通过以下链接对我进行深入的了解：
+[性别] | [出生年份] | [手机号] | [邮箱]
+
+您还可以通过以下链接对我进行深入的了解：
 
 1. 个人博客 - <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
-1. StackOverflow (当前得分 1218) - <http://stackoverflow.com/users/2998877/spark-bao>
+1. StackOverflow (当前得分 1293) - <http://stackoverflow.com/users/2998877/spark-bao>
 1. Study Notes Overview - <https://github.com/baurine/study-note/blob/master/README.md>
 
 ## 教育背景
@@ -16,10 +18,10 @@
 
 1. 扎实的计算机基础。
 1. 具有不错的代码抽象能力，并且我认为代码抽象能力是一个程序员最重要的能力之一。
-1. 生活中是狮子座，写代码时是处女座。具有良好的编码风格，不能忍受糟糕的代码。良好的文档意识 (比如我 GitHub 上每个项目的 README)。
-1. 持续学习，并乐于与同事分享。
+1. 生活中是狮子座，写代码时是处女座。具有良好的编码风格，不能忍受糟糕的代码。良好的文档意识，包括注释，README，Wiki，Git Commit Message，Issue。
+1. 持续学习，并乐于与同事分享。在公司累计做过十余场技术分享，主题涉及 Android，iOS，前端，后端。
 
-关于技能，出于好奇心与兴趣，涉猎广泛，曾从事芯片电路设计以及嵌入式开发，后来逐渐转到纯软件的应用层开发。目前比较专注在 Android 和 Web 开发。
+关于技能，出于好奇心与兴趣，涉猎广泛，曾从事芯片电路设计以及嵌入式开发，后来逐渐转到纯软件的应用层开发。目前比较擅长 Android 和 Web 开发。
 
 ### 基础
 
@@ -54,9 +56,9 @@
 ### 后端
 
 1. 使用 Rails 开发网站和 API，完整阅读过《Ruby on Rails Tutorial》、《Agile Web Developement》、《Programing Ruby》。
-1. 简单了解并使用过 Meteor。
-1. 理解 GraphQL 思想。
+1. 理解 GraphQL 思想，并在 Rails 中实现 GraphQL API。
 1. 会使用 PostgreSQL 及其全文搜索功能。
+1. 简单了解并使用过 Meteor。
 
 ### 设计
 
