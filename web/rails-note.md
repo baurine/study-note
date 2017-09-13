@@ -92,3 +92,15 @@ rvm 其实跟 rails 没有什么关系，但 rvm 是 rails 开发中常用的工
 <http://caok1231.com/rails/2014/10/13/many-to-many-and-polymorphic.html>
 
 剩下的待补充。
+
+## ActiveRecord 的一些补充
+
+1. enum 的使用：[关于在 Rails Model 中使用 Enum (枚举) 的若干总结](https://ruby-china.org/topics/28654)
+
+   ActiveRecord 是对 DB Table 的一层封装，属性和表中的列的类型并不完全相同。enum 声明的属性，在 ActiveRecord 中的类型是 String，在 table 中是 Integer，ActiveRecord 会自动完成类型的转换。
+
+   一些补充：[Rails 中 Database table / ActiveRecord / ObjectType 关系](https://github.com/baurine/graphql-study/blob/master/notes/appendix.md)
+
+1. jsonb 类型的列
+
+   jsonb 类型的引入让 PostgreSQL 有了类似 MongoDB 的能力，可以在此类型的列中存入任意类型的值，别看它名字中有 json，实际并不是只能存 json 格式的内容。我试过了，存 Integer，String，Hash 等都是可以的。但是要记住，你用什么类型存进去的，取出来就要按这种类型处理。
