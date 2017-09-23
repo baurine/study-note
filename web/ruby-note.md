@@ -720,6 +720,8 @@ Ruby 为减少这种危险提供了支持，所有来自外部的数据都可以
 
 Note for 《Ruby 元编程》第二版。
 
+[Ruby 元编程笔记](./ruby-metaprogramming-note.md)
+
 ----
 
 ## Note 3
@@ -843,6 +845,6 @@ Ruby 的类的成员变量的定义方式是 `@variable`，但是在类外部，
 
 ruby-china 上有一篇帖子写得很详细：[聊聊 Ruby 中的 block, proc 和 lambda](https://ruby-china.org/topics/10414)，而且据说在《Ruby 元编程》一书对此也有详细解释，那之后就去看这本书。
 
-简单地说来，block 就像是匿名的 proc，它会被自动转换成 proc 对象，而 lambda 就像是匿名的 method。在 block/proc 中 return，会导致调用它的方法也直接 return，因此，它们就像是一个块代码，inline 代码，直接内联到调用它的方法中，它们的作用域是和调用它们的方法一致的。而 lambda/method 则不同，它们有自己的作用域，在 lambda/method 中 return，只是结束了当前 lambda/method，而不会影响调用它们的方法。
+[Ruby 元编程笔记](./ruby-metaprogramming-note.md)
 
-另外一些微小的区别是，block 是依存于方法而存在的，它是方法的一部分，而不能单独存在，它不是对象，而 proc 可以。
+主要区别就是 return 的行为的不同。
