@@ -6,8 +6,8 @@
 
 1. 个人博客 - <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
-1. StackOverflow (当前得分 1293) - <http://stackoverflow.com/users/2998877/spark-bao>
-1. Study Notes Overview - <https://github.com/baurine/study-note/blob/master/README.md>
+1. StackOverflow (当前得分 1351) - <http://stackoverflow.com/users/2998877/spark-bao>
+1. Study Notes Overview - <https://baurine.gitbooks.io/study-note/>
 
 ## 教育背景
 
@@ -41,7 +41,7 @@
 ### iOS
 
 1. 理解 iOS 开发中的 MVC 思想。
-1. 掌握 Swift 语言，理解 Protocol，闭包，强大的 Enum。
+1. 掌握 Swift 语言，理解 Protocol，闭包，Enum。
 1. 会使用 RxSwift。
 
 ### 前端
@@ -55,7 +55,7 @@
 
 ### 后端
 
-1. 使用 Rails 开发网站和 API，完整阅读过《Ruby on Rails Tutorial》、《Agile Web Developement》、《Programing Ruby》。
+1. 使用 Rails 开发网站和 API，完整阅读过《Ruby on Rails Tutorial》、《Agile Web Developement》、《Programing Ruby》、《Metaprogramming Ruby》，理解 Ruby 对象模型。
 1. 理解 GraphQL 思想，并在 Rails 中实现 GraphQL API。
 1. 会使用 PostgreSQL 及其全文搜索功能。
 1. 简单了解并使用过 Meteor。
