@@ -2,7 +2,37 @@
 
 会记录一些 rails 项目中遇到的比较常见的问题及解决方法。
 
-## rvm 和 gemset
+## gem & bundle
+
+查看一个项目中 gem 安装在何处：
+
+    $ gem which [gem_name]
+    $ bundle show [gem_name]
+
+例如：
+
+    $ gem which capistrno
+    ---/.rvm/gems/ruby-2.3.0/gems/capistrano-3.9.0/lib/capistrano.rb
+    $ bundle show capistrano
+    ---/.rvm/gems/ruby-2.3.0/gems/capistrano-3.9.0
+
+通过 gem help 查看 gem 的命令：
+
+    $ gem help
+    $ gem help commands
+
+其它一些有用的命令：
+
+    # 查看已安装的 gem
+    $ gem list
+
+    # 查看 ruby 的环境变量
+    $ gem env
+    
+    # 这个命令有意思，启动一个 http 服务器查看已安装的所有 gem 的信息
+    $ gem server
+
+## rvm & gemset
 
 rvm 用来管理 ruby 版本，gemset 是 rvm 的功能之一，用来管理 gem 包版本。rvm 官网 [rvm.io](https://rvm.io/)
 

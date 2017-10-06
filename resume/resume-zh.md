@@ -6,7 +6,7 @@
 
 1. 个人博客 - <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
-1. StackOverflow (当前得分 1351) - <http://stackoverflow.com/users/2998877/spark-bao>
+1. StackOverflow (当前得分 1396) - <http://stackoverflow.com/users/2998877/spark-bao>
 1. Study Notes Overview - <https://baurine.gitbooks.io/study-note/>
 
 ## 教育背景
@@ -28,7 +28,7 @@
 1. 仔细阅读过《C 程序设计语言》，《C++ Primer》和《Effective C++》，对指针的使用很有自信，理解面向对象、模板编程的思想。
 1. 仔细阅读过《大话数据结构》，用 C/C++ 实现过各种数据结构，算法尚可。
 1. 仔细阅读过《大话设计模式》，能理解和使用常用的设计模式。
-1. 熟悉网络协议及 RESTful API 的使用和设计。
+1. 理解网络协议及 RESTful API 的使用和设计。
 
 ### Android
 
@@ -58,7 +58,7 @@
 1. 使用 Rails 开发网站和 API，完整阅读过《Ruby on Rails Tutorial》、《Agile Web Developement》、《Programing Ruby》、《Metaprogramming Ruby》，理解 Ruby 对象模型。
 1. 理解 GraphQL 思想，并在 Rails 中实现 GraphQL API。
 1. 会使用 PostgreSQL 及其全文搜索功能。
-1. 简单了解并使用过 Meteor。
+1. 会使用 Node & Express。
 
 ### 设计
 
@@ -89,6 +89,9 @@
    - 采用 Rails + React-Rails 开发。
    - 借助 React-Rails gem，在 Rails 中使用 React Component 作为 View，并使用服务端渲染来优化 SEO。
    - 使用 PostgreSQL 的全文搜索功能实现搜索功能。
+1. Cohort (Web)
+   - 社交聚合应用。
+   - 前端用 React 实现，后端 Python 提供 API，用 Node Express 作为中间层实现服务端渲染。
 1. 公司新版网站 (Web)
    - 部分参与，采用 Meteor + React 开发。
    - Meteor 提供数据，React 显示数据。
