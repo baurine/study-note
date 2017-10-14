@@ -28,7 +28,7 @@
 
     # 查看 ruby 的环境变量
     $ gem env
-    
+
     # 这个命令有意思，启动一个 http 服务器查看已安装的所有 gem 的信息
     $ gem server
 

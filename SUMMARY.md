@@ -22,6 +22,7 @@
     * [Ruby Note](web/ruby-note.md)
     * [Ruby Metaprogramming Note](web/ruby-metaprogramming-note.md)
     * [Rails Misc Note](web/rails-misc-note.md)
+    * [Resque Note](web/resque-note.md)
     * [Beginning Python Note](web/beginning-python-note.md)
 * Database
     * [PostgreSQL Study Note](database/postgresql-study-note.md)
