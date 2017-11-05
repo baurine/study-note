@@ -39,11 +39,8 @@
 
     "editor.fontFamily": "Fira Mono, Menlo, Monaco, 'Courier New', monospace",
     "editor.tabSize": 2,
-    "editor.wrappingColumn": 0,
     "editor.renderWhitespace": "all",
     "workbench.editor.enablePreviewFromQuickOpen": false
-
-另外，调整了部分快捷键，把 `cmd + shift + [/]` 调整成切换 tab。
 
 ## 3. 插件
 

@@ -63,3 +63,24 @@
 Code tree for Github, super useful! Github 的完美搭档。
 
 但是新出的 [Sourcegraph](https://about.sourcegraph.com/) 比 Octotree 更强大，可用来替代 Octotree。
+
+## mac 开发配置
+
+参考：
+
+1. [Mac 开发配置手册](https://aaaaaashu.gitbooks.io/mac-dev-setup/content/index.html)
+1. [Mac OS X 配置指南](https://mac-setup.wildflame.org/)
+
+配置过程：
+
+1. 安装搜狗五笔
+1. 安装 chrome
+1. 安装 homebrew
+1. 安装 iTerm2
+1. 安装 zsh 和 oh-my-zsh
+1. 下载 material-theme 主题，分别为 zsh 和 iTerm2 配置此主题 (其实主要是配色)
+1. 下载 Fira-Mono 字体，为 iTerm2 配置此字体
+1. 安装 VSCode，修改字体为 Fira-Mono，修改字号，显示 whitespace, 设置 tabSize, 安装 vim 插件
+1. 安装最新版的 Git，配置基本信息和私钥，安装 GitUp
+1. 安装 rvm & ruby & bundler
+1. 安装 node & npm
