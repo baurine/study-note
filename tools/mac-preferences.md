@@ -16,13 +16,11 @@
 ## 工具
 
 1. homebrew
-1. zsh
-1. iTerm
+1. zsh 和 oh-my-zsh
+1. iTerm2
 1. [tmux](./tmux.md)
-1. ~~TotalSpace~~ (用了一段时间，觉得不是很需要)
-1. ~~Alfred~~ (用了一段时间，觉得并不是很需要它的高级功能，而基本功能用 Spotlight 就够了)
 
-**iTerm**
+**iTerm2**
 
 - `cmd + w`：关闭当前 pane
 - `-------`
@@ -34,14 +32,6 @@
 - `cmd + shift + [/]`：切换 tab
 - `-------`
 - `cmd + n`：新建窗口 (勾选上 Preference --> Profile --> General --> "Reuse previous session's directory")
-
-**TotalSpace2 (Deprecated)**
-
-简化 Mac 的多桌面切换。Serria 系统以上需要关闭系统完整性校验功能才能使用。
-
-**Alfred (Deprecated)**
-
-替代系统自带的 Spotlight。
 
 ## Chrome 插件
 
@@ -76,9 +66,9 @@ Code tree for Github, super useful! Github 的完美搭档。
 1. 安装搜狗五笔
 1. 安装 chrome
 1. 安装 homebrew
-1. 安装 iTerm2
 1. 安装 zsh 和 oh-my-zsh
-1. 下载 material-theme 主题，分别为 zsh 和 iTerm2 配置此主题 (其实主要是配色)
+1. 安装 iTerm2
+1. 下载 material-theme 主题 (其实主要是配色)，分别为 zsh 和 iTerm2 配置此主题，记得 2 个都要配置才行
 1. 下载 Fira-Mono 字体，为 iTerm2 配置此字体
 1. 安装 VSCode，修改字体为 Fira-Mono，修改字号，显示 whitespace, 设置 tabSize, 安装 vim 插件
 1. 安装最新版的 Git，配置基本信息和私钥，安装 GitUp
