@@ -6,7 +6,7 @@
 
 1. 个人博客 - <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
-1. StackOverflow (当前得分 1396) - <http://stackoverflow.com/users/2998877/spark-bao>
+1. StackOverflow (当前得分 1608) - <http://stackoverflow.com/users/2998877/spark-bao>
 1. Study Notes Overview - <https://baurine.gitbooks.io/study-note/>
 
 ## 教育背景
@@ -28,7 +28,7 @@
 1. 仔细阅读过《C 程序设计语言》，《C++ Primer》和《Effective C++》，对指针的使用很有自信，理解面向对象、模板编程的思想。
 1. 仔细阅读过《大话数据结构》，用 C/C++ 实现过各种数据结构，算法尚可。
 1. 仔细阅读过《大话设计模式》，能理解和使用常用的设计模式。
-1. 理解网络协议及 RESTful API 的使用和设计。
+1. 理解 HTTP 网络协议及 RESTful API 的使用和设计。
 
 ### Android
 
@@ -49,9 +49,9 @@
 1. 理解原型链，掌握 ES6 语法，箭头函数等特性。
 1. 掌握 Promise / Generator / Async 的使用。
 1. 理解 React 思想。
-1. 理解 Redux 思想，Middleware，Thunk，Saga，参与作者教学视频的中文翻译 ([链接](https://github.com/Mr-Wiredancer/getting-started-with-redux))。
-1. 理解 Vue 思想，参与 Vue 2.0 的文档翻译 ([链接](https://github.com/hayeah/vuejs.org))。
+1. 理解 Redux 思想以及 Middleware，Thunk，参与作者教学视频的中文翻译 ([链接](https://github.com/Mr-Wiredancer/getting-started-with-redux))。
 1. 使用 React Native 开发跨平台应用。
+1. 写过两个 Chrome 扩展。
 
 ### 后端
 
@@ -66,7 +66,7 @@
 
 ### 其它
 
-1. 熟练 Git 操作，会使用 `git reflog` 拯救误操作，`git rebase -i` 修改历史，熟悉 Gitflow, Git hooks。
+1. 熟练 Git 操作，会使用 `git reflog` 拯救误操作，`git rebase -i` 修改历史，熟悉 Gitflow, Git hooks，写了个管理 GitHook 的 Gem。
 1. 使用 Docker & GitLab 进行持续集成。
 1. 日常 Vim。
 

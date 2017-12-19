@@ -2,6 +2,10 @@
 
 记录 iOS 开发中遇到的问题及理解。
 
+1. workspace, project, target, scheme
+1. 用 xcodebuild 来构建
+1. certificates, identifiers, devices, provisioning profiles
+
 ## workspace, project, target, scheme
 
 参考：[taste-of-iOS](https://github.com/candyan/taste-of-iOS/blob/master/ebook/02.2.md)

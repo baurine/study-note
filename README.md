@@ -2,7 +2,14 @@
 
 此项目用来记录学习过程中的笔记。
 
-所有笔记使用 Markdown 格式书写，并遵循 [Markdown 书写风格指南](http://einverne.github.io/markdown-style-guide/zh.html)。
+所有笔记使用 Markdown 格式书写。
+
+- 尽量遵循 [Markdown 书写风格指南](http://einverne.github.io/markdown-style-guide/zh.html)
+- 尽量遵循中文排版指南
+  - [中文文案排版指北](https://github.com/mzlogin/chinese-copywriting-guidelines)
+  - [写给大家看的中文排版指南](https://zhuanlan.zhihu.com/p/20506092)
+
+![](./art/chinese-copywriting-guidelines.png)
 
 ## Notes
 
