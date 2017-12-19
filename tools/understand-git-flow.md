@@ -107,3 +107,11 @@ version name | version code
 staging 和 production 上紧急的 bug 依然直接在 staging 和 master 分支修复，并 merge 或 cherry-pick 回 develop。
 
 周而复始。
+
+另一种实际情况，在 develop 建立 feature branch 开发新功能，或 bug branch 解 bug，合并回 develop 分支。然后再将 develop 分支合并到 staging 分支进行布署，供 PM 和客户测试，OK 以后，将 staging 合并到 master 分支进行最终布署。
+
+这种情况下代码分支是这样的：
+
+![](../art/git-flow-branches-1.png)
+
+![](../art/git-flow-branches-2.png)
