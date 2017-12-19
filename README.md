@@ -2,6 +2,8 @@
 
 此项目用来记录学习过程中的笔记，并尽量遵循 [写作排版规范](basic/copywriting-guideline.md)。
 
+笔记并不意味着完全掌握了这里面的内容，而只是为了某天我需要使用这项技术的时候，可以快速的回顾并使用之。
+
 ## Notes
 
 * Basic
@@ -21,6 +23,7 @@
     * [Custom Gson TypeAdapter](android/gson-adapter.md)
     * [Gitlab CI For Android App Project](android/gitlab-ci-for-android-app-project.md)
 * iOS
+    * [Objective-C](ios/objective-c.md)
     * [iOS Misc](ios/ios-misc.md)
     * iOS Boxue
         * [Note 1](ios/ios-boxue/note-1.md)
