@@ -4,25 +4,45 @@
 
 所有笔记使用 Markdown 格式书写，并遵循 [Markdown 书写风格指南](http://einverne.github.io/markdown-style-guide/zh.html)。
 
-这里有[一个良好的文档排版示例](https://developer.android.com/topic/libraries/data-binding/index.html)。
+## Notes
 
-笔记目录：[SUMMARY.md](./SUMMARY.md) | [在 Gitbook 上阅读](https://baurine.gitbooks.io/study-note/)
+* Basic
+    * [YAML Note](basic/yaml-note.md)
+* Tools
+    * [Vim](tools/vim.md)
+    * [VS Code](tools/vscode.md)
+    * [Git Note](tools/git-note.md)
+    * [Understand Gitflow](./tools/understand-git-flow.md)
+    * [tmux](tools/tmux.md)
+    * [Mac Preference](tools/mac-preferences.md)
+* Android
+    * [Custom Gson TypeAdapter](android/gson-adapter.md)
+    * [Gitlab CI For Android App Project](android/gitlab-ci-for-android-app-project.md)
+* iOS
+    * [iOS Misc](ios/ios-misc.md)
+* [Frontend](frontend/frontend-readme.md)
+* Web
+    * [Beginning Python Note](web/beginning-python-note.md)
+* Database
+    * [PostgreSQL Study Note](database/postgresql-study-note.md)
+    * [MongoDB Study Note](database/mongodb-study-note.md)
+* DevOps
+    * [Docker Note](dev-ops/docker-note.md)
+    * [Gitlab CI Note](dev-ops/gitlab-ci-note.md)
+    * [Deployment](dev-ops/deployment.md)
 
-另外，还有一些笔记散落在各个单独的项目 (但并不是每个项目都有 note) 之中，以下是项目的汇总。
-
-## Projects and its notes
-
-Most following projects contain some markdown files that record some note. 
-For example, in [SimplePullRefreshLayout](https://github.com/baurine/simple-pull-refresh-layout) project, 
-contains a [note](https://github.com/baurine/simple-pull-refresh-layout/blob/master/note/simple-pullrefreshlayout-note.md) about the summary for the custom view.
+## 相关的其它项目
 
 ### Basic
 
 1. [Leetcode](https://github.com/baurine/leetcode)
+1. [Programming Basic](https://github.com/baurine/programming-basic)
 
 ### Tools
 
-1. [Git Hooks Sample](https://github.com/baurine/git-hooks-sample)
+1. [GitHook](https://github.com/baurine/githook)
+1. [Capistrano Study](https://github.com/baurine/capistrano-study)
+1. [Rake Study](https://github.com/baurine/rake-study)
 
 ### Android
 
@@ -46,16 +66,19 @@ contains a [note](https://github.com/baurine/simple-pull-refresh-layout/blob/mas
 
 ### Frontend
 
+1. [Frontend Basic](https://github.com/baurine/frontend-basic)
 1. [JS Study](https://github.com/baurine/js-study)
 1. [Sike React](https://github.com/baurine/sike-react)
-1. [Sike CSS](https://github.com/baurine/sike-css)
 1. [Vue Study](https://github.com/baurine/vue-study)
+1. [Gitlab Issue Timer Tracker Chrome Extension](https://github.com/baurine/gitlab-issue-time-tracker-ext)
+1. [QuickGitbook Chrome Extension](https://github.com/baurine/quick-gitbook-chrome-extension)
 
 ### Web
 
 1. [Rails Study](https://github.com/baurine/rails-study)
 1. [GraphQL Study](https://github.com/baurine/graphql-study)
 1. [Meteor Study](https://github.com/baurine/meteor-study)
+1. [Quick Gitbook](https://github.com/baurine/quick-gitbook)
 
 ### Desgin
 

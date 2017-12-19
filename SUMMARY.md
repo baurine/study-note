@@ -15,20 +15,13 @@
     * [Gitlab CI For Android App Project](android/gitlab-ci-for-android-app-project.md)
 * iOS
     * [iOS Misc](ios/ios-misc.md)
-* Frontend
-    * [Flexbox](frontend/flexbox.md)
-    * [ReactNative Misc](frontend/react-native-misc.md)
+* [Frontend](frontend/frontend-readme.md)
 * Web
-    * [Ruby Note](web/ruby-note.md)
-    * [Ruby Metaprogramming Note](web/ruby-metaprogramming-note.md)
-    * [Rails Misc Note](web/rails-misc-note.md)
-    * [Resque Note](web/resque-note.md)
     * [Beginning Python Note](web/beginning-python-note.md)
 * Database
     * [PostgreSQL Study Note](database/postgresql-study-note.md)
     * [MongoDB Study Note](database/mongodb-study-note.md)
 * DevOps
-    * [Docker Note](web/docker-note.md)
-    * [Gitlab CI Note](web/gitlab-ci-note.md)
-    * [Deployment](web/deployment.md)
-
+    * [Docker Note](dev-ops/docker-note.md)
+    * [Gitlab CI Note](dev-ops/gitlab-ci-note.md)
+    * [Deployment](dev-ops/deployment.md)
