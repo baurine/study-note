@@ -37,6 +37,7 @@
     * [Docker Note](dev-ops/docker-note.md)
     * [Gitlab CI Note](dev-ops/gitlab-ci-note.md)
     * [Deployment](dev-ops/deployment.md)
+    * [Register Domain](dev-ops/register-domain.md)
 
 ## 相关的其它项目
 
