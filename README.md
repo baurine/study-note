@@ -30,6 +30,7 @@
 * [Frontend](frontend/frontend-readme.md)
 * Web
     * [Beginning Python Note](web/beginning-python-note.md)
+    * [REST API](web/rest-api.md)
 * Database
     * [PostgreSQL Study Note](database/postgresql-study-note.md)
     * [MongoDB Study Note](database/mongodb-study-note.md)
