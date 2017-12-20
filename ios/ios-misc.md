@@ -102,10 +102,34 @@ target 是用来干什么的呢，target 是用来生成 product 的，每一个
 
 [Apple Developer 设置界面](https://developer.apple.com/account/ios/certificate/)
 
-Certificates：开发者证书，和一个开发者账号关联，表明这个账号可以用来开发 iOS 应用。一个企业开发者账号下可以有多个开发者账书。(个人的就不知道了...)
+- Certificates (证书)
 
-Identifiers：如果你要开发一个新的 iOS APP，那就在这一栏里登记，注册一个 APP ID，声明该 APP 的 bundle ID，要用到哪些服务 (比如 Apple Pay，Push Notifications)。
+  开发者证书，和一个开发者账号关联，表明这个账号可以用来开发 iOS 应用。一个企业开发者账号下可以有多个开发者证书。(个人的就不知道了...)
 
-Devices：添加用来进行测试的 iOS 设备的 UDID。
+  证书这东西，就是一个授权，以及证明自己的东西。就好比开商店，你需要从工商局那里获得营业执照，这个执照就相当于是证书。
 
-Provisioning Profiles：是将上面三项内容组合在一起的东西。Provisioning Profile 将会打包到 ipa 中发布。在开发阶段，并不需要这个，如果你决定把你的应用发布到 AdHoc 或 AppStore 的时候，就需要这个。你需要为你的应用新建一个 Provisioning Profile，它会询问这个 Profile 是为哪个 APP ID 创建，使用哪个开发者证书 (企业账户下可以有多个开发者证书)，如果是发布到 AdHoc，还会询问允许哪些设备安装，最终会生成一个包括了以上三项内容的文件。你需要下载下来供打包的时候使用。不过新版的 XCode 已经可以自动生成 Provision Profile 并自动下载使用了。
+- Identifiers (标识)
+
+  如果你要开发一个新的 iOS APP，那就在这一栏里登记，注册一个 APP ID，声明该 APP 的 bundle ID，要用到哪些服务 (比如 Apple Pay，Push Notifications)。
+
+- Devices (设备)
+
+  添加用来进行测试的 iOS 设备的 UDID。
+
+- Provisioning Profiles (配置文件)
+
+  是将上面三项内容组合在一起的东西。Provisioning Profile 将会打包到 ipa 中发布。在开发阶段，并不需要这个，如果你决定把你的应用发布到 AdHoc 或 AppStore 的时候，就需要这个。你需要为你的应用新建一个 Provisioning Profile，它会询问这个 Profile 是为哪个 APP ID 创建，使用哪个开发者证书 (企业账户下可以有多个开发者证书)，如果是发布到 AdHoc，还会询问允许哪些设备安装，最终会生成一个包括了以上三项内容的文件。你需要下载下来供打包的时候使用。不过新版的 XCode 已经可以自动生成 Provision Profile 并自动下载使用了。
+
+参考：
+
+- [iOS 开发 - Certificates、Identifiers 和 Profiles 详解](http://www.cnblogs.com/xiaofeixiang/p/4564585.html)
+
+证书分两种：开发证书和分布证书。前者用来开发和调试 APP，后者用来分发 APP。
+
+申请证书之前，要先申请一个 Certificate Signing Request (CSR) 文件，这个过程实际是生成了一对公钥和私钥，保存在 Mac 的 Keychain 中。我们用私钥对 APP 进行签名，公钥会包含在之后生成的证书中，因此将来 APP 会用证书中的公钥来进行验证。代码签名就是使用这种基于非对称的加密方式。
+
+![](../art/ios-certificate.png)
+
+Provisioning Profile:
+
+![](../art/ios-provisioning-profile.png)
