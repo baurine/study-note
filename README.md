@@ -23,13 +23,24 @@
     * [tmux](tools/tmux.md)
     * [Mac Preference](tools/mac-preferences.md)
 * Android
+    * [Android Animation](android/android-animation.md)
     * [Custom Gson TypeAdapter](android/gson-adapter.md)
     * [Gitlab CI For Android App Project](android/gitlab-ci-for-android-app-project.md)
 * iOS
     * [iOS Misc](ios/ios-misc.md)
+    * iOS Boxue
+        * [Note 1](ios/ios-boxue/note-1.md)
+        * [Note 2](ios/ios-boxue/note-2.md)
+        * [Note 3](ios/ios-boxue/note-3.md)
+        * [Note 4](ios/ios-boxue/note-4.md)
+    * [iOS Stanford](ios/ios-stanford-note.md)
+    * [iOS JakeLin](ios/ios-jakelin.md)
 * [Frontend](frontend/frontend-readme.md)
-* Web
-    * [Beginning Python Note](web/beginning-python-note.md)
+* [Web](web/web-readme.md)
+    * Beginning Python2
+        * [Note 1 (1 - 9 章)](web/beginning-python2/note-1.md)
+        * [Note 2 (10 - 13 章)](web/beginning-python2/note-2.md)
+        * [Note 3 (14 - 19 章)](web/beginning-python2/note-3.md)
     * [REST API](web/rest-api.md)
 * Database
     * [PostgreSQL Study Note](database/postgresql-study-note.md)
