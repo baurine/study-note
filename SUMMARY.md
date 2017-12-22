@@ -1,6 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
+* [写作排版规范](basic/copywriting-guideline.md)
 * Basic
     * [YAML Note](basic/yaml-note.md)
 * Tools
