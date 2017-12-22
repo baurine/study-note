@@ -23,7 +23,10 @@
     * [tmux](tools/tmux.md)
     * [Mac Preference](tools/mac-preferences.md)
 * Android
-    * [Android Animation](android/android-animation.md)
+    * 绘图和动画
+        * [Note 1](android/custom-view/note-1.md)
+        * [Note 2](android/custom-view/note-2.md)
+        * [一些总结](android/custom-view/summary.md)
     * [Custom Gson TypeAdapter](android/gson-adapter.md)
     * [Gitlab CI For Android App Project](android/gitlab-ci-for-android-app-project.md)
 * iOS
