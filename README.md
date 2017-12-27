@@ -60,6 +60,9 @@
 1. [GitHook](https://github.com/baurine/githook)
 1. [Capistrano Study](https://github.com/baurine/capistrano-study)
 1. [Rake Study](https://github.com/baurine/rake-study)
+1. [Gitlab Issue Timer Tracker Chrome Extension](https://github.com/baurine/gitlab-issue-time-tracker-ext)
+1. [QuickGitbook Chrome Extension](https://github.com/baurine/quick-gitbook-chrome-extension)
+1. [VS Code Extension for Pangu](https://github.com/baurine/vscode-pangu)
 
 ### Android
 
@@ -87,8 +90,6 @@
 1. [JS Study](https://github.com/baurine/js-study)
 1. [Sike React](https://github.com/baurine/sike-react)
 1. [Vue Study](https://github.com/baurine/vue-study)
-1. [Gitlab Issue Timer Tracker Chrome Extension](https://github.com/baurine/gitlab-issue-time-tracker-ext)
-1. [QuickGitbook Chrome Extension](https://github.com/baurine/quick-gitbook-chrome-extension)
 
 ### Web
 

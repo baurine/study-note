@@ -6,7 +6,7 @@
 
 1. 个人博客 - <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
-1. StackOverflow (当前得分 1608) - <http://stackoverflow.com/users/2998877/spark-bao>
+1. StackOverflow (当前得分 1633) - <http://stackoverflow.com/users/2998877/spark-bao>
 1. Study Notes Overview - <https://baurine.gitbooks.io/study-note/>
 
 ## 教育背景
@@ -51,7 +51,7 @@
 1. 理解 React 思想。
 1. 理解 Redux 思想以及 Middleware，Thunk，参与作者教学视频的中文翻译 ([链接](https://github.com/Mr-Wiredancer/getting-started-with-redux))。
 1. 使用 React Native 开发跨平台应用。
-1. 写过两个 Chrome 扩展。
+1. 写过两个 Chrome 扩展和一个 VS Code 扩展。
 
 ### 后端
 
