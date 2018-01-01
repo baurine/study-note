@@ -10,6 +10,7 @@
 1. [如何正确使用Git Flow](http://www.cnblogs.com/cnblogsfans/p/5075073.html)
 1. [Git Workflows and Tutorials](https://github.com/xirong/my-git/blob/master/git-workflow-tutorial.md)
 1. [Git Resources](https://github.com/xirong/my-git)
+1. [Electron 版本管理](https://electronjs.org/docs/tutorial/electron-versioning)
 
 ## Note
 
@@ -26,6 +27,8 @@
 我司：
 
 ![](../art/ekohe_git_workflow.png)
+
+[Electron 版本管理](https://electronjs.org/docs/tutorial/electron-versioning) 这篇文章介绍他们的版本管理策略，写得也不错。
 
 ### 对 GitFlow 的重新理解 
 
