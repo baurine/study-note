@@ -5,10 +5,11 @@
 - [一个故事讲完 HTTPS](https://mp.weixin.qq.com/s?__biz=MzAxOTc0NzExNg==&mid=2665513779&idx=1&sn=a1de58690ad4f95111e013254a026ca2&chksm=80d67b70b7a1f26697fa1626b3e9830dbdf4857d7a9528d22662f2e43af149265c4fd1b60024&scene=21)
 - [深度解析 HTTPS 原理](http://blog.csdn.net/zhongzh86/article/details/69389967)
 - [HTTPS 原理篇](https://yanhooit.gitbooks.io/ios_study_note/content/httpsyuan_li_pian.html)
+- [iOS App 签名的原理](http://blog.cnbang.net/tech/3386/)
 
 ## Note
 
-Note from [一个故事讲完 HTTPS](https://mp.weixin.qq.com/s?__biz=MzAxOTc0NzExNg==&mid=2665513779&idx=1&sn=a1de58690ad4f95111e013254a026ca2&chksm=80d67b70b7a1f26697fa1626b3e9830dbdf4857d7a9528d22662f2e43af149265c4fd1b60024&scene=21)
+Note for [一个故事讲完 HTTPS](https://mp.weixin.qq.com/s?__biz=MzAxOTc0NzExNg==&mid=2665513779&idx=1&sn=a1de58690ad4f95111e013254a026ca2&chksm=80d67b70b7a1f26697fa1626b3e9830dbdf4857d7a9528d22662f2e43af149265c4fd1b60024&scene=21)
 
 刘欣的这篇文章写得简明易懂，看完后我完全理解了 HTTPS 的原理。
 
@@ -19,6 +20,12 @@ Note from [一个故事讲完 HTTPS](https://mp.weixin.qq.com/s?__biz=MzAxOTc0Nz
 - 哈希算法 - 将任意长度的数据转换成固定长度 (常见 128bit 或 256bit) 的数据，且只要源数据不同，生成的 hash 值就不会相同 (相同的概率极低以至于可以忽略)
 - 数字签名 - 将网站信息 (个人信息、公钥、域名等) 数据进行 hash，然后用 CA 的私钥进行加密后得到的值
 - 数字证书 - 网站信息和数字签名的打包文件
+
+对数据进行签名，一般是指对数据进行 hash 后再加密。
+
+为什么哈希很重要，签名时，为什么要对原始数据进行哈希后再加密，而不是直接加密。
+
+其一，加密算法加密的对象体积不能太大，所以要用哈希来缩小体积，无论多大的数据，通过哈希后都能变成统一大小的数据；其二，即使加密算法加密的对象体积没有限制，直接对原始数据进行加密，不划算，试想，对 1GB 的原始数据，加密出来后的数据也有 1GB，谁会愿意用；其三，使用哈希后，原始数据变化一个比特，都能导致哈希后的结果完全不同，相当于极大的增加了对数据变化的敏感度。
 
 相比 HTTP 协议使用明文在网络上传递所有信息，容易被拦截窃听，还可能被修改 (比如插入广告、病毒)，为了避免这种安全隐患，人们推出了 HTTPS 协议。
 
