@@ -43,6 +43,7 @@
 * Database
     * [PostgreSQL Study Note](database/postgresql-study-note.md)
     * [MongoDB Study Note](database/mongodb-study-note.md)
+    * [Redis](database/redis-note.md)
 * DevOps
     * [Docker Note](dev-ops/docker-note.md)
     * [Gitlab CI Note](dev-ops/gitlab-ci-note.md)
