@@ -30,6 +30,8 @@
 - love2.io
 - [rails365](https://www.rails365.net/books)
 - [菜鸟教程](http://www.runoob.com/)
+- [W3C School 教程](https://www.w3cschool.cn/tutorial)
+- [极客学院 Wiki](http://wiki.jikexueyuan.com/)
 - [Teach Yourself Computer Science](https://teachyourselfcs.com/)
 
 ### JS

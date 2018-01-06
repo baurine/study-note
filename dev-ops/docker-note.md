@@ -22,6 +22,7 @@ docker container 占用资源少，轻量级，而 VM 占用资源多，重量�
 1. [大白话 Docker 入门（一）](https://yq.aliyun.com/articles/63035)
 1. [大白话 Docker 入门（二）](https://yq.aliyun.com/articles/63517)
 1. [Docker - 从入门到实践](https://yeasy.gitbooks.io/docker_practice/content/)
+1. [关于容器、虚拟机以及 Docker 的一个入门教程](http://www.zcfy.cc/article/a-beginner-friendly-introduction-to-containers-vms-and-docker-4139.html)
 
 ## Note 1
 

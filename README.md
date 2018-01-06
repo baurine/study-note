@@ -49,6 +49,7 @@
     * [Gitlab CI Note](dev-ops/gitlab-ci-note.md)
     * [Deployment](dev-ops/deployment.md)
     * [Register Domain](dev-ops/register-domain.md)
+    * [Nginx Note](dev-ops/nginx-note.md)
 * BlockChain
     * [基本原理](blockchain/blockchain-basic-note.md)
 
