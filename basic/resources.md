@@ -58,8 +58,9 @@
 ## eBooks
 
 - [Library Genesis](http://gen.lib.rus.ec/)
-- [我的小书屋](http://mebook.cc/)
+- [Free ebooks - Project Gutenberg](http://www.gutenberg.org/)
 - [ScanLibs](http://scanlibs.com/)
+- [我的小书屋](http://mebook.cc/)
 - [IT eBooks](http://www.it-ebooks.info/)
 
 ## Entertainment
