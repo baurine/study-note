@@ -38,6 +38,9 @@
         * [Note 1 (1 - 9 章)](web/beginning-python2/note-1.md)
         * [Note 2 (10 - 13 章)](web/beginning-python2/note-2.md)
         * [Note 3 (14 - 19 章)](web/beginning-python2/note-3.md)
+    * Python3
+        * [Note 1](web/python3/note-1.md)
+        * [Note 2](web/python3/note-2.md)
     * [REST API](web/rest-api.md)
     * [HTTPS](web/https-note.md)
 * Database
