@@ -45,6 +45,9 @@
     * Go
         * [Note 1](web/go/note-1.md)
         * [Note 2](web/go/note-2.md)
+    * Elixir
+        * [Note 1](web/elixir/elixir-note-1.md)
+        * [Note 2](web/elixir/elixir-note-2.md)
     * [REST API](web/rest-api.md)
     * [HTTPS](web/https-note.md)
 * Database
