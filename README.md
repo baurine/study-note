@@ -69,6 +69,7 @@
 
 1. [Leetcode](https://github.com/baurine/leetcode)
 1. [Programming Basic](https://github.com/baurine/programming-basic)
+1. [Creative Friday Shares](https://github.com/baurine/cf-shares)
 
 ### Tools
 
