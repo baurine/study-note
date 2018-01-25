@@ -22,6 +22,8 @@ Note for [Redis 教程](http://www.runoob.com/redis/redis-tutorial.html)
 
 #### 安装配置
 
+[如何在 macOS 上安装 redis](https://medium.com/@djamaldg/install-use-redis-on-macos-sierra-432ab426640e)
+
 分别安装服务端和客户端，服务端用 redis-server 启动，客户端用 redis-cli 启动。
 
 配置文件在 redis.conf 中，常用配置：
