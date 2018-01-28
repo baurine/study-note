@@ -52,6 +52,7 @@
     * [HTTPS](web/https-note.md)
 * Database
     * [PostgreSQL Study Note](database/postgresql-study-note.md)
+    * [MySQL Note](database/mysql-note.md)
     * [MongoDB Study Note](database/mongodb-study-note.md)
     * [Redis](database/redis-note.md)
 * DevOps

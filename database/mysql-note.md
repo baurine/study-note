@@ -128,11 +128,12 @@ mysql 是 MySQL 默认自带的数据库，里面放的是 MySQL 的管理数据
 
 其它，略，看 PostgreSQL Note。
 
-包括表的创建、删除，记录的 CRUD (Create / Retrieve / Update / Delete)。
+包括表的创建、删除、修改，记录的 CRUD (Create / Retrieve / Update / Delete)。
 
 - create / drop / alter a database
 - create / drop / alter a table of a database
-- insert / select / update / delete data for tables
+- add / drop / alert / rename a column of a table
+- insert / select / update / delete records for table
 
 ### Dump
 
