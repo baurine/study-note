@@ -287,11 +287,37 @@ The alias configuration stores in `~/.gitconfig`:
 
     $ cat ~/.gitconfig
 
+### submodule
+
+    $ git submodule add git@github.com:xxx/yyy.git
+
+在某个 repo 目录 (比如 zzz) 下执行此命令后，将会在此目录下 clone git@github.com:xxx/yyy.git，并在 repo 的根目录生成 .gitmodules 文件，文件中将记载 zzz/yyy 目录是一个 submodule。
+
+    [submodule "zzz/yyy"]
+        path = zzz/yyy
+        url = git@github.com:xxx/yyy.git
+
+将此 repo 推送到 github 上去后，在 github 上查看时，可以点击 zzz/yyy 目录链接，它会自动跳转到 git@github.com:xxx/yyy.git 项目主页。
+
+### `clone --bare`
+
+想把一个本地的 git repo 快速地拷贝到别的地方，又不想带上无关的文件，比如一些 build 生成的文件，可以试试 `git clone --bare`，比如
+
+    $ git clone --bare ./a_git_repo ./a_git_repo.git
+
+生成的 `a_git_repo.git` 目录，将是一个裸仓库，相于是 `./a_git_repo/.git` 目录，但 repo 的 remote 信息将丢失。
+
+由裸仓库重新生成可以工作的本地仓库：
+
+    $ git clone ./a_git_repo.git
+
+将会生成 `./a_git_repo` 目录。
+
 ### Others
 
 Archive a local repo:
 
-    $ git archive --format zip --output file_name branch
+    $ git archive --format zip --output xxx.zip branch
 
 Clean a local repo:
 
@@ -310,7 +336,7 @@ Clean a local repo:
 1. [Ekohe Git Commit Messages](https://dev.ekohe.com/#git-commit-messages)
 1. [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)
 
-----
+---
 
 ## Note for LearnGitBranching
 
