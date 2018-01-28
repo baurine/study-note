@@ -13,6 +13,10 @@
 - [CodePen](https://codepen.io/)
 - [CodeSandbox](https://codesandbox.io/)
 
+### SQL Playground
+
+- [SQL Fiddle](http://sqlfiddle.com/)
+
 ## API
 
 - [News API](https://newsapi.org/)
@@ -26,8 +30,8 @@
 ## Learn Technology
 
 - youtube (很多技术 channel)
-- juejin.im
-- love2.io
+- [掘金](https://juejin.im/)
+- [love2.io](https://love2.io/)
 - [rails365](https://www.rails365.net/books)
 - [菜鸟教程](http://www.runoob.com/)
 - [W3C School 教程](https://www.w3cschool.cn/tutorial)
@@ -42,7 +46,7 @@
 ### Android
 
 - [泡在网上的日子](http://www.jcodecraeer.com/)
-- [hencoder](http://hencoder.com/)
+- [HenCoder](http://hencoder.com/)
 - [androidHive](https://www.androidhive.info/)
 
 ### iOS & Swift

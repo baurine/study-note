@@ -2,7 +2,7 @@
 
 ## References
 
-* [廖雪峰 - 数字货币与区块链原理 (付费)](https://juejin.im/book/59f954546fb9a04525776d7c)
+* [廖雪峰 - 数字货币与区块链原理](https://juejin.im/book/59f954546fb9a04525776d7c)
 * [阮一峰 - 区块链入门教程](http://www.ruanyifeng.com/blog/2017/12/blockchain-tutorial.html)
 * [阮一峰 - 比特币入门教程](http://www.ruanyifeng.com/blog/2018/01/bitcoin-tutorial.html)
 * [BlockChain Demo](https://anders.com/blockchain/)
@@ -20,7 +20,7 @@
 
 ### Note 1
 
-Note for [廖雪峰 - 数字货币与区块链原理 (付费)](https://juejin.im/book/59f954546fb9a04525776d7c)
+Note for [廖雪峰 - 数字货币与区块链原理](https://juejin.im/book/59f954546fb9a04525776d7c)
 
 #### 1 - 简介
 

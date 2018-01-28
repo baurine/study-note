@@ -137,10 +137,16 @@ Code tree for Github, super useful! Github 的完美搭档。
 
 至少还需要安装的有：
 
-1. PostgreSQL
-1. MySQL
+1. PostgreSQL (看 PostreSQL Note)
+1. MySQL (看 MySQL Note)
 1. MongoDB (看 MongoDB Note)
 1. Redis (看 Redis Note)
 1. Nginx (看 Nginx Note)
 1. Python3 (看 Python3 Note)
 1. Java
+
+### 设计
+
+- 原型工具：Figma
+- 设计工具：Sketch
+- 流程图：draw.io
