@@ -6,7 +6,7 @@
 
 1. 个人博客 - <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
-1. StackOverflow (当前得分 1633) - <http://stackoverflow.com/users/2998877/spark-bao>
+1. StackOverflow (当前得分 1683) - <http://stackoverflow.com/users/2998877/spark-bao>
 1. Study Notes Overview - <https://baurine.gitbooks.io/study-note/>
 
 ## 教育背景
@@ -19,7 +19,7 @@
 1. 扎实的计算机基础。
 1. 具有不错的代码抽象能力，并且我认为代码抽象能力是一个程序员最重要的能力之一。
 1. 生活中是狮子座，写代码时是处女座。具有良好的编码风格，不能忍受糟糕的代码。良好的文档意识，包括注释，README，Wiki，Git Commit Message，Issue。
-1. 持续学习，并乐于与同事分享。在公司累计做过十余场技术分享，主题涉及 Android，iOS，前端，后端。
+1. 持续学习，并乐于与同事分享。在公司累计做过十余场技术分享，主题涉及 Android，iOS，前端，后端 ([链接](https://github.com/baurine/cf-shares))。
 
 关于技能，出于好奇心与兴趣，涉猎广泛，曾从事芯片电路设计以及嵌入式开发，后来逐渐转到纯软件的应用层开发。目前比较擅长 Android 和 Web 开发。
 
@@ -47,26 +47,26 @@
 ### 前端
 
 1. 理解原型链，掌握 ES6 语法，箭头函数等特性。
-1. 掌握 Promise / Generator / Async 的使用。
+1. 掌握 Promise / Generator / Async 的使用 ([链接](https://github.com/baurine/js-study))。
 1. 理解 React 思想。
 1. 理解 Redux 思想以及 Middleware，Thunk，参与作者教学视频的中文翻译 ([链接](https://github.com/Mr-Wiredancer/getting-started-with-redux))。
 1. 使用 React Native 开发跨平台应用。
-1. 写过两个 Chrome 扩展和一个 VS Code 扩展。
+1. 写过两个 Chrome 扩展和一个 VS Code 扩展 ([链接 1](https://github.com/baurine/quick-gitbook-chrome-extension), [链接 2](https://github.com/baurine/gitlab-issue-time-tracker-ext), [链接 3](https://github.com/baurine/vscode-pangu))。
 
 ### 后端
 
-1. 使用 Rails 开发网站和 API，完整阅读过《Ruby on Rails Tutorial》、《Agile Web Developement》、《Programing Ruby》、《Metaprogramming Ruby》，理解 Ruby 对象模型。
-1. 理解 GraphQL 思想，并在 Rails 中实现 GraphQL API。
+1. 使用 Rails 开发网站和 API，完整阅读过《Ruby on Rails Tutorial》、《Agile Web Developement》、《Programing Ruby》、《Metaprogramming Ruby》，理解 Ruby 对象模型 ([链接](https://github.com/baurine/rails-study))。
+1. 理解 GraphQL 思想，并在 Rails 中实现 GraphQL API ([链接](https://github.com/baurine/graphql-study))。
 1. 会使用 PostgreSQL 及其全文搜索功能。
 1. 会使用 Node & Express。
 
 ### 设计
 
-1. 使用 Sketch 进行简单的设计，并自行切图，无须设计师切图。
+1. 使用 Sketch 进行简单的设计，并自行切图，无须设计师切图 ([链接](https://github.com/baurine/jing-sketch-xcode))。
 
 ### 其它
 
-1. 熟练 Git 操作，会使用 `git reflog` 拯救误操作，`git rebase -i` 修改历史，熟悉 Gitflow, Git hooks，写了个管理 GitHook 的 Gem。
+1. 熟练 Git 操作，会使用 `git reflog` 拯救误操作，`git rebase -i` 修改历史，熟悉 Gitflow, Git hooks，写了个管理 Git hooks 的 gem ([链接](https://github.com/baurine/githook))。
 1. 使用 Docker & GitLab 进行持续集成。
 1. 日常 Vim。
 
@@ -99,7 +99,7 @@
 1. MeShare (APP)
    - 一个智能摄像头的 APP 端，查看监控状况及对摄像头进行远程控制。
    - 作为核心开发人员，使用 C++ 为上层的 Android/iOS/Windows 应用编写底层核心功能库，用于和智能设备进行网络通信并进行各种控制。贡献了超过 70% 的 代码。
-   - 使用了 Google 的 libjingle 线程 (类似 chrome base 库的线程模型) 和异步网络库作为框架，8 个以上的线程同时工作，使用了一些技巧，使除了框架本身消息队列的锁外，其它地方完全规避了锁的使用。进行压力测试，没有崩溃和内存泄漏。为了用好 libjingle，深入阅读并深刻理解了 libjingle 源码，并理解了 p2p 原理，stun 等网络协议。
+   - 使用了 Google 的 libjingle 线程 (类似 chrome base 库的线程模型) 和异步网络库作为框架，8 个以上的线程同时工作，使用了一些技巧，使除了框架本身消息队列的锁外，其它地方完全规避了锁的使用。进行压力测试，没有崩溃和内存泄漏。为了用好 libjingle，深入阅读并深刻理解了 libjingle 源码，并理解了 P2P 原理，STUN 等网络协议。
 1. 豌豆荚手机助手 (Windows)
    - 部分参与，使用 C++ 开发，使用 chrome base 库的线程模型。
 
@@ -107,7 +107,7 @@
 
 1. 2015/8 - 至今，Ekohe (易空海)，Mobile Developer Leader
    - 担任 Android 主程，承担各个项目 APP 端的主力开发，并协助其它同事进行前端和后端的开发。
-   - 作为 Mobile Developer Leader，培养和管理新人，制定规范，技术分享。
+   - 作为 Mobile Developer Leader，培养和管理新人，制定规范，技术分享，Review Code。
 
 1. 2013/9 - 2015/7，MeShare (微享)，C++ 主程
    - 作为核心开发人员，使用 C++ 为上层的 Android/iOS/Windows 应用编写底层核心功能库。
