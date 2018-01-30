@@ -15,27 +15,12 @@
 
 - [Fira Mono](https://mozilla.github.io/Fira/)
 
-安装字体时，先打开 Font Book 应用，点击工具栏的 "+" 按钮，添加新字体，在弹出的窗口中，选择下载后解压生成的 Fira 字体文件夹，将 Fira 的所有字体一次性全部安装上。不要在 Fira 文件夹里一个字体一个字体双击安装。
+安装字体时，先打开 Font Book 应用，点击工具栏的 "+" 按钮，添加新字体，在弹出的窗口中，选择下载后解压生成的字体文件夹，这样可以将文件夹中的所有字体一次性全部安装上。不要在文件夹里一个字体一个字体双击安装。
 
-## 工具
+## 常用工具
 
-1. homebrew
-1. zsh 和 oh-my-zsh
-1. iTerm2
-1. [tmux](./tmux.md)
-
-**iTerm2**
-
-- `cmd + w`：关闭当前 pane
-- `-------`
-- `cmd + d`：左右分屏
-- `cmd + shift + d`：上下分屏
-- `cmd + [/]`：切换分屏
-- `-------`
-- `cmd + t`: 新建 tab
-- `cmd + shift + [/]`：切换 tab
-- `-------`
-- `cmd + n`：新建窗口 (勾选上 Preference --> Profile --> General --> "Reuse previous session's directory")
+1. [LICEcap](https://www.cockos.com/licecap/) - GIF 格式录屏应用
+1. [Typora](https://typora.io/) - Markdown Editor
 
 ## Chrome 插件
 
@@ -58,9 +43,9 @@ Code tree for Github, super useful! Github 的完美搭档。
 
 但是新出的 [Sourcegraph](https://about.sourcegraph.com/) 比 Octotree 更强大，可用来替代 Octotree。
 
-## mac 开发配置
+## mac 开发环境配置
 
-### 通用环境配置
+### 通用开发环境
 
 参考：
 
@@ -71,11 +56,11 @@ Code tree for Github, super useful! Github 的完美搭档。
 
 1. 安装搜狗五笔 (官网下载安装)
 1. 安装 chrome (官网下载安装)
-1. 安装 iTerm2 (官网下载安装)
-1. 安装 homebrew ([官网](https://brew.sh/) 有教程，一条指令)
+1. 安装 [homebrew](https://brew.sh/) (官网有教程，一条指令)
 
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
+1. 安装 iTerm2 (官网下载安装)
 1. 安装 zsh 和 oh-my-zsh
 
    zsh 是 shell，oh-my-zsh 是 zsh 扩展功能和主题集合，通过 homebrew 来安装。
@@ -86,6 +71,7 @@ Code tree for Github, super useful! Github 的完美搭档。
         # install oh-my-zsh
         $ curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
 
+1. 安装 [tmux](./tmux.md) (可选)
 1. 下载 material-theme 主题 (只是配色)，分别为 zsh 和 iTerm2 配置此主题，记得 2 个都要配置才行。
 
    配置步骤在 material-theme 的 README 中有。
@@ -118,22 +104,63 @@ Code tree for Github, super useful! Github 的完美搭档。
         pods
         *.xcbkptlist
 
-1. 安装 GitUp ([官网](http://gitup.co/) 下载安装)
-1. 配置 Rails 开发环境：安装 rvm & ruby & bundler (看 Rails Study Note 配置)
-1. 配置 Node 开发环境：安装 node & npm (官网下载安装)
+1. 安装 [GitUp](http://gitup.co/) (官网下载安装)
 
-### Android 开发环境配置
+**brew**
+
+查看某个应用 (比如 mysql) 的信息，比如如何启动：
+
+    $ brew info mysql
+    ...
+    To have launchd start mysql now and restart at login:
+      brew services start mysql
+
+启动，重启，停止 mysql 服务：
+
+    $ brew services start|restart|stop mysql
+
+查看服务列表：
+
+    $ brew services list
+    Name  Status  User       Plist
+    redis started ...
+    php71 stopped
+    nginx stopped
+    mysql stopped
+
+**iTerm2**
+
+- `cmd + w`：关闭当前 pane
+- `-------`
+- `cmd + d`：左右分屏
+- `cmd + shift + d`：上下分屏
+- `cmd + [/]`：切换分屏
+- `-------`
+- `cmd + t`: 新建 tab
+- `cmd + shift + [/]`：切换 tab
+- `-------`
+- `cmd + n`：新建窗口 (勾选上 Preference --> Profile --> General --> "Reuse previous session's directory")
+
+### Rails 开发环境
+
+安装 rvm & ruby & bundler (看 Rails Study Note 配置)
+
+### Node 开发环境
+
+官网下载 node 安装包安装，安装包中自带 npm
+
+### Android 开发环境
 
 经过测试，只要安装一个 Android Studio 3.0 就行了，安装过程中会自动把需要的依赖都下载安装，连 Java 环境都不用装了，好神奇。
 
-### iOS 开发环境配置
+### iOS 开发环境
 
 1. 安装 XCode
 1. 安装 [CocoaPods](https://cocoapods.org/)
 
         $ sudo gem install cocoapods
 
-### Web 开发
+### Web 开发环境
 
 至少还需要安装的有：
 
@@ -147,6 +174,6 @@ Code tree for Github, super useful! Github 的完美搭档。
 
 ### 设计
 
-- 原型工具：Figma
 - 设计工具：Sketch
-- 流程图：draw.io
+- 原型工具：[Figma](https://www.figma.com/)
+- 流程图：[draw.io](https://www.draw.io/)

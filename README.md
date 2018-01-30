@@ -14,7 +14,7 @@
     * [Git Note](tools/git-note.md)
     * [Understand Gitflow](./tools/understand-git-flow.md)
     * [tmux](tools/tmux.md)
-    * [Mac Preference](tools/mac-preferences.md)
+    * [Mac Preferences](tools/mac-preferences.md)
 * Android
     * 绘图和动画
         * [Note 1](android/custom-view/note-1.md)
