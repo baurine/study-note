@@ -153,6 +153,16 @@ Code tree for Github, super useful! Github 的完美搭档。
 
 经过测试，只要安装一个 Android Studio 3.0 就行了，安装过程中会自动把需要的依赖都下载安装，连 Java 环境都不用装了，好神奇。
 
+但是如果要在命令行下使用 gradle 命令手动进行编译，还是需要额外安装 Java SDK 的。直接到 [Oracle 官网](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) 下载最新的安装包进行安装就行了，比如 jdk-8u161-macosx-x64.dmg。
+
+安装了 JDK 后在命令行中就能直接使用 java 命令了，用 `java -version` 查看版本号。我并没有设置 `JAVA_HOME` 和 CLASSPATH 环境变量，并将它们写到 PATH 中，也没出什么问题，在命令行下用 gradle 命令编译 apk 成功了。如果后面遇到问题再配置 `JAVA_HOME` 和 CLASSPATH。
+
+另外在命令行下使用时，还需要将 Android SDK 的路径写到环境变量 `ANDROID_HOME` 中。
+
+通过 Android Studio 安装的 Android SDK 默认放在 ~/Library/Android/sdk 目录下，所以在 ~/.zshrc 最后加一行：
+
+    export ANDROID_HOME=~/Library/Android/sdk
+
 ### iOS 开发环境
 
 1. 安装 XCode
@@ -170,7 +180,6 @@ Code tree for Github, super useful! Github 的完美搭档。
 1. Redis (看 Redis Note)
 1. Nginx (看 Nginx Note)
 1. Python3 (看 Python3 Note)
-1. Java
 
 ### 设计
 
