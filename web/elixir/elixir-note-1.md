@@ -35,7 +35,9 @@ Note for [Elixir School](https://elixirschool.com/cn/)
 
 ## 基础
 
-Elixir 是一种动态的函数编程语言...
+Elixir 是一种动态的函数式编程语言...
+
+(注意，Elixir 是函数式编程语言，不是面向对象的编程语言，只有函数，没有对象，所以不要问，咦，为什么没有 class 关键字啊...)
 
 特性：
 

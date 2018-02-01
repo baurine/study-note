@@ -89,3 +89,30 @@ Note for [函数式编程圣经](https://mp.weixin.qq.com/s/0gErQ3tjDLZuD1bYOhi0
 
     // 函数式语言
     (+ 1 2)
+
+## 函数式编程与面向对象编程
+
+三种不同的编程思维：
+
+- 面向过程 - C
+- 面向对象 - C++ / Java / C#
+- 函数式编程 - Lisp / Cloujure / Schema
+
+大部分人都是先接触面向对象编程，习惯了这种编程思维，再来学习函数式编程的时候，总会和面向对象对比，疑惑为什么不能像面向对象那样处理呢。比如在看到 Elixir 的 Enum 模块时，如下例所示：
+
+    iex> Enum.all?(["foo", "bar", "hello"], fn(s) -> String.length(s) == 3 end)
+    false
+    iex> Enum.all?(["foo", "bar", "hello"], fn(s) -> String.length(s) > 1 end)
+    true
+
+我就会想，咦，为什么不能像 Ruby 那样，直接在数组对象上调用 all? 方法呢，直接在字符串对象上调用 length() 方法呢，像下面这样：
+
+    ["foo", "bar", "hello"].all? { |s| s.length == 3 }
+
+特别是求字符串的长度，居然还要用一个 String.length() 来求长度，好不方便啊。
+
+而且一直在想，为什么还没有出现 class 的使用介绍啊...
+
+这是因为，这是函数式编程啊，函数式编程里只有基本类型和函数，没有对象。所以 Elixir 相比 Ruby，只有 module，没有 class。
+
+像面向对象语言的高阶函数，实际就是从纯粹的函数式编程中借鉴过去的，从而形成了面向对象 + 函数式的杂合语言，支持函数式已经是现代新式面向对象的语言的标配了，像 Swift, Kotlin。

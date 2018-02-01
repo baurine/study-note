@@ -6,7 +6,7 @@
 
 1. 个人博客 - <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
-1. StackOverflow (当前得分 1683) - <http://stackoverflow.com/users/2998877/spark-bao>
+1. StackOverflow (当前得分 1688) - <http://stackoverflow.com/users/2998877/spark-bao>
 1. Study Notes Overview - <https://baurine.gitbooks.io/study-note/>
 
 ## 教育背景
@@ -99,7 +99,7 @@
 1. MeShare (APP)
    - 一个智能摄像头的 APP 端，查看监控状况及对摄像头进行远程控制。
    - 作为核心开发人员，使用 C++ 为上层的 Android/iOS/Windows 应用编写底层核心功能库，用于和智能设备进行网络通信并进行各种控制。贡献了超过 70% 的 代码。
-   - 使用了 Google 的 libjingle 线程 (类似 chrome base 库的线程模型) 和异步网络库作为框架，8 个以上的线程同时工作，使用了一些技巧，使除了框架本身消息队列的锁外，其它地方完全规避了锁的使用。进行压力测试，没有崩溃和内存泄漏。为了用好 libjingle，深入阅读并深刻理解了 libjingle 源码，并理解了 P2P 原理，STUN 等网络协议。
+   - 使用了 Google 的 libjingle 线程 (类似 chrome base 库的线程模型) 和异步网络库作为框架，8 个以上的线程同时工作，除了框架本身消息队列的锁外，其它地方完全规避了锁的使用。进行压力测试，没有崩溃和内存泄漏。为了用好 libjingle，深入阅读并深刻理解了 libjingle 源码，并理解了 P2P 原理，STUN 等网络协议。
 1. 豌豆荚手机助手 (Windows)
    - 部分参与，使用 C++ 开发，使用 chrome base 库的线程模型。
 
@@ -120,3 +120,14 @@
 跑步，游泳，骑行，健身。羽毛球和乒乓球打得也还可以。参加过奥运半程铁人三项。
 
 从游泳中收获了一个重要的道理：只要你去练习，总是会有进步的，即使是微小的，终有一天，你能感受到量变带来的质变。知识，只要你一点一点地去啃，终有一天是能够理解的，你能感受到那种醍醐灌顶的感觉。
+
+## 对公司的期望
+
+- 提供科学上网环境
+- 使用 Mac 进行开发
+- 使用 Git 进行版本管理 (对 SVN 我是拒绝的)
+- 使用 GitLab / GitHub 管理 Issue，文档
+- 使用 Slack 类等高效的沟通工具
+- 使用 Sketch 作为设计工具
+- 使用 G Suit
+- 最好能够提供健身的福利
