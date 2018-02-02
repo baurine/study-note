@@ -23,7 +23,7 @@ macOS
 
     $ brew install nginx
 
-在 macOS 上安装完后告诉你：
+在 macOS 上安装完后会告诉你 doc root 目录在哪，默认配置在哪，如何启动：
 
 > Docroot is: /usr/local/var/www
 >
@@ -52,6 +52,10 @@ macOS
     # or
     $ sudo nginx [-s quit|reload]
 
+通过 brew 安装则还可以用 brew services 命令启动，在上面 `brew install nginx` 后的输出里有提示，也可以通过 `brew info nginx` 重新获取这个信息。
+
+    $ brew services start nginx
+
 启动 nginx 后访问 http://locahost:8080，将显示 /usr/local/var/www/index.html 的内容。
 
 #### 配置文件语法
@@ -70,8 +74,7 @@ nginx 是模块化系统，每个模块负责不同的功能。比如 `http_gzip
 
 每个配置项由配置指令和指令参数 2 个部分构成。指令参数也就是配置指令对应的配置值。
 
-
-默认内容：
+默认内容 (Linux 上的版本，mac 上有些不同)：
 
     user www-data;
     worker_processes 1;
@@ -176,18 +179,23 @@ block 可以嵌套
         }
 
         location ~ \.php$ {
-            fastcgi_pass  localhost:9000;
-            fastcgi_param SCRIPT_FILENAME
-                          $document_root$fastcgi_script_name;
-            include       fastcgi_params;
+            include /usr/local/etc/nginx/fastcgi.conf;
+            fastcgi_intercept_errors on;
+            fastcgi_pass   127.0.0.1:9000;
         }
     }
 
 这个配置表示我们新增了一个域名为 example.org 的网站，`server_name` 指令用来表示域名，listen 指令用来表示监听的端口，root 表示这个项目的根目录。
 
-当用户通过浏览器访问 http://example.org 时，这时 path 为 `/`，将匹配到 `location /` 规则，因此，nginx 会去读取 /data/www/index.html，如果它不存在，则继续找 /data/www/index.php，如果仍然不存在，就会转发到 `fastcgi_pass` 里面的逻辑。就是说，静态文件不存在，那我就它后面的 web app 来动态处理它，在 rails app 里，就会交给 rails router 来处理。
+当用户通过浏览器访问 http://example.org 时，这时 path 为 `/`，将匹配到 `location /` 规则，因此，nginx 会先去找 /data/www/index.html，如果它不存在，则继续找 /data/www/index.php，如果仍然没有，那么访问就会失败 (测试后发现显示的是一个文件列表)。
 
-如果用户访问 http://example.org/about.gif，就会读取 /data/www/about.gif，并设置 30 天过期的 http header。
+![](../art/nginx-index-fail.png)
+
+假如找到了 index.html，那么因为它已经是一个静态文件，且没有其它 location 规则来处理 .html 格式的文件，那么它会被 nginx 直接返回给客户端。
+
+假如找到的是 index.php，因为后面还有 `location ~ \.php$` 的规则匹配它，那么它会进一步由这个规则来处理，这个规则说，所有的 .php 文件，转给给 localhost:9000 端口上的服务处理 (这个服务是 php-fpm 服务)，php-fpm 解析并执行 php 文件，将得到的结果返回给 nginx，再由 nginx 返回给客户端。
+
+如果用户访问 <http://example.org/about.gif>，nginx 就会去找 /data/www/about.gif，并设置 30 天过期的 http header。
 
 location 就是用来设置静态文件匹配的各种规则的，注意 Nginx 只能处理静态文件，没有匹配上的路径，才会交给后面的 web app 来动态处理。
 
