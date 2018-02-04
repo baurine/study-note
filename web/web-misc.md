@@ -190,11 +190,17 @@ REST API 中有一个 "幂等" 的概念，表示多次请求的效果相同。�
 
 ## JWT
 
-在浏览器中，我们为了记住用户登录的情况，使用 session 或 cookie 来保存用户登录情况。
+参考：
 
-在 API 中，session / cookie 不再方便使用，我们用 access token 来作用户认证。
+- [JSON Web Token - 在 Web 应用间安全地传递信息](http://blog.leapoahead.com/2015/09/06/understanding-jwt/)
+- [JWT 介绍和实战](https://liuliqiang.info/jwt-introduction-and_action/)
+- [讲真，别再使用 JWT 了！](https://www.jianshu.com/p/af8360b83a9f)
 
-但是，无论是 session / cookie 还是 access token，你都至少需要在服务端的内存或数据库中保存一些额外的数据，比如 `session_id` 或 token。
+在浏览器中，我们为了记住用户登录的情况，使用 cookie-session 来保存用户登录情况。
+
+在 API 中，cookie-session 不再方便使用，我们用 access token 来作用户认证。
+
+但是，无论是 cookie-session 还是 access token，你都至少需要在服务端的内存或数据库中保存一些额外的数据，比如 `session_id` 或 token。
 
 但如果使用了 jwt，你不需要在服务端保存额外的数据，只需要额外的一个对称密钥或一对非对称密钥用来加密和解密。
 
@@ -205,12 +211,14 @@ REST API 中有一个 "幂等" 的概念，表示多次请求的效果相同。�
 - 不需要服务端保存额外的数据
 - 可以携带额外的数据，比如 `user_id`，但不能在 payload 中保存敏感信息
 
+其它诸如跨域、不易 CSRF的优点就不说了，这个 access token 也是具备的。
+
+当然，jwt 也是有缺点的，比如数据量肯定是不能太大。
+
 jwt 的数据分三部分，header，payload，signature。
 
 jwt 的数据在服务端产生，服务端用对称密钥或非对称密钥的公钥，对 header base64 和 payload base64 后的结果用 `.` 连接后，进行加密，生成签名。签名的目的是确保 header 和 payload 的数据没有被人篡改。
 
-服务端将生成的 jwt 返回给客户端，以后客户端在每次请求时在 http 的 header 中带上这个 jwt，服务端收到请求后，对 header, payload 进行 base64 解码，同时用对称密钥或非对称密钥的私钥，对签名进行验证。验证 OK 说明 payload 数据是可信的。
+服务端将生成的 jwt 返回给客户端，以后客户端在每次请求时在 http 的 header 或 cookie 中带上这个 jwt，服务端收到请求后，对 header, payload 进行 base64 解码，同时用对称密钥或非对称密钥的私钥，对签名进行验证。验证 OK 说明 payload 数据是可信的。
 
 (有一个疑问是，使用非对称密钥的必要性何在? 感觉用对称密钥就行了啊...)
-
-payload 中可以包含任意非敏感数据，比如 `user_id`，以及其它自定义的数据。
