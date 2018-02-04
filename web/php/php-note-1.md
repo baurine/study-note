@@ -14,6 +14,8 @@ PHP 的开发环境俗称 LAMP (Linux + Apache + MySQL + PHP)，现在一般用 
 
 PHP 的开发和 Rails / Node 不太一样，Rails 和 Node 在开发阶段可以不需要 Apache 或 Nginx，Rails 通过 `rails s` 启动服务端，但 PHP 不行，必须依赖 Apache 或 Nginx，没有也不需要一个显式的命令来启动 PHP 程序。在本地开发时，从浏览器的本地访问请求也是必须经过 Apache 或 Nginx，然后由 Apache 或 Nginx 调用相应的 PHP 脚本。
 
+(更正，简单看了 Symfony 的教程后，得知最新的 PHP 也内置了 web 服务器，在 Symfony 项目中通过 `php bin/console server:run` 启动。)
+
 ### Nginx
 
 Nginx 的安装，可以看 Nginx Note，这里稍微复习一下。
@@ -115,5 +117,5 @@ Composer 的安装 (其实就是下载 installer 脚本，用 php 执行这个�
 
 ### 其它
 
-- 怎么调式 PHP 代码
-- 怎么打 log，怎么查看 log
+- 怎么调试 PHP 代码
+- 怎么打 log，怎么查看 log (`error_log()` ?)
