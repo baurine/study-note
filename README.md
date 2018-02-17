@@ -48,6 +48,10 @@
     * Elixir
         * [Note 1](web/elixir/elixir-note-1.md)
         * [Note 2](web/elixir/elixir-note-2.md)
+    * Clojure
+        * [Note 1](web/clojure/clojure-note-1.md)
+        * [Note 2](web/clojure/clojure-note-2.md)
+        * [Note 3](web/clojure/clojure-note-3.md)
     * [Functional Programming Note](web/functional-programming-note.md)
     * [Web Misc](web/web-misc.md)
 * Database
