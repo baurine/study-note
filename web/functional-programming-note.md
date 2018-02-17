@@ -1,6 +1,6 @@
 # Function Programming Note
 
-(鉴于函数式编程语言集中在 Web 开发，比如 Lisp，Erlang, Elixir, Closure，故暂且把它放在 web 目录下。)
+(鉴于函数式编程语言集中在 Web 开发，比如 Lisp，Erlang, Elixir, Clojure，故暂且把它放在 web 目录下。)
 
 Note for [函数式编程圣经](https://mp.weixin.qq.com/s/0gErQ3tjDLZuD1bYOhi0mQ)
 
@@ -82,7 +82,7 @@ Note for [函数式编程圣经](https://mp.weixin.qq.com/s/0gErQ3tjDLZuD1bYOhi0
 
 其它特点：柯里化 (Currying)，惰性求值 (比如说参数，如果函数体中没有用到这个参数，那么这个参数可以永远不用运算求值)，宏 (Macro) ...
 
-一般函数式编程语言还有一个特点，运算符视同函数，因此放在所有参数之前。
+一般函数式编程语言还有一个特点，运算符视同函数，因此放在所有参数之前 (正统函数式语言是这样，比如 Clojure，但 Elixir 的语法就偏向传统语言)。
 
     // 一般语言
     1 + 2
@@ -96,7 +96,7 @@ Note for [函数式编程圣经](https://mp.weixin.qq.com/s/0gErQ3tjDLZuD1bYOhi0
 
 - 面向过程 - C
 - 面向对象 - C++ / Java / C#
-- 函数式编程 - Lisp / Cloujure / Schema
+- 函数式编程 - Lisp / Clojure / Schema
 
 大部分人都是先接触面向对象编程，习惯了这种编程思维，再来学习函数式编程的时候，总会和面向对象对比，疑惑为什么不能像面向对象那样处理呢。比如在看到 Elixir 的 Enum 模块时，如下例所示：
 

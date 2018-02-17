@@ -31,13 +31,13 @@ Note for [Elixir School](https://elixirschool.com/cn/) - 续。
 用 defmodule 关键字，类似 Ruby 中的 module，允许嵌套。
 
     defmodule Example.Greetings do
-    def morning(name) do
+      def morning(name) do
         "Good morning #{name}."
-    end
+      end
 
-    def evening(name) do
+      def evening(name) do
         "Good night #{name}."
-    end
+      end
     end
 
     iex> Example.Greetings.morning "Sean"

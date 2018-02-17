@@ -389,7 +389,7 @@ HTTP 协议简介，略。HTML 简介，略。
 
 WSGI：Web Server Gateway Interface
 
-> 无论多么复杂的 Web 应用程序，入口都是一个 WSGI 处理函数。HTTP 请求的所有输入信息都可以通过 environ 获得，HTTP 响应的输出都可以通过 start_response() 加上函数返回值作为 Body。
+> 无论多么复杂的 Web 应用程序，入口都是一个 WSGI 处理函数。HTTP 请求的所有输入信息都可以通过 environ 获得，HTTP 响应的输出都可以通过 `start_response()` 加上函数返回值作为 Body。
 
 > 复杂的 Web 应用程序，光靠一个 WSGI 函数来处理还是太底层了，我们需要在 WSGI 之上再抽象出 Web 框架，进一步简化 Web 开发。
 
