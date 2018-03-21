@@ -103,9 +103,25 @@ target 是用来干什么的呢，target 是用来生成 product 的，每一个
 
 - Certificates (证书)
 
-  开发者证书，和一个开发者账号关联，表明这个账号可以用来开发 iOS 应用。一个企业开发者账号下可以有多个开发者证书。(个人的就不知道了...)
+  新的理解，iOS 的证书，有一种是用来发布 APP 时给代码签名用的，并会打包到 APP 中。这种证书可以称之为 iOS 的根证书 (来自 [iOS 应用发布中的一些细节](https://daiweilai.github.io/2015/11/17/iOS%E5%BA%94%E7%94%A8%E5%8F%91%E5%B8%83%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%86%E8%8A%82/))。
 
-  证书这东西，就是一个授权，以及证明自己的东西。就好比开商店，你需要从工商局那里获得营业执照，这个执照就相当于是证书。
+  创建证书的过程是这样的，首先你要自己生成一对公钥私钥对，放存到 KeyChain 中，然后你把公钥交给 Apple，Apple 会用它的私钥为你的公钥进行签名，然后将签名和你的公钥打包，生成数字证书，这就是我们得到的证书。
+
+  当要打包 APP 时，打包工具会用存放在本地 KeyChain 中的私钥对 APP 的 hash 数据进行签名 (代码签名)，然后把代码签名和证书也打包到 APP 中。
+
+  安装 APP 时，设备会先用内置在其中的 Apple 公钥对 APP 中的证书进行校验，验证 OK 说明其中的公钥是完好的，然后再用公钥对代码签名进行校验，验证 OK 则说明 APP 数据完好，可以进行安装。
+
+  私钥很重要，只会存放在本地的 KeyChain 中，而公钥会包含在证书中，可以随时从 Apple 的开发者网站下载，当然，它同时也会在 KeyChain 中。
+
+  如果公司共用一个开发或发布证书，需要手动从 KeyChain 中导出，分享给其它人，导出时需要把证书 (包含了公钥) 和私钥一并导出，导出的格式是 `.p12`，接收者双击后可以导入 KeyChain 中。
+
+  做推送功能时，需要额外申请一种推送证书，这种证书，并不是用来进行代码签名的，只是为了实现特定功能，相比上面的根证书，这种证书可以称之为附属证书，相似的还是 Apply Pay 证书、Passbook 证书。
+
+  在做推送功能时，同时服务端需要你的证书和私钥，为什么服务端会需要这个呢，是因为它要和 Apple 的 APNs 服务端建立连接，它们之间采用 SSL 进行连接，就像是我们用 ssh 登录服务器一样，服务端已经有了我们的公钥，客户端这边有公钥私钥对，就可以免密登录了。因为我们向 Apple 申请了推送证书，因此它就有我们的公钥了，我们的服务端有公钥私钥对，和 Apple APNs 服务器就可以用 SSL 正确的建立连接了。
+
+  视服务端的程序而定，很多需要的是 pem 格式的文件，但我们从 KeyChain 中导出的证书和私钥存储格式是 p12，因此我们要把它进行一下转换，使用以下命令将 p12 格式文件转换成 pem 格式文件：
+
+        openssl pkcs12 -in example.p12 -out example.pem -nodes -clcerts
 
 - Identifiers (标识)
 
@@ -122,6 +138,9 @@ target 是用来干什么的呢，target 是用来生成 product 的，每一个
 参考：
 
 - [iOS 开发 - Certificates、Identifiers 和 Profiles 详解](http://www.cnblogs.com/xiaofeixiang/p/4564585.html)
+- [iOS 应用发布中的一些细节](https://daiweilai.github.io/2015/11/17/iOS%E5%BA%94%E7%94%A8%E5%8F%91%E5%B8%83%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%86%E8%8A%82/)
+- [苹果远程推送通知 APNs 详解，官方，iOS | Swift | UNNotification](https://segmentfault.com/a/1190000012019282)
+- [Certificates 证书](http://superdanny.link/2015/09/25/iOS-production-certificate-and-use/)
 
 证书分两种：开发证书和分布证书。前者用来开发和调试 APP，后者用来分发 APP。
 

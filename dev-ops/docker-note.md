@@ -320,7 +320,6 @@ Union FS 文件系统。
 
 使用 `docker-registry` 工具可以创建私有仓库，略。
 
-
 ### Docker 数据管理
 
 在 Docker 内部以及容器之间管理数据的两种方式：
