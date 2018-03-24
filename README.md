@@ -53,6 +53,7 @@
         * [Note 2](web/clojure/clojure-note-2.md)
         * [Note 3](web/clojure/clojure-note-3.md)
     * [Functional Programming Note](web/functional-programming-note.md)
+    * [Web Security](web/web-security.md)
     * [Web Misc](web/web-misc.md)
 * Database
     * [PostgreSQL Study Note](database/postgresql-study-note.md)
