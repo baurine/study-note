@@ -146,10 +146,12 @@ HTTPS 的缺点：
 设计得比较好的参考示范：
 
 - [GitHub REST API v3](https://developer.github.com/v3/)
+- [Dribbble API v2](https://developer.dribbble.com/v2/)
 
 一些参考文章：
 
 - [我所认为的 RESTful API 最佳实践](http://www.scienjus.com/my-restful-api-best-practices/)
+- [Beautiful REST+JSON APIs](http://docs.huihoo.com/oreilly/conferences/fluentconf/2015/Designing-a-Beautiful-REST+JSON-API.pdf)
 
 **冪等**
 
