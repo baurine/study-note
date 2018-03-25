@@ -18,19 +18,20 @@
 
 - [SQL Fiddle](http://sqlfiddle.com/)
 
+### MISC
+
+- [共享画板](https://witeboard.com/)
+
 ## API
 
-- [News API](https://newsapi.org/)
-
-  Access worldwide news with code
-
-- [TVMaze API](http://www.tvmaze.com/api)
-
-  If you want to add TV information to your website or app then you've come to the right place!
+- [GitHub REST API v3](https://developer.github.com/v3/)
+- [Dribbble API v2](https://developer.dribbble.com/v2/)
+- [News API](https://newsapi.org/) - Access worldwide news with code
+- [TVMaze API](http://www.tvmaze.com/api) - Search TV shows information
 
 ## Learn Technology
 
-- youtube (很多技术 channel)
+- [YouTube](https://www.youtube.com/) - 很多技术 channel
 - [掘金](https://juejin.im/)
 - [love2.io](https://love2.io/)
 - [rails365](https://www.rails365.net/books)
@@ -54,6 +55,21 @@
 
 - [BoxueIO](https://boxueio.com/)
 - [小波说雨燕](http://xiaoboswift.com/)
+- [Design + Code](https://designcode.io/)
+- [Ray Wenderlich](https://www.raywenderlich.com/)
+
+### Rails
+
+- [Go Rails](https://gorails.com/)
+- [Grant's World - Ruby Coder](http://grantcss.com/)
+- [RailsCasts](http://railscasts.com/)
+- [Ruby on Rails 实战圣经](https://ihower.tw/rails/index-cn.html)
+
+## Design
+
+- [配色](http://www.colorhunt.co/)
+- [UpLabs](https://www.uplabs.com)
+- [CollectUI](http://collectui.com/)
 
 ## Free Pictures
 

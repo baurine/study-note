@@ -10,6 +10,7 @@ Time: 2017/8/19.
 1. [Deploying a Rails App on Ubuntu 14.04 with Capistrano, Nginx, and Puma](https://www.digitalocean.com/community/tutorials/deploying-a-rails-app-on-ubuntu-14-04-with-capistrano-nginx-and-puma)
 1. [Installing Node.js via package manager](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)
 1. [如何快速正确的安装 Ruby, Rails 运行环境](https://ruby-china.org/wiki/install_ruby_guide)
+1. [如何部署 Rails 到 Ubuntu 14.04 服务器](http://grantcss.com/blog/2016/09/13/deploy-rails-to-ubuntu/)
 
 记一次部署 Rails 项目到 EC2 的过程。
 
@@ -131,6 +132,6 @@ capistrano 的一些命令：
 
 #### TODO
 
-1. 注册并绑定域名
+1. 注册并绑定域名 - 完成，域名是 quickgitbook.com
 1. Docker 化
 1. 进一步学习 Nginx，Puma & Capistrano
