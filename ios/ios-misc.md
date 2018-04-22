@@ -52,7 +52,7 @@ target 是用来干什么的呢，target 是用来生成 product 的，每一个
 
 参考：[target 和 scheme、.xcarchive 和 .ipa 的详细解析](http://www.jianshu.com/p/7b2ed5221b38)
 
-- `.app` 是 target 生成的 product，是程序运行包，其中包括可执行的二进制文件以及运行所需要的资源文件、plist、签名文件和 privisioning profiles。
+- `.app` 是 target 生成的 product，是程序运行包，其中包括可执行的二进制文件以及运行所需要的资源文件、plist、签名文件和 privisioning profiles (`.app` 里真的会有 privisioning profile 吗?)。
 - `.xcarchive` 是通过 XCode 打包或者 `xcodebuild archive` 命令打包出来的文件，里面包括了 `.app` 文件和 dSYM 符号等文件。
 - `.ipa` 是一个 zip 压缩包，是最终安装到手机里的格式，里面包括 `.app` 文件和 Symbols 符号等文件。
 
@@ -78,7 +78,7 @@ target 是用来干什么的呢，target 是用来生成 product 的，每一个
 
    如果要 archive 的是 workspace 而不是 project，那么用 `-workspace worksapceFileName` 替代 `-project` 参数。
 
-   另外，用 `xcodebuild clean archive` 替代 `xcodebuild archive` 可以在 archive 前先 clean 掉上次的输出 (?)。
+   另外，用 `xcodebuild clean archive` 替代 `xcodebuild archive` 可以在 archive 前先 clean 掉上次的输出。
 
 1. 生成 `.ipa`。使用 `-exportArchive` 参数来打包 `.ipa` 文件。(应该是要先通过上面的步骤生成 `.xcarchive` 文件。)
 
@@ -95,7 +95,52 @@ target 是用来干什么的呢，target 是用来生成 product 的，每一个
 1. 使用 xcodebuild 命令行打包出来的 ipa 体积比 XCode 打包出来的大很多。以我试验的项目为例，用 XCode 打包出来的不到 4M，用 xcodebuild 打包出来的有 14M 之多。
 1. 使用 xcodebuild 打包出来的 ipa，并没有关联到正确的 Provisioning Profile，这导致下载后无法在手机上安装，而 XCode 打包出来的 ipa 是可以安装的。
 
-有待进一步研究。
+进一步的研究：
+
+做 iOS 开发的同事帮忙写了一个可以在他 mac 上工作的打包脚本 (以项目名为 MyBook 为例)：
+
+    #!/usr/bin/env sh
+
+    xcodebuild clean archive -archivePath build/MyBook -project MyBook.xcodeproj -scheme MyBook
+    xcodebuild -exportArchive -archivePath build/MyBook.xcarchive -exportPath build -exportOptionsPlist MyBook/archive.plist # -allowProvisioningUpdates
+
+最后的 `# -allowProvisioningUpdates` 第一次使用时要去掉注释符号 `#`，打开此选项，表示允许更新 provisioning。
+
+同时，创建了 MyBook/archive.plist 文件：
+
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>method</key>
+      <string>ad-hoc</string>
+      <key>uploadBitcode</key>
+      <string>true</string>
+      <key>uploadSymbols</key>
+      <string>true</string>
+    </dict>
+    </plist>
+
+但是这个脚本在我 mac 上依然无法正常工作，前面的步骤都 OK，到最后一步失败了 (具体错误忘记截图了)。问题可能是出在 archive.plist 文件上。用 XCode 打包时，也会生也一个 archive.plist 文件，于是我把这个由 XCode 生成的 archive.plist copy 过来，覆盖上面的 archive.plist (teamID 用 `**` 替代了实际值)：
+
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>compileBitcode</key>
+      <false/>
+      <key>method</key>
+      <string>ad-hoc</string>
+      <key>signingStyle</key>
+      <string>automatic</string>
+      <key>stripSwiftSymbols</key>
+      <true/>
+      <key>teamID</key>
+      <string>***</string>
+      <key>thinning</key>
+      <string>&lt;none&gt;</string>
+    </dict>
+    </plist>
+
+尝试后仍然失败，从网上搜索，找到一个网页说把 compileBitcode 改成 true 后可以成功，尝试后果然 OK，打包后的 ipa 和 XCode 打包出来的体积一致，手机上也能安装。
 
 ## certificates, identifiers, devices, provisioning profiles
 
