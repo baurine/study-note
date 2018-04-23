@@ -2,6 +2,10 @@
 
 该文档只针对 Mac 平台。
 
+## Resources
+
+- [VS Code can do that?!](https://vscodecandothat.com/)
+
 ## 1. 常用操作
 
 命令：(与 Sublime 的操作几乎相同)
