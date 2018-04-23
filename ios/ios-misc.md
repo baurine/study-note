@@ -120,7 +120,16 @@ target 是用来干什么的呢，target 是用来生成 product 的，每一个
     </dict>
     </plist>
 
-但是这个脚本在我 mac 上依然无法正常工作，前面的步骤都 OK，到最后一步失败了 (具体错误忘记截图了)。问题可能是出在 archive.plist 文件上。用 XCode 打包时，也会生也一个 archive.plist 文件，于是我把这个由 XCode 生成的 archive.plist copy 过来，覆盖上面的 archive.plist (teamID 用 `**` 替代了实际值)：
+但是这个脚本在我 mac 上依然无法正常工作，前面的步骤都 OK，到最后一步失败了，错误原因：
+
+    xcodebuild[4942:189986] [MT] IDEDistribution: Step failed: <IDEDistributionPackagingStep: 0x7f977534a650>: Error Domain=NSCocoaErrorDomain Code=3840 "No value." UserInfo={NSDebugDescription=No value., NSFilePath=/var/folders/z8/5v062h992zn00nkcrzj6pqx80000gn/T/ipatool-json-filepath-M4gZaG}
+    error: exportArchive: The data couldn’t be read because it isn’t in the correct format.
+
+    Error Domain=NSCocoaErrorDomain Code=3840 "No value." UserInfo={NSDebugDescription=No value., NSFilePath=/var/folders/z8/5v062h992zn00nkcrzj6pqx80000gn/T/ipatool-json-filepath-M4gZaG}
+
+    ** EXPORT FAILED **
+
+问题可能是出在 archive.plist 文件上。用 XCode 打包时，也会生也一个 archive.plist 文件，于是我把这个由 XCode 生成的 archive.plist copy 过来，覆盖上面的 archive.plist (teamID 用 `**` 替代了实际值)：
 
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
     <plist version="1.0">
@@ -141,6 +150,12 @@ target 是用来干什么的呢，target 是用来生成 product 的，每一个
     </plist>
 
 尝试后仍然失败，从网上搜索，找到一个网页说把 compileBitcode 改成 true 后可以成功，尝试后果然 OK，打包后的 ipa 和 XCode 打包出来的体积一致，手机上也能安装。
+
+相关链接：
+
+- [AutoPacking-iOS](https://github.com/stackhou/AutoPacking-iOS)
+- [Error Domain=NSCocoaErrorDomain Code=3840](http://wv1124.iteye.com/blog/2404187)
+- [IOS：使用 shell 命令打包并上传 Itunes](https://www.jianshu.com/p/e0dd3fd7e6cb)
 
 ## certificates, identifiers, devices, provisioning profiles
 
