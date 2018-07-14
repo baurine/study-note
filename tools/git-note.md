@@ -105,13 +105,14 @@ Delete the local useless branch:
 
 ### Git log
 
-[2.3 Git 基础 - 查看提交历史](https://git-scm.com/book/zh/v1/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2)
-
     $ git log --color --graph --abbrev-commit --pretty=oneline
     $ git log --color --graph --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
     $ git log -p // 显示 diff
     $ git log -p filename // 仅显示某个文件的修改历史
     $ git blame filename // 查看文件的每一行是哪个提交最后修改的
+
+- [2.3 Git 基础 - 查看提交历史](https://git-scm.com/book/zh/v1/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2)
+- [git log – the Good Parts](https://zwischenzugs.com/2018/03/26/git-log-the-good-parts)
 
 ### Git remote
 
@@ -312,6 +313,10 @@ The alias configuration stores in `~/.gitconfig`:
     $ git clone ./a_git_repo.git
 
 将会生成 `./a_git_repo` 目录。
+
+最近得知了一个新的命令 `git bundle`，貌似有相同的作用。
+
+- [git bundle](https://dev.to/gabeguz/git-bundle-2l5o)
 
 ### Others
 
