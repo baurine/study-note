@@ -335,6 +335,17 @@ Clean a local repo:
 - `-x`: include files ingored by .gitignore
 - `-n`: only list but not really do
 
+[Merge two git repositories](https://stackoverflow.com/a/10548919/2998877)
+
+    # merge project-a to project-b
+    cd path/to/project-b
+    git remote add project-a path/to/project-a
+    git fetch project-a
+    git merge --allow-unrelated-histories project-a/master # or whichever branch you want to merge
+    git remote remove project-a
+
+为了避免合并时产生冲突，在合并前需要对 project-a 进行目录上的一些调整，一般情况下这种合并，我们是希望将 project-a 放到 project-b 的某个单独目录下，比如这个目录名叫 demo-a，那么合并前，在 project-a 的根目录下，新建 demo-a 目录，把其它所有文件放到此目录下，然后提交，再进行合并就没问题了。
+
 ## Commit Message
 
 1. [Commit message 和 Change log 编写指南](http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html)
