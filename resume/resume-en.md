@@ -4,7 +4,7 @@
 
 1. My Blog - <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
-1. StackOverflow (score: 2081) - <http://stackoverflow.com/users/2998877/spark-bao>
+1. StackOverflow (score: 2113) - <http://stackoverflow.com/users/2998877/spark-bao>
 1. Study Notes Overview - <https://baurine.gitbooks.io/study-note/>
 
 ## EDUCATION
@@ -44,7 +44,7 @@
 
 1. Understand prototype chain, grasp ES6 grammar, arrow function, use TypeScript
 1. Grasp Promise/Generator/Async usage  ([Link](https://github.com/baurine/js-study))
-1. Understand React and Redux and developed multiple projects by it
+1. Understand React and Redux (includes redux-thunk/redux-saga/dva) and developed multiple projects by it
 1. Developed cross-platform mobile apps by React Native
 1. Implemented multiple Chrome and VS Code extensions
 1. Enable config Webpack
@@ -55,7 +55,6 @@
 1. Read books *Ruby on Rails Tutorial*, *Aigle Web Development*, *Metaprogramming Ruby*, understand Ruby object model ([Link](https://github.com/baurine/rails-study))
 1. Understand GraphQL thinking, implemented GraphQL API in rails ([Link](https://github.com/baurine/graphql-study))
 1. Can use PostgreSQL and its full-text search
-1. Can use Node & Express
 
 ### Design
 
@@ -77,12 +76,7 @@
 1. Experiment Helper (iOS/Android/ReactNative)
    - An APP to help doctors manage patients, patients contact doctors. Has features about manage schedule, manage contacts, manage files, notification as well
    - Developed iOS/Android simultaneously by React Native
-   - Managed the data and state by Redux
-
-1. Airpocalypse (Android/Java)
-   - A concise and beautiful design APP for weather
-   - Developed by MVP + DataBinding
-   - Abstract MultiTypeAdapter, SimplePullRefreshLayout, SwipeBackView, PermissionUtil 4 independent Android libraries
+   - Managed the data and state by Redux / redux-thunk
 
 1. Podknife (Web/Rails/React)
    - A website about podcasts, support search podcasts, favourite, comment, rate podcasts/episodes, play episodes
@@ -90,6 +84,10 @@
    - Implemented the non-interrupted players by Rails turbolinks in the non-SPA website when switching pages
    - Render view by React, do SSR to support SEO by react-rails ([Link](https://github.com/baurine/react-in-rails-practice))
    - Implemented search by PostgreSQL full-text search
+
+1. Koba (Web/Rails/React)
+   - A internal social network platform
+   - Frontend and backend divided, the backend is implemented by Rails to supply API, the frontend is implemented by TypeScript + React + dva (redux + redux-saga) + Bulma
 
 1. MeShare (Library/C++)
    - An APP to monitor and control the smart camera remotely

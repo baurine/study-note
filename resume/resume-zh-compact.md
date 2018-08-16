@@ -4,7 +4,7 @@
 
 1. 个人博客 - <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
-1. StackOverflow (当前得分 2081) - <http://stackoverflow.com/users/2998877/spark-bao>
+1. StackOverflow (当前得分 2113) - <http://stackoverflow.com/users/2998877/spark-bao>
 1. Study Notes Overview - <https://baurine.gitbooks.io/study-note/>
 
 ## 教育背景
@@ -46,8 +46,7 @@
 
 1. 理解原型链，掌握 ES6 语法，箭头函数等特性，使用 TypeScript。
 1. 掌握 Promise / Generator / Async 的使用 ([链接](https://github.com/baurine/js-study))。
-1. 理解 React 思想，使用 React 开发过多个项目。
-1. 理解 Redux 思想以及 Middleware，Thunk 的使用，参与作者教学视频的中文翻译 ([链接](https://github.com/Mr-Wiredancer/getting-started-with-redux))。
+1. 理解 React & Redux 思想，使用 React / Redux / redux-thunk / redux-saga / dva 开发多个项目。参与 Redux 作者教学视频的中文翻译 ([链接](https://github.com/Mr-Wiredancer/getting-started-with-redux))。
 1. 使用 React Native 开发跨平台应用。
 1. 写过多个 Chrome 扩展和 VS Code 扩展。
 1. 会配置 Webpack。
@@ -57,7 +56,6 @@
 1. 使用 Rails 开发网站和 API，完整阅读过《Ruby on Rails Tutorial》、《Agile Web Developement》、《Metaprogramming Ruby》，理解 Ruby 对象模型 ([链接](https://github.com/baurine/rails-study))。
 1. 理解 GraphQL 思想，并在 Rails 中实现 GraphQL API ([链接](https://github.com/baurine/graphql-study))。
 1. 会使用 PostgreSQL 及其全文搜索功能。
-1. 会使用 Node & Express。
 
 ### 设计
 
@@ -78,17 +76,16 @@
 1. 试验助手 (iOS/Android/ReactNative)
    - 帮助医生管理病人，病人联系医生的 APP，具备日程管理，联系人管理，文件管理，日程通知等功能。
    - 使用 React Native 同时开发 iOS 和 Android 版本。
-   - 使用 Redux 管理数据。
-1. Airpocalypse (Android/Java)
-   - 一款简洁的天气应用。
-   - MVP + DataBinding。
-   - 抽取出 MultiTypeAdapter，SimplePullRefreshLayout，SwipeBackView，PermissionUtil 4 个单独的库。
+   - 使用 Redux 管理数据，用 redux-thunk 实现处理异步 action。
 1. PodKnife (Web/Rails/React)
    - 一个 Podcast 的聚合检索网站，支持对 Podcast 进行搜索，对 Podcast 进行在线播放，播放列表管理，对 Podcast/Episode 进行收藏，评论，订阅等操作。
    - 使用 Rails + Webpacker + react-rails 开发。
    - 借助 Rails 的 turbolinks 功能，实现了在非 SPA 网站上页面切换时音乐仍然可以不间断地播放。
    - 使用 React 渲染 view，并使用 react-rails 对 React 做服务端渲染以支持 SEO。([链接](http://baurine.github.io/2018/04/22/reac-in-rails-practice.html))
    - 使用 PostgreSQL 的全文搜索功能进行搜索。
+1. Koba (Web/Rails/React)
+   - 一个内部社交平台
+   - 前后端分离，后端由 Rails 实现 API，前端用 TypeScript + React + dva (redux + redux-saga) + Bulma 实现
 1. MeShare (Library/C++)
    - 一个智能摄像头的 APP 端，查看监控状况及对摄像头进行远程控制。
    - 作为核心开发人员，使用 C++ 为上层的 Android / iOS / Windows 应用编写底层核心功能库，用于和智能设备进行网络通信并进行各种控制。贡献了超过 70% 的 代码。
