@@ -629,3 +629,24 @@ Join 的分类：
 
 1. [CREATE EXTENSION](https://www.postgresql.org/docs/9.1/static/sql-createextension.html)
 1. [Additional Supplied Modules](https://www.postgresql.org/docs/9.1/static/contrib.html)
+
+### Show database table size
+
+用 `pg_total_relation_size(table_name)` 获取所占磁盘空间大小，`pg_size_pretty(size)` 用来转换 size。
+
+    # \c test_db;
+    # select pg_size_pretty(pg_total_relation_size("movies"));
+    ----------------
+    1285 MB
+    (1 row)
+
+还有一些其它方法：
+
+    SELECT pg_size_pretty(pg_database_size('db_employee'));
+    SELECT pg_size_pretty(pg_relation_size('Employee_table'));  // table size without indexes
+    SELECT pg_size_pretty(pg_indexes_size('index_empid'));
+
+参考：
+
+- [How to find size of Database and Table in PostgreSQL](https://www.dbrnd.com/2015/05/how-to-find-size-of-database-and-table-in-postgresql/)
+- [PostgreSQL: How to show table sizes](https://makandracards.com/makandra/52141-postgresql-how-to-show-table-sizes)
