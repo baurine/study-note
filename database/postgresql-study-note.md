@@ -576,6 +576,14 @@ Join 的分类：
 
     SELECT to_tsvector('fat cats ate fat rats') @@ to_tsquery('fat & rat');
 
+`to_tsvector()` 用来将目标字符串生成 vector，生成的 vector 中有各个 word 出现的位置，出现的次数等信息，而 `to_tsquery` 用来将搜索关键字生成真正用于搜索的 word 词组，它会去掉 '&' 'and' 'the' 'a' 等太常见的字符。
+
+全文搜索如果不建索引，会比 'ILIKE' 的模糊查找还慢，可以用 GIN 建索引。
+
+相关资料：
+
+- [Fast Full-Text Search in PostgreSQL](https://austingwalters.com/fast-full-text-search-in-postgresql/)
+
 ### Having and where
 
 [*Postgres contains in array function*](<https://coderwall.com/p/lkgvdq/postgres-contains-in-array-function>)
