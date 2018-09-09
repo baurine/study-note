@@ -33,6 +33,7 @@
 ## Learn Technology
 
 - [YouTube](https://www.youtube.com/) - 很多技术 channel
+- [dev.tube](https://dev.tube/) - 从 YouTube 爬取的与技术相关的 channel
 - [掘金](https://juejin.im/)
 - [love2.io](https://love2.io/)
 - [rails365](https://www.rails365.net/books)
@@ -68,14 +69,26 @@
 
 ## Design
 
-- [配色](http://www.colorhunt.co/)
 - [UpLabs](https://www.uplabs.com)
 - [CollectUI](http://collectui.com/)
+
+### 配色
+
+- [colorhunt](http://www.colorhunt.co/)
+- [coolors](https://coolors.co/)
+- [colorsupplyyy](http://colorsupplyyy.com/app/)
+- [color search](https://picular.co/)
+- [background](https://coolbackgrounds.io/)
+
+### 原型工具
+
+- [AtomFramer](http://www.atomframer.com/)
 
 ## Free Pictures
 
 - [Free Photos](https://freephotos.cc/zh) - 同时提供 API
 - [Unsplash](https://unsplash.com/) - 提供 API
+- [Pixabay](https://pixabay.com/) - Pixabay · 惊人的免费图片
 
 ## eBooks
 
@@ -88,3 +101,7 @@
 ## Entertainment
 
 - [MoivesTea](http://www.moviestea.com/)
+
+## Remote work
+
+- [Eastvox](http://eastvox.com/)
