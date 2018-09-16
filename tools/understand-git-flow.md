@@ -118,3 +118,21 @@ staging 和 production 上紧急的 bug 依然直接在 staging 和 master 分�
 ![](../art/git-flow-branches-1.png)
 
 ![](../art/git-flow-branches-2.png)
+
+### 实际情况 2
+
+update in 2018/9/15
+
+管理平台从 Redmine 整体迁移到 Gitlab 后，我们新的工作流程是这样的：
+
+1. 在 GitLab 上为需要做的 issue 或要修改的 bug 建立 issue
+1. 当开始做某个 issue 上，在 issue 详情页上点击 "Create merge request" 的按钮，自动创建基于最新 develop 分支的 issue 分支。issue 如果是 "#100 - Change table name"，则生成的 branch name 为 "100-change-table-name"
+1. 在本地，`git fetch origin` 拉取远程最新代码，会提示远程分支 "100-change-table-name" 已创建，使用 "git checkout 100-change-table-name" 切换到此分支，修改代码，提交
+1. 此分支工作完成后，如果远程 develop 分支有变化，则先 rebase，使用 `git fetch origin && git rebase origin/develop`，然后推送到远程 `git push origin 100-change-table-name -f`
+1. 为此分支提交 merge request
+1. reviewer 合并此分支，并删除此远程分支
+1. deploy 到 staging 给 PM 检查 `git fetch origin && git branch -f staging origin/develop && git push origin staging -f`
+1. 为此 issue log spent time
+1. 做下一个 issue
+
+当要 deploy 到 production 时，将 staging 分支 merge 到 production。
