@@ -68,6 +68,8 @@
     * [Nginx Note](dev-ops/nginx-note.md)
 * BlockChain
     * [基本原理](blockchain/blockchain-basic-note.md)
+* 读书笔记
+    * [码农翻身](books/manong-fanshen.md)
 
 ## 其它相关的项目和笔记
 
