@@ -29,6 +29,7 @@
 - [Dribbble API v2](https://developer.dribbble.com/v2/)
 - [News API](https://newsapi.org/) - Access worldwide news with code
 - [TVMaze API](http://www.tvmaze.com/api) - Search TV shows information
+- [The Star Wars API](https://swapi.co/) - Star Wars Planets, Spaceships, Vehicles, People, Films and Species
 
 ## Learn Technology
 
