@@ -22,7 +22,6 @@
         * [一些总结](android/custom-view/summary.md)
     * [Custom Gson TypeAdapter](android/gson-adapter.md)
     * [Gitlab CI For Android App Project](android/gitlab-ci-for-android-app-project.md)
-    * [Kotlin](android/kotlin/kotlin-note-1.md)
 * iOS
     * [Objective-C](ios/objective-c.md)
     * [iOS Misc](ios/ios-misc.md)
