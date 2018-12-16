@@ -14,6 +14,7 @@
 - [如何让前端更安全? - XSS 攻击和防御详解](https://juejin.im/entry/58a598dc570c35006b5cd6b4)
 - [XSS 攻击及防御](http://blog.csdn.net/ghsau/article/details/17027893)
 - [Web 安全：CSRF 与 XSS](https://blog.csdn.net/victor_ll/article/details/79477655)
+- [Everything you should know about certificates and PKI but are too afraid to ask](https://smallstep.com/blog/everything-pki.html)
 
 ## cookie，同源策略，CORS
 
@@ -168,3 +169,7 @@ SQL 注入
 1. 如果要支持富文本输出，又要避免 XSS 风险，就用 sanitize 方法，直接把危险的标签及其内容删除。
 
 当然，上面说是只是很简单的例子，需求是多变的，比如说，爬虫，我们去爬取别人网站上的一段 HTML 文本，里面有各种标签，比如 `<h1>`, `<p>`，但是我们只想要其中的 text，不想要这些标签，那就需要更强大的 sanitizer，过滤所有标签，保留标签中的内容，有第三方库实现的更强大的 sanitizer，Rails 也提供了 `strip_tags` 及 `full_sanitizer` 等方法和对象来实现更灵活的过滤。
+
+## [Everything you should know about certificates and PKI but are too afraid to ask](https://smallstep.com/blog/everything-pki.html)
+
+// TODO

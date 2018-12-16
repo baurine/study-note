@@ -3,6 +3,7 @@
 ## References
 
 - [MySQL 教程](http://www.runoob.com/mysql/mysql-tutorial.html)
+- [ByteScout SQL Trainer](https://app.bytescout.com/sql-trainer/index.html)
 
 ## Note 1
 
