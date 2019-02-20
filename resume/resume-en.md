@@ -2,9 +2,9 @@
 
 [PhoneNumber] | [Email]
 
-1. My Blog - <http://baurine.github.io/>
+1. My Blog - <https://baurine.netlify.com/>, <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
-1. StackOverflow (score: 2113) - <http://stackoverflow.com/users/2998877/spark-bao>
+1. StackOverflow (score: 2508) - <http://stackoverflow.com/users/2998877/spark-bao>
 1. Study Notes Overview - <https://baurine.gitbooks.io/study-note/>
 
 ## EDUCATION
@@ -21,11 +21,11 @@
 
 ### Basic
 
-1. Read books *The C Programming Language*, *C++ Primer*, *Effective C++*, have confidence in using the pointer, understand OOP, template thinkings
+1. Read books *The C Programming Language*, *C++ Primer*, *Effective C++*, grasp using the pointer, understand OOP, template thinkings
 1. Read books about data structure, implemented kinds of data structures by C/C++, not bad at the algorithm
 1. Read books about design pattern, can understand and use common design patterns, understand **SOLID** principles
-1. Understand HTTP protocol, can design and use RESTful API
-1. Understand functional programming, read some tutorials about Elixir and Clojure simply
+1. Understand HTTP protocol, can design and use RESTful API ([Link](https://baurine.gitbooks.io/study-note/web/web-misc.html))
+1. Understand functional programming, read some tutorials about Elixir and Clojure simply ([Link](https://baurine.gitbooks.io/study-note/web/functional-programming-note.html))
 
 ### Android
 
@@ -46,7 +46,7 @@
 1. Grasp Promise/Generator/Async usage  ([Link](https://github.com/baurine/js-study))
 1. Understand React and Redux (includes redux-thunk/redux-saga/dva) and developed multiple projects by it
 1. Developed cross-platform mobile apps by React Native
-1. Implemented multiple Chrome and VS Code extensions
+1. Implemented multiple Chrome and VS Code extensions (see below `PERSONAL PROJECTS` item)
 1. Enable config Webpack
 
 ### Backend
@@ -81,13 +81,16 @@
 1. Podknife (Web/Rails/React)
    - A website about podcasts, support search podcasts, favourite, comment, rate podcasts/episodes, play episodes
    - Developed by Rails + Webpacker + react-rails
-   - Implemented the non-interrupted players by Rails turbolinks in the non-SPA website when switching pages
+   - Implemented the non-interrupted players by Rails turbolinks in the non-SPA website when switching pages ([Link](http://baurine.github.io/2018/10/02/uninterrupted-audio-player-turbolinks.html))
    - Render view by React, do SSR to support SEO by react-rails ([Link](https://github.com/baurine/react-in-rails-practice))
    - Implemented search by PostgreSQL full-text search
 
-1. Koba (Web/Rails/React)
-   - A internal social network platform
-   - Frontend and backend divided, the backend is implemented by Rails to supply API, the frontend is implemented by TypeScript + React + dva (redux + redux-saga) + Bulma
+1. Vox Music (Web/Rails/React)
+   - A music management system, control a location's all play devices play music at different time
+   - Frontend and backend divided, the backend is implemented by Rails to supply API, the frontend techs:
+     - TypeScript
+     - React / Dva (redux + redux-saga + react-router)
+     - Ant Design + CSS Modules
 
 1. MeShare (Library/C++)
    - An APP to monitor and control the smart camera remotely
@@ -108,7 +111,7 @@
 
 1. [QuickGitbook](https://github.com/baurine/quick-gitbook)
 
-   A website imitate [Sourcegraph](https://sourcegraph.com/github.com/baurine/quick-gitbook) to quickly read your Gitbook, just need to attach the Github repo link after `http://quickgitbook.com/`, then it will auto clone your repo and generate the static pages for you. An example: [Study Note](http://quickgitbook.com/baurine/study-note)
+   A website imitate [Sourcegraph](https://sourcegraph.com/github.com/baurine/quick-gitbook) to quickly read your Gitbook, just need to attach the Github repo link after `http://quickgitbook.com/`, then it will auto clone your repo and generate the static pages for you. An example: [Study Note](http://quickgitbook.com/baurine/study-note) (The VPS is expired so the service is offline now)
 
 1. [QuickGitbook Chrome Extension](https://github.com/baurine/quick-gitbook-chrome-extension)
 

@@ -2,9 +2,9 @@
 
 [手机号] | [邮箱]
 
-1. 个人博客 - <http://baurine.github.io/>
+1. 个人博客 - <https://baurine.netlify.com/>, <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
-1. StackOverflow (当前得分 2113) - <http://stackoverflow.com/users/2998877/spark-bao>
+1. StackOverflow (当前得分 2508) - <http://stackoverflow.com/users/2998877/spark-bao>
 1. Study Notes Overview - <https://baurine.gitbooks.io/study-note/>
 
 ## 教育背景
@@ -23,11 +23,11 @@
 
 ### 基础
 
-1. 仔细阅读过《C 程序设计语言》，《C++ Primer》和《Effective C++》，对指针的使用很有自信，理解面向对象、模板编程的思想。
+1. 仔细阅读过《C 程序设计语言》，《C++ Primer》和《Effective C++》，掌握指针的使用，理解面向对象、模板编程的思想。
 1. 仔细阅读过《大话数据结构》，用 C/C++ 实现过各种数据结构，算法尚可。
 1. 仔细阅读过《大话设计模式》，能理解和使用常用的设计模式，理解 SOLID 原则。
-1. 理解 HTTP 网络协议及 RESTful API 的使用和设计。
-1. 理解函数式编程，简单阅读过 Elixir 和 Clojure 的教程。
+1. 理解 HTTP 网络协议及 RESTful API 的使用和设计 ([链接](https://baurine.gitbooks.io/study-note/web/web-misc.html))。
+1. 理解函数式编程，简单阅读过 Elixir 和 Clojure 的教程 ([链接](https://baurine.gitbooks.io/study-note/web/functional-programming-note.html))。
 
 ### Android
 
@@ -48,8 +48,9 @@
 1. 掌握 Promise / Generator / Async 的使用 ([链接](https://github.com/baurine/js-study))。
 1. 理解 React & Redux 思想，使用 React / Redux / redux-thunk / redux-saga / dva 开发多个项目。参与 Redux 作者教学视频的中文翻译 ([链接](https://github.com/Mr-Wiredancer/getting-started-with-redux))。
 1. 使用 React Native 开发跨平台应用。
-1. 写过多个 Chrome 扩展和 VS Code 扩展。
+1. 写过多个 Chrome 扩展和 VS Code 扩展 (见下文个人项目栏)。
 1. 会配置 Webpack。
+1. 略了解 Vue，简单学习过 ([链接](https://github.com/baurine/vue-study))。
 
 ### 后端
 
@@ -80,12 +81,15 @@
 1. PodKnife (Web/Rails/React)
    - 一个 Podcast 的聚合检索网站，支持对 Podcast 进行搜索，对 Podcast 进行在线播放，播放列表管理，对 Podcast/Episode 进行收藏，评论，订阅等操作。
    - 使用 Rails + Webpacker + react-rails 开发。
-   - 借助 Rails 的 turbolinks 功能，实现了在非 SPA 网站上页面切换时音乐仍然可以不间断地播放。
-   - 使用 React 渲染 view，并使用 react-rails 对 React 做服务端渲染以支持 SEO。([链接](http://baurine.github.io/2018/04/22/reac-in-rails-practice.html))
+   - 借助 Rails 的 turbolinks 功能，实现了在非 SPA 网站上页面切换时音乐仍然可以不间断地播放 ([链接](http://baurine.github.io/2018/10/02/uninterrupted-audio-player-turbolinks.html))。
+   - 使用 React 渲染 view，并使用 react-rails 对 React 做服务端渲染以支持 SEO ([链接](http://baurine.github.io/2018/04/22/reac-in-rails-practice.html))。
    - 使用 PostgreSQL 的全文搜索功能进行搜索。
-1. Koba (Web/Rails/React)
-   - 一个内部社交平台
-   - 前后端分离，后端由 Rails 实现 API，前端用 TypeScript + React + dva (redux + redux-saga) + Bulma 实现
+1. Vox Music (Web/Rails/React)
+   - 音乐管理后台，用来控制一个场所内所有播放设备在相应时间播放相应音乐。
+   - 前后端分离，后端由 Rails 实现 API，前端使用到的技术：
+     - TypeScript
+     - React / Dva (redux + redux-saga + react-router)
+     - Ant Design + CSS Modules
 1. MeShare (Library/C++)
    - 一个智能摄像头的 APP 端，查看监控状况及对摄像头进行远程控制。
    - 作为核心开发人员，使用 C++ 为上层的 Android / iOS / Windows 应用编写底层核心功能库，用于和智能设备进行网络通信并进行各种控制。贡献了超过 70% 的 代码。
@@ -105,7 +109,7 @@
 
 1. [QuickGitbook](https://github.com/baurine/quick-gitbook)
 
-   我用 Gitbook 的格式来管理我的笔记，并放在 GitHub 上，但我不想为了能够在线阅读，而把它们都导入到 Gitbook.com 网站上，所以写了这样一个简单的服务 (也是一个网站)，模仿 [Sourcegraph](https://sourcegraph.com/github.com/baurine/quick-gitbook)，在网站链接后面直接加上你的 GitHub repo 链接，它就会帮你自动把这个 repo clone 下来，并用 Gitbook 的工具编译成静态页面供你在线阅读。一个例子：[Study Note](http://quickgitbook.com/baurine/study-note)。
+   我用 Gitbook 的格式来管理我的笔记，并放在 GitHub 上，但我不想为了能够在线阅读，而把它们都导入到 Gitbook.com 网站上，所以写了这样一个简单的服务 (也是一个网站)，模仿 [Sourcegraph](https://sourcegraph.com/github.com/baurine/quick-gitbook)，在网站链接后面直接加上你的 GitHub repo 链接，它就会帮你自动把这个 repo clone 下来，并用 Gitbook 的工具编译成静态页面供你在线阅读。一个例子：[Study Note](http://quickgitbook.com/baurine/study-note)。(AWS EC2 到期未续费，目前暂不可用。)
 
 1. [QuickGitbook Chrome Extension](https://github.com/baurine/quick-gitbook-chrome-extension)
 
