@@ -4,7 +4,7 @@
 
 1. 个人博客 - <https://baurine.netlify.com/>, <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
-1. StackOverflow (当前得分 2508) - <http://stackoverflow.com/users/2998877/spark-bao>
+1. StackOverflow (当前得分 2518) - <http://stackoverflow.com/users/2998877/spark-bao>
 1. Study Notes Overview - <https://baurine.gitbooks.io/study-note/>
 
 ## 教育背景
@@ -25,7 +25,7 @@
 
 1. 仔细阅读过《C 程序设计语言》，《C++ Primer》和《Effective C++》，对指针的使用很有自信，理解面向对象、模板编程的思想。
 1. 仔细阅读过《大话数据结构》，用 C/C++ 实现过各种数据结构，算法尚可。
-1. 仔细阅读过《大话设计模式》，能理解和使用常用的设计模式，理解 SOLID 原则。
+1. 仔细阅读过《大话设计模式》，能理解和使用常用的设计模式，理解 **SOLID** 原则。
 1. 理解 HTTP 网络协议及 RESTful API 的使用和设计 ([链接](https://baurine.gitbooks.io/study-note/web/web-misc.html))。
 1. 理解函数式编程，简单阅读过 Elixir 和 Clojure 的教程 ([链接](https://baurine.gitbooks.io/study-note/web/functional-programming-note.html))。
 
@@ -46,7 +46,7 @@
 
 ### 前端
 
-1. 理解原型链，掌握 ES6 语法，箭头函数等特性，使用 TypeScript。
+1. 理解 JavaScript 原型链，掌握 ES6 语法，箭头函数等特性，使用 TypeScript。
 1. 掌握 Promise / Generator / Async 的使用 ([链接](https://github.com/baurine/js-study))。
 1. 理解 React & Redux 思想，使用 React / Redux / redux-thunk / redux-saga / dva 开发多个项目。参与 Redux 作者教学视频的中文翻译 ([链接](https://github.com/Mr-Wiredancer/getting-started-with-redux))。
 1. 使用 React Native 开发跨平台应用。
