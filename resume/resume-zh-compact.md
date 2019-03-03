@@ -23,7 +23,7 @@
 ### 基础
 
 1. 仔细阅读过《C 程序设计语言》，《C++ Primer》和《Effective C++》，掌握指针的使用，理解面向对象、模板编程的思想。
-1. 仔细阅读过《大话数据结构》，用 C/C++ 实现过各种数据结构，算法尚可。
+1. 仔细阅读过《大话数据结构》，用 C/C++ 实现过各种数据结构，算法尚可 ([链接](https://github.com/baurine/leetcode))。
 1. 仔细阅读过《大话设计模式》，能理解和使用常用的设计模式，理解 **SOLID** 原则。
 1. 理解 HTTP 网络协议及 RESTful API 的使用和设计 ([链接](https://baurine.gitbooks.io/study-note/web/web-misc.html))。
 1. 理解函数式编程，简单阅读过 Elixir 和 Clojure 的教程 ([链接](https://baurine.gitbooks.io/study-note/web/functional-programming-note.html))。
@@ -35,7 +35,7 @@
 1. 理解 React & Redux 思想，使用 React / Redux / redux-thunk / redux-saga / dva 开发多个项目。参与 Redux 作者教学视频的中文翻译 ([链接](https://github.com/Mr-Wiredancer/getting-started-with-redux))。
 1. 使用 React Native 开发跨平台应用。
 1. 写过多个 Chrome 扩展和 VS Code 扩展 (见下文个人项目栏)。
-1. 会配置 Webpack。
+1. 会配置 Webpack ([链接](https://github.com/baurine/js-study/blob/master/notes/webpack4-note.md))。
 1. 略了解 Vue，简单学习过 ([链接](https://github.com/baurine/vue-study))。
 
 ### 后端

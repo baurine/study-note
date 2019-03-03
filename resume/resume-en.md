@@ -21,7 +21,7 @@
 ### Basic
 
 1. Read books *The C Programming Language*, *C++ Primer*, *Effective C++*, grasp using the pointer, understand OOP, template thinkings
-1. Read books about data structure, implemented kinds of data structures by C/C++, not bad at the algorithm
+1. Read books about data structure, implemented kinds of data structures by C/C++, not bad at the algorithm ([Link](https://github.com/baurine/leetcode))
 1. Read books about design pattern, can understand and use common design patterns, understand **SOLID** principles
 1. Understand HTTP protocol, can design and use RESTful API ([Link](https://baurine.gitbooks.io/study-note/web/web-misc.html))
 1. Understand functional programming, read some tutorials about Elixir and Clojure simply ([Link](https://baurine.gitbooks.io/study-note/web/functional-programming-note.html))
@@ -33,7 +33,7 @@
 1. Understand React and Redux (includes redux-thunk/redux-saga/dva) and developed multiple projects by it
 1. Developed cross-platform mobile apps by React Native
 1. Implemented multiple Chrome and VS Code extensions (see below `PERSONAL PROJECTS` item)
-1. Enable config Webpack
+1. Enable config Webpack ([Link](https://github.com/baurine/js-study/blob/master/notes/webpack4-note.md))
 1. Learned Vue ([Link](https://github.com/baurine/vue-study))
 
 ### Backend
