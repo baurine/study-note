@@ -1,6 +1,6 @@
 # [Name]
 
-[PhoneNumber] | [Email]
+[PhoneNumber] | [Email] | [City]
 
 1. My Blog - <https://baurine.netlify.com/>, <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
@@ -25,11 +25,12 @@
 1. Read books about design pattern, can understand and use common design patterns, understand **SOLID** principles
 1. Understand HTTP protocol, can design and use RESTful API ([Link](https://baurine.gitbooks.io/study-note/web/web-misc.html))
 1. Understand functional programming, read some tutorials about Elixir and Clojure simply ([Link](https://baurine.gitbooks.io/study-note/web/functional-programming-note.html))
+1. Understand ReactiveX programming thinking, Used RxJava/RxSwift/RxJS simply ([Link](https://github.com/baurine/rxjava-study/blob/master/note/rxjava-1.x-note.md))
 
 ### Frontend
 
-1. Understand JavaScript prototype chain, grasp ES6 grammar, arrow function, use TypeScript
-1. Grasp Promise/Generator/Async usage  ([Link](https://github.com/baurine/js-study))
+1. Understand JavaScript prototype chain ([Link](https://github.com/baurine/js-study/blob/master/notes/prototype.md)), grasp ES6 grammar, arrow function, use TypeScript ([Link](https://github.com/baurine/js-study/blob/master/notes/typescript-note.md))
+1. Grasp Promise ([Link](https://github.com/baurine/js-study/blob/master/notes/promise.md)), Generator/Async usage ([Link](https://github.com/baurine/js-study/blob/master/notes/generator.md))
 1. Understand React and Redux (includes redux-thunk/redux-saga/dva) and developed multiple projects by it
 1. Developed cross-platform mobile apps by React Native
 1. Implemented multiple Chrome and VS Code extensions (see below `PERSONAL PROJECTS` item)
@@ -63,7 +64,7 @@
 ### Others
 
 1. Good at Git, can use `git reflog` to save some misoperations, use `git rebase -i` to modify the commit history, familiar Gitlfow, Git hooks, implemented a ruby gem to manage the Git hooks ([Link](https://github.com/baurine/githook))
-1. Can use Docker & GitLab CI & CD
+1. Can use Docker ([Link](https://github.com/baurine/study-note/blob/master/dev-ops/docker-note.md)) to do GitLab CI & CD ([Link](https://github.com/baurine/study-note/blob/master/dev-ops/gitlab-ci-note.md))
 1. Use vim in common life
 
 ## WORK PROJECTS
@@ -77,7 +78,7 @@
 
 1. Vox Music (Web/Rails/React)
    - A music management system, control a location's all play devices play music at different time
-   - Frontend and backend divided, the backend is implemented by Rails to supply API, the frontend techs:
+   - Frontend and backend divided, the backend is implemented by Rails to supply API, the frontend techs ([Recap](https://cf-vox-recap.netlify.com/#0)):
      - TypeScript
      - React / Dva (redux + redux-saga + react-router)
      - Ant Design + CSS Modules

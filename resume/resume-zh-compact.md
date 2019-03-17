@@ -1,6 +1,6 @@
 # [姓名]
 
-[手机号] | [邮箱]
+[手机号] | [邮箱] | [城市]
 
 1. 个人博客 - <https://baurine.netlify.com/>, <http://baurine.github.io/>
 1. GitHub - <https://github.com/baurine>
@@ -27,11 +27,12 @@
 1. 仔细阅读过《大话设计模式》，能理解和使用常用的设计模式，理解 **SOLID** 原则。
 1. 理解 HTTP 网络协议及 RESTful API 的使用和设计 ([链接](https://baurine.gitbooks.io/study-note/web/web-misc.html))。
 1. 理解函数式编程，简单阅读过 Elixir 和 Clojure 的教程 ([链接](https://baurine.gitbooks.io/study-note/web/functional-programming-note.html))。
+1. 理解 ReactiveX 编程思想，简单使用过 RxJava / RxSwift / RxJS ([链接](https://github.com/baurine/rxjava-study/blob/master/note/rxjava-1.x-note.md))。
 
 ### 前端
 
-1. 理解 JavaScript 原型链，掌握 ES6 语法，箭头函数等特性，使用 TypeScript。
-1. 掌握 Promise / Generator / Async 的使用 ([链接](https://github.com/baurine/js-study))。
+1. 理解 JavaScript 原型链 ([链接](https://github.com/baurine/js-study/blob/master/notes/prototype.md))，掌握 ES6 语法，箭头函数等特性，使用 TypeScript ([链接](https://github.com/baurine/js-study/blob/master/notes/typescript-note.md))。
+1. 掌握 Promise ([链接](https://github.com/baurine/js-study/blob/master/notes/promise.md)) / Generator / Async ([链接](https://github.com/baurine/js-study/blob/master/notes/generator.md)) 的使用。
 1. 理解 React & Redux 思想，使用 React / Redux / redux-thunk / redux-saga / dva 开发多个项目。参与 Redux 作者教学视频的中文翻译 ([链接](https://github.com/Mr-Wiredancer/getting-started-with-redux))。
 1. 使用 React Native 开发跨平台应用。
 1. 写过多个 Chrome 扩展和 VS Code 扩展 (见下文个人项目栏)。
@@ -64,7 +65,7 @@
 ### 其它
 
 1. 熟练 Git 操作，会使用 `git reflog` 拯救误操作，`git rebase -i` 修改历史，熟悉 Gitflow, Git hooks，写了个管理 Git hooks 的 gem ([链接](https://github.com/baurine/githook))。
-1. 使用 Docker & GitLab 进行持续集成。
+1. 使用 Docker ([链接](https://github.com/baurine/study-note/blob/master/dev-ops/docker-note.md)) & GitLab 进行持续集成 ([链接](https://github.com/baurine/study-note/blob/master/dev-ops/gitlab-ci-note.md))。
 1. 日常 Vim。
 
 ## 项目经验
@@ -77,7 +78,7 @@
    - 使用 PostgreSQL 的全文搜索功能进行搜索。
 1. Vox Music (Web/Rails/React)
    - 音乐管理后台，用来控制一个场所内所有播放设备在相应时间播放相应音乐。
-   - 前后端分离，后端由 Rails 实现 API，前端使用到的技术：
+   - 前后端分离，后端由 Rails 实现 API，前端使用到的技术 ([Recap](https://cf-vox-recap.netlify.com/#0))：
      - TypeScript
      - React / Dva (redux + redux-saga + react-router)
      - Ant Design + CSS Modules
