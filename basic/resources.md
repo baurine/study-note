@@ -30,11 +30,13 @@
 - [News API](https://newsapi.org/) - Access worldwide news with code
 - [TVMaze API](http://www.tvmaze.com/api) - Search TV shows information
 - [The Star Wars API](https://swapi.co/) - Star Wars Planets, Spaceships, Vehicles, People, Films and Species
+- [Public APIs](https://public-apis.xyz/)
 
 ## Learn Technology
 
 - [YouTube](https://www.youtube.com/) - 很多技术 channel
 - [dev.tube](https://dev.tube/) - 从 YouTube 爬取的与技术相关的 channel
+- [dev.to](https://dev.to/)
 - [掘金](https://juejin.im/)
 - [love2.io](https://love2.io/)
 - [rails365](https://www.rails365.net/books)
@@ -89,7 +91,7 @@
 
 - [Free Photos](https://freephotos.cc/zh) - 同时提供 API
 - [Unsplash](https://unsplash.com/) - 提供 API
-- [Pixabay](https://pixabay.com/) - Pixabay · 惊人的免费图片
+- [Pixabay](https://pixabay.com/) - Pixabay 惊人的免费图片
 
 ## eBooks
 
@@ -98,6 +100,7 @@
 - [ScanLibs](http://scanlibs.com/)
 - [我的小书屋](http://mebook.cc/)
 - [IT eBooks](http://www.it-ebooks.info/)
+- [All IT eBooks](http://www.allitebooks.com/)
 
 ## Entertainment
 
