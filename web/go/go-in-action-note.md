@@ -521,7 +521,7 @@ func main() {
 一些技巧，可以在公开的方法中返回非公开的变量。
 
 ```go
-//counters/counter.go
+// counters/counter.go
 package counters
 
 type alertCounter int

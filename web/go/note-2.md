@@ -13,10 +13,11 @@ Note for [Go 指南](https://tour.go-zh.org/welcome/1)
 - 方法和接口
 - 并发
 
-其实参考：
+其它参考：
 
-- [Go Web 编程](https://github.com/astaxie/build-web-application-with-golang) [GitBook](https://wizardforcel.gitbooks.io/build-web-application-with-golang/content/)
+- [Go Web 编程](https://github.com/astaxie/build-web-application-with-golang)
 - [Go 入门指南](https://github.com/Unknwon/the-way-to-go_ZH_CN) [极客学院](http://wiki.jikexueyuan.com/project/the-way-to-go/)
+- [TutorialEdge Golang](https://tutorialedge.net/course/golang/)
 
 ## 基础
 
