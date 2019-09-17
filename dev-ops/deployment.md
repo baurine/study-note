@@ -129,9 +129,3 @@ capistrano 的一些命令：
     $ cap production deploy:restart  # 仅重启服务器
 
 追查错误，多看 log，包括 nginx 的 log，puma 的 log，rails app 自己的 log，一般这些 log 都会配置成统一放到 rails app 根目录下的 log 目录中。
-
-#### TODO
-
-1. 注册并绑定域名 - 完成，域名是 quickgitbook.com
-1. Docker 化
-1. 进一步学习 Nginx，Puma & Capistrano

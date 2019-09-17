@@ -51,6 +51,7 @@
     * [Deployment](dev-ops/deployment.md)
     * [Register Domain](dev-ops/register-domain.md)
     * [Nginx Note](dev-ops/nginx-note.md)
+    * [Prometheus & Grafana](dev-ops/prometheus-grafana.md)
 * BlockChain
     * [基本原理](blockchain/blockchain-basic-note.md)
 * 读书笔记
