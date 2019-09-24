@@ -18,10 +18,14 @@ Note for [MySQL 教程](http://www.runoob.com/mysql/mysql-tutorial.html)
 启动服务端：
 
     $ mysql.server start
+    // 或者
+    $ brew services start mysql
 
 停止服务端：
 
     $ mysql.server stop
+    // 或者
+    $ brew services stop mysql
 
 使用客户端连接：
 

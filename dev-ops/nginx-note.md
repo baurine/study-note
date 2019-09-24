@@ -6,6 +6,7 @@
 - [Official Beginner’s Guide](http://nginx.org/en/docs/beginners_guide.html)
 - [Nginx 入门指南](http://wiki.jikexueyuan.com/project/nginx/)
 - [Nginx 配置入门](http://www.nginx.cn/591.html)
+- [Nginx 简易教程](https://www.cnblogs.com/jingmoxukong/p/5945200.html)
 
 ## Note
 
