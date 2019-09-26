@@ -41,7 +41,7 @@
 
 Code tree for Github, super useful! Github 的完美搭档。
 
-但是新出的 [Sourcegraph](https://about.sourcegraph.com/) 比 Octotree 更强大，可用来替代 Octotree。
+另一个选择是 [Sourcegraph](https://about.sourcegraph.com/)。
 
 ## mac 开发环境配置
 

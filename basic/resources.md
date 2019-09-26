@@ -38,7 +38,6 @@
 - [dev.tube](https://dev.tube/) - 从 YouTube 爬取的与技术相关的 channel
 - [dev.to](https://dev.to/)
 - [掘金](https://juejin.im/)
-- [love2.io](https://love2.io/)
 - [rails365](https://www.rails365.net/books)
 - [菜鸟教程](http://www.runoob.com/)
 - [W3C School 教程](https://www.w3cschool.cn/tutorial)
@@ -52,7 +51,6 @@
 
 ### Android
 
-- [泡在网上的日子](http://www.jcodecraeer.com/)
 - [HenCoder](http://hencoder.com/)
 - [androidHive](https://www.androidhive.info/)
 
@@ -62,13 +60,6 @@
 - [小波说雨燕](http://xiaoboswift.com/)
 - [Design + Code](https://designcode.io/)
 - [Ray Wenderlich](https://www.raywenderlich.com/)
-
-### Rails
-
-- [Go Rails](https://gorails.com/)
-- [Grant's World - Ruby Coder](http://grantcss.com/)
-- [RailsCasts](http://railscasts.com/)
-- [Ruby on Rails 实战圣经](https://ihower.tw/rails/index-cn.html)
 
 ## Design
 
@@ -85,7 +76,15 @@
 
 ### 原型工具
 
+- [Figma](https://www.figma.com/)
 - [AtomFramer](http://www.atomframer.com/)
+
+### 流程图
+
+- [draw.io](http://draw.io)
+- [gliffy](http://gliffy.com)
+- [whimisical](http://whimsical.com)
+- [asciiflow](http://asciiflow.com/) - 纯文字
 
 ## Free Pictures
 
@@ -98,9 +97,9 @@
 - [Library Genesis](http://gen.lib.rus.ec/)
 - [Free ebooks - Project Gutenberg](http://www.gutenberg.org/)
 - [ScanLibs](http://scanlibs.com/)
-- [我的小书屋](http://mebook.cc/)
 - [IT eBooks](http://www.it-ebooks.info/)
 - [All IT eBooks](http://www.allitebooks.com/)
+- [Standard Ebooks](https://standardebooks.org/)
 
 ## Entertainment
 
