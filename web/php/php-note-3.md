@@ -8,6 +8,10 @@
 
 由于项目需要，简单学习一下 Symfony 3 的用法，不会深入学习，了解一下整体框架。一个 Web 框架，总的内容那就是那些，MVC，路由，模板，ORM 等。
 
+另外，PHP 现在还有一个很流行的框架叫 laravel，模仿 rails，使用起来非常相似，rails 程序员真的可以半小时上手。
+
+- [Ruby 程序员学习 laravel 框架笔记](http://rubylaravelbook.rails365.net/467152)
+
 ## Part 1
 
 Note for [十分钟学会 Symfony](http://www.cnblogs.com/Amos-Turing/p/5968260.html)
