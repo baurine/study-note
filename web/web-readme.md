@@ -4,6 +4,7 @@
 
 - [JS Study](https://github.com/baurine/js-study)
 - [Go Study](https://github.com/baurine/go-study)
+- [Rust Study](https://github.com/baurine/rust-study)
 - [Python Study](https://github.com/baurine/python-study)
 - [Rails Study](https://github.com/baurine/rails-study)
 
