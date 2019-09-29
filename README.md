@@ -34,13 +34,6 @@
     * [iOS JakeLin](ios/ios-jakelin.md)
 * [Frontend](frontend/frontend-readme.md)
 * [Web](web/web-readme.md)
-    * Beginning Python2
-        * [Note 1 (1 - 9 章)](web/beginning-python2/note-1.md)
-        * [Note 2 (10 - 13 章)](web/beginning-python2/note-2.md)
-        * [Note 3 (14 - 19 章)](web/beginning-python2/note-3.md)
-    * Python3
-        * [Note 1](web/python3/note-1.md)
-        * [Note 2](web/python3/note-2.md)
     * Elixir
         * [Note 1](web/elixir/elixir-note-1.md)
         * [Note 2](web/elixir/elixir-note-2.md)
@@ -115,6 +108,7 @@
 
 1. [Rails Study](https://github.com/baurine/rails-study)
 1. [Go Study](https://github.com/baurine/go-study)
+1. [Python Study](https://github.com/baurine/python-study)
 1. [GraphQL Study](https://github.com/baurine/graphql-study)
 1. [Meteor Study](https://github.com/baurine/meteor-study)
 1. [Quick Gitbook](https://github.com/baurine/quick-gitbook)

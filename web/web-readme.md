@@ -1,10 +1,11 @@
 # Web Note
 
-关于 Ruby & Rails 的所有笔记都移到 [Rails Study](https://github.com/baurine/rails-study) 项目中了。
+独立的 repo：
 
-关于 Node 的笔记在 [JS Study](https://github.com/baurine/js-study) 项目中。
-
-关于 Go 的所有笔记移到 [Go Study](https://github.com/baurine/go-study) 项目中了。
+- [JS Study](https://github.com/baurine/js-study)
+- [Go Study](https://github.com/baurine/go-study)
+- [Python Study](https://github.com/baurine/python-study)
+- [Rails Study](https://github.com/baurine/rails-study)
 
 ## Web 开发框架选择
 
@@ -49,7 +50,7 @@
 - kotlin：基于 jvm，OOP 和函数式的混合泛式，非空机制 ...
 - go：和 c 一样简洁的语法，上手快，有 GC，内置并发机制，最终编译生成一个无依赖的二进制文件 ...
 - rust：混合泛式，所有权，内存安全 ...
-- python：动态语言，混合泛式，语法简单，上手快 ...
+- python：动态语言，混合泛式，语法简单，上手快，胶水语言 ...
 - ruby：动态语言，混合泛式，语法优雅 ...
 - javascript：完全异步编程，前端的唯一选择 ...
 
