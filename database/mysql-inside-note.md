@@ -431,3 +431,305 @@ CREATE TABLE index_demo(
     INDEX idx_c2_c3 (c2, c3)
 );
 ```
+
+## 8. 好东西也得先学会怎么用 —— B+ 树索引的使用
+
+这一章主要讲的是如何利用好创建的索引，如果写的查询语句不够准确，就有可能用不上索引，而需要扫表，导致查询效率成百上千倍地下降。
+
+### 索引的代价
+
+索引虽然是好东西，但也不能随便建，需要的才建。因为它在空间和时间上都有代价。
+
+- 空间代价：显而易见，每建一个索引就会生成一棵 B+ 树，一棵 B+ 树的存储空间也不小。
+- 时间代价：每次对表中的数据进行增、删、改操作时，都需要去修改各个 B+ 树索引。
+
+所以一个表上索引建的越多，就会占用越多的存储空间，在增删改记录的时候性能就越差。
+
+### B+ 树索引适用的条件
+
+以例子来说明，假设有这么一张表：
+
+```
+CREATE TABLE person_info(
+    id INT NOT NULL auto_increment,
+    name VARCHAR(100) NOT NULL,
+    birthday DATE NOT NULL,
+    phone_number CHAR(11) NOT NULL,
+    country varchar(100) NOT NULL,
+    PRIMARY KEY (id),
+    KEY idx_name_birthday_phone_number (name, birthday, phone_number)
+);
+```
+
+这张表的主键是 id，InnoDB 会为它自动创建聚簇索引。另外，我们还定义了一个二级联合索引 `idx_name_birthday_phone_number`，这个二级索引会依次按 name, birthday, phone number 进行排序，这个排序非常重要，后面所有的查询都要依赖这个排序。
+
+- 先按照 name 列的值进行排序
+- 如果 name 列的值相同，则按照 birthday 列的值进行排序
+- 如果 birthday 列的值也相同，则按照 phone_number 的值进行排序
+
+### 用于匹配 (where)
+
+#### 全值匹配
+
+```
+SELECT * FROM person_info WHERE name = 'Ashburn' AND birthday = '1990-09-27' AND phone_number = '15123983239';
+```
+
+很显而易见，这样写可以准确命中索引。name/birthday/phonenumber 三者的顺序可以调换，没有影响，这是因为 MySQL 有一个查询优化器的东西可以将查询进行优化。
+
+#### 匹配左边的列
+
+搜索语句可以不需要包含全部联合索引中的列，但至少要包含从左边开始的列，比如 name 或者 name,birthday，其它情况则无法用上此二级索引，比如 birthday / phonenumber / name,phonenumber / birthday,phonenumber。(很好理解)
+
+但是 name,phonenumber 虽然用不上这个完整的二级索引，但可以用上此二级索引中按 name 进行排序的部分索引。
+
+示例，可以用上完整的索引：
+
+```sql
+SELECT * FROM person_info WHERE name = 'Ashburn';
+SELECT * FROM person_info WHERE name = 'Ashburn' AND birthday = '1990-09-27';
+```
+
+只能用上 name 列的索引：
+
+```sql
+SELECT * FROM person_info WHERE name = 'Ashburn' AND phone_number = '15123983239';
+```
+
+用不上索引：
+
+```sql
+SELECT * FROM person_info WHERE birthday = '1990-09-27';
+```
+
+#### 匹配列前缀
+
+```sql
+SELECT * FROM person_info WHERE name LIKE 'As%';
+SELECT * FROM person_info WHERE name LIKE '%As%';
+```
+
+上面第一条语句可以用上 name 列的索引，但第二条就用不上了，只能全表扫描。(完全理解，可见，就一个细微的差别，查询效率就是成百上千倍的区别。)
+
+#### 匹配范围值
+
+> 如果对多个列同时进行范围查找的话，只有对索引最左边的那个列进行范围查找的时候才能用到 B+ 树索引。
+
+```sql
+SELECT * FROM person_info WHERE name > 'Asa' AND name < 'Barlow';
+SELECT * FROM person_info WHERE name > 'Asa' AND name < 'Barlow' AND birthday > '1980-01-01';
+```
+
+上例都只能用到 name 列的索引。
+
+#### 精确匹配某一列并范围匹配另外一列
+
+> 对于同一个联合索引来说，虽然对多个列都进行范围查找时只能用到最左边那个索引列，但是如果左边的列是精确查找，则右边的列可以进行范围查找。
+
+比如下例可以用到 name,birthday 列的索引，但用不到 name,birthday,phone_number 列索引。
+
+```sql
+SELECT * FROM person_info WHERE name = 'Ashburn' AND birthday > '1980-01-01' AND birthday < '2000-12-31' AND phone_number > '15100000000';
+```
+
+下例则可以用到完整的 name,birthday,phone_number 联合索引。
+
+```sql
+SELECT * FROM person_info WHERE name = 'Ashburn' AND birthday = '1980-01-01' AND phone_number > '15100000000';
+```
+
+### 用于排序 (order by)
+
+在 MySQL 中，把在内存中或者磁盘上进行排序的方式统称为文件排序 (filesort)。
+
+如果 `order by` 用上了索引列，则有可能省去在内存或文件中排序的步骤。比如：
+
+```sql
+SELECT * FROM person_info ORDER BY name, birthday, phone_number LIMIT 10;
+```
+
+使用联合索引进行排序注意事项：`order by` 后面列的顺序必须和索引中列的顺序一致，如果是 `ORDER BY phone_number, birthday, name` 就用不了前面定义的索引。
+
+同理，`ORDER BY name`、`ORDER BY name, birthday` 这种匹配索引左边的列的形式可以使用部分的 B+ 树索引。
+
+当联合索引左边列的值为常量，也可以使用后边的列进行排序，比如 `SELECT * FROM person_info WHERE name = 'A' ORDER BY birthday, phone_number LIMIT 10;`。
+
+#### 不可以使用索引进行排序的几种情况
+
+1. ASC, DESC 混用
+
+   很好理解。
+
+   `ORDER BY name, birthday LIMIT 10`，这种情况直接从索引的最左边开始往右读 10 行记录就可以了。
+
+   `ORDER BY name DESC, birthday DESC LIMIT 10`，这种情况直接从索引的最右边开始往左读 10 行记录就可以了。
+
+   但混用，就比较麻烦，还不如直接用文件排序。
+
+1. WHERE 子句中出现非排序使用到的索引列
+
+   比如：`SELECT * FROM person_info WHERE country = 'China' ORDER BY name LIMIT 10;`
+
+1. 排序列包含非同一个索引的列
+
+   比如：`SELECT * FROM person_info ORDER BY name, country LIMIT 10;`
+
+1. 排序列使用了复杂的表达式
+
+   比如使用了 upper() 函数：`SELECT * FROM person_info ORDER BY UPPER(name) LIMIT 10;`
+
+### 用于分组 (group by)
+
+示例：
+
+```sql
+SELECT name, birthday, phone_number, COUNT(*) FROM person_info GROUP BY name, birthday, phone_number;
+```
+
+注意事项和前面差不多，都是只能匹配索引包含左边的列。
+
+### 回表的代价
+
+示例：
+
+```sql
+SELECT * FROM person_info WHERE name > 'Asa' AND name < 'Barlow';
+```
+
+上面这条 sql，先通过二级索引，找到相应的叶子结点记录，这些叶子结点记录是连续的 (称之为`顺序 I/O`)，但它们保存的并不是完整记录，只是 id 加上索引列的值，所以还需要通过 id 再去聚簇索引查找相应的完整记录，即回表，但是这些 id 值可能并不是连续的，因此在聚簇索引中找到的叶子结点也是分散的，可能分布在不同的数据页，这样读取完整记录可能要访问更多的数据页，这种读取方式称之为`随机 I/O`。
+
+需要回表的记录越多，使用二级索引的性能就越低，甚至让某些查询宁愿使用全表扫描也不使用二级索引。比方说 name 值在 Asa ～ Barlow 之间的用户记录数量占全部记录数量 90% 以上，那么如果使用 `idx_name_birthday_phone_number` 索引的话，有 90% 多的 id 值需要回表，还不如直接去扫描聚簇索引（也就是全表扫描）。
+
+何时用全表扫描，何时用二级索引 + 回表，由查询优化器来决定。
+
+查询优化器会事先对表中的记录计算一些统计数据，然后再利用这些统计数据根据查询的条件来计算一下需要回表的记录数，需要回表的记录数越多，就越倾向于使用全表扫描，反之倾向于使用二级索引 + 回表的方式。
+
+使用 `limit` 会让查询优化器倾向于使用二级索引 + 回表的方式，比如：
+
+```sql
+SELECT * FROM person_info WHERE name > 'Asa' AND name < 'Barlow' LIMIT 10;
+```
+
+而这个例子：
+
+```sql
+SELECT * FROM person_info ORDER BY name, birthday, phone_number;
+```
+
+虽然能用上索引，但由于 select 的是 `*`，回表操作代价较大，所以优化器倾向使用全表扫描。但如果加上了 `limit 10`，回表代价较小，就倾向用二级索引 + 回表。
+
+#### 覆盖索引
+
+为了避免回表，建议：**最好在查询列表里只包含索引列**，比如：
+
+```sql
+SELECT name, birthday, phone_number FROM person_info WHERE name > 'Asa' AND name < 'Barlow';
+```
+
+上面的语句通过 `idx_name_birthday_phone_number` 二级索引就能拿到所有的值，不需要回表。这种只需要用到索引的查询方式称为索引覆盖。
+
+### 如何挑选索引
+
+上面说了这么多索引的使用注意事项及索引的代价，所以在建索引时要比较小心。
+
+#### 只为用于搜索、排序或分组的列创建索引
+
+只为出现在 where/order by/group by 子句中的列创建索引。比如：
+
+```sql
+SELECT birthday, country FROM person_name WHERE name = 'Ashburn';
+```
+
+只需要为 name 建索引，birthday 和 country 就不需要了。
+
+#### 考虑列的基数
+
+其实是说，如果某列各行的值，如果重复的太多，即基数小，则建索引意义不大；重复的很少，即基数大，才更有意义。
+
+#### 索引列的类型尽量小
+
+比如能用 int 类型就不要用 bigint 类型。
+
+#### 索引字符串值的前缀
+
+如果字符很长，则索引要占的空间越大，可以只对字符的前几个字符，比如前 10 个字符建索引。
+
+```sql
+CREATE TABLE person_info(
+    name VARCHAR(100) NOT NULL,
+    birthday DATE NOT NULL,
+    phone_number CHAR(11) NOT NULL,
+    country varchar(100) NOT NULL,
+    KEY idx_name_birthday_phone_number (name(10), birthday, phone_number)
+);
+```
+
+这种只索引字符串值的前缀的策略是我们非常鼓励的，尤其是在字符串类型能存储的字符比较多的时候。
+
+影响：但是上面这种索引只能用于 where 查询，如果是 order/by 就不能用上索引，比如：
+
+```sql
+SELECT * FROM person_info ORDER BY name LIMIT 10;
+```
+
+#### 让索引列在比较表达式中单独出现
+
+比较两个查询：
+
+- `where mycol * 2 < 4`
+- `where mycol < 4/2`
+
+前者不能用上 mycol 索引，而后者可以。
+
+如果索引列在比较表达式中不是以单独列的形式出现，而是以某个表达式，或者函数调用形式出现的话，是用不到索引的。
+
+#### 主键插入顺序
+
+如果插入的主键值忽大忽小，就会比较麻烦，造成数据页的分裂和位移，影响性能。
+
+建议：让主键具有 `AUTO_INCREMENT`，让存储引擎自己为表生成主键，而不是我们手动插入。
+
+#### 冗余和重复索引
+
+```sql
+CREATE TABLE person_info(
+    ...
+    KEY idx_name_birthday_phone_number (name(10), birthday, phone_number),
+    KEY idx_name (name(10)),
+
+    UNIQUE uidx_c1 (c1),
+    INDEX idx_c1 (c1)
+);
+```
+
+`idx_name_birthday_phone_number` 索引其实已经包含了 `idx_name` 索引，所以 `idx_name` 是多余的。
+
+`UNIQUE` 列会自动创建索引，无须再手动创建。
+
+(话说，优化器不会自动优化的吗？)
+
+### 总结
+
+1. B+ 树索引在空间和时间上都有代价，所以没事儿别瞎建索引
+
+1. B+ 树索引适用于下边这些情况：
+
+   - 全值匹配
+   - 匹配左边的列
+   - 匹配范围值
+   - 精确匹配某一列并范围匹配另外一列
+   - 用于排序
+   - 用于分组
+
+1. 在使用索引时需要注意下边这些事项：
+
+   - 只为用于搜索、排序或分组的列创建索引
+   - 为列的基数大的列创建索引
+   - 索引列的类型尽量小
+   - 可以只对字符串值的前缀建立索引
+   - 只有索引列在比较表达式中单独出现才可以适用索引
+   - 为了尽可能少的让聚簇索引发生页面分裂和记录移位的情况，建议让主键拥有 `AUTO_INCREMENT` 属性
+   - 定位并删除表中的重复和冗余索引
+   - 尽量使用覆盖索引进行查询，避免回表带来的性能损耗
+
+(这一章内容好多，分三天才看完，完全理解了。目前为止觉得是写得最好的一本小册了。)
