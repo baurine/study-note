@@ -949,3 +949,225 @@ mysql> SHOW TABLES LIKE 'innodb_sys%';
 ![](../art/mysql-inside/mysql-innodb-table-space.png)
 
 (这一章先粗略地过吧)
+
+## 11. 条条大路通罗马 —— 单表访问方法
+
+单表查询：就是只从一个表里查询，没有 join 操作。
+
+本小节所用的示例表：
+
+```sql
+CREATE TABLE single_table (
+    id INT NOT NULL AUTO_INCREMENT,
+    key1 VARCHAR(100),
+    key2 INT,
+    key3 VARCHAR(100),
+    key_part1 VARCHAR(100),
+    key_part2 VARCHAR(100),
+    key_part3 VARCHAR(100),
+    common_field VARCHAR(100),
+    PRIMARY KEY (id),
+    KEY idx_key1 (key1),
+    UNIQUE KEY idx_key2 (key2),
+    KEY idx_key3 (key3),
+    KEY idx_key_part(key_part1, key_part2, key_part3)
+) Engine=InnoDB CHARSET=utf8;
+```
+
+本表有 1 个聚簇索引和 4 个二级索引，分别的：
+
+- 为 id 列建立的聚簇索引。
+- 为 key1 列建立的 idx_key1 二级索引。
+- 为 key2 列建立的 idx_key2 二级索引，而且该索引是唯一二级索引。
+- 为 key3 列建立的 idx_key3 二级索引。
+- 为 key_part1、key_part2、key_part3 列建立的 idx_key_part 二级索引，这也是一个联合索引。
+
+### 访问方法（access method）的概念
+
+查询的执行方式大致分以下几种：
+
+- 使用全表扫描
+- 使用索引
+  - 针对主键或唯一二级索引的等值查询
+  - 针对普通二级索引的等值查询
+  - 针对索引列的范围查询
+  - 直接扫描整个索引
+
+把 MySQL 执行查询语句的方式称之为**访问方法**或者**访问类型**。同一个查询语句可能可以使用多种不同的访问方法来执行。
+
+访问方法的具体内容：
+
+- const
+- ref
+- ref_or_null
+- range
+- index
+- all
+
+#### const
+
+通过主键列来定位一条记录，或者通过唯一二级索引来定位一条记录，比如：
+
+```sql
+SELECT * FROM single_table WHERE id = 1438;
+SELECT * FROM single_table WHERE key2 = 3841;
+```
+
+这种查询的复杂度是常数级别 O(n)，非常快，所以称之为 const 访问方法。
+
+不过这种 const 访问方法只能在主键列或者唯一二级索引列和一个常数进行等值比较时才有效，如果主键或者唯一二级索引是由多个列构成的话，索引中的每一个列都需要与常数进行等值比较，这个 const 访问方法才有效。
+
+对于唯一二级索引来说，查询该列为 NULL 值的情况比较特殊，比如：
+
+```sql
+SELECT * FROM single_table WHERE key2 IS NULL;
+```
+
+因为唯一二级索引列并不限制 NULL 值的数量，所以上述语句可能访问到多条记录，也就是说 上边这个语句不可以使用 const 访问方法来执行。
+
+#### ref
+
+对某个普通的二级索引列 (非唯一二级索引，说明此列允许有重复值) 与常数进行等值比较：
+
+```sql
+SELECT * FROM single_table WHERE key1 = 'abc';
+```
+
+如果匹配到的记录较少，则回表代价低，性能只比 const 低一丢丢。这种称之为 ref 访问方法。
+
+不论是普通的二级索引，还是唯一二级索引，它们的索引列对包含 NULL 值的数量并不限制，所以我们采用 key IS NULL 这种形式的搜索条件最多只能使用 ref 的访问方法，而不是 const 的访问方法。
+
+#### ref_or_null
+
+对二级索引列进行等值比较，且包含 NULL 记录时：
+
+```sql
+SELECT * FROM single_table WHERE key1 = 'abc' OR key1 IS NULL;
+```
+
+当使用二级索引而不是全表扫描的方式执行该查询时，这种类型的查询使用的访问方法就称为 ref_or_null。
+
+#### range
+
+使用索引进行范围匹配：
+
+```sql
+SELECT * FROM single_table WHERE key2 IN (1438, 6328) OR (key2 >= 38 AND key2 <= 79);
+```
+
+#### index
+
+(就不能换个具体点的名字吗? 都这么多 index 了...)
+
+```sql
+SELECT key_part1, key_part2, key_part3 FROM single_table WHERE key_part2 = 'abc';
+```
+
+key_part1, key_part2, key_part3 是联合索引，但搜索条件 key_part2 不是联合索引的最左边列。
+
+可以通过在 key_part1, key_part2, key_part3 联合索引的 B+ 树结点中通过扫描对比找到 key_part2='abc' 的那个节点，然后直接从节点上把这三列的值取到，不需要回表。这种方式称为之 index。
+
+#### all
+
+即全表扫描。
+
+### 注意事项
+
+(先了解个大概就行...)
+
+#### 重温二级索引 + 回表
+
+一般情况下，只能利用单个二级索引执行行查询 (那后面自然有特殊情况喽)，比如：
+
+```sql
+SELECT * FROM single_table WHERE key1 = 'abc' AND key2 > 1000;
+```
+
+因为等值比较一般比范围比较命中的记录少，所以查询优化器先通过 `key='abc'` 条件使用 ref 方法在 idx_key1 索引树中找匹配的 id 记录，然后回表，再通过 `key2 > 1000` 的条件进行过滤。
+
+#### 明确 range 访问方法使用的范围区间
+
+对于 B+ 树索引来说，只要索引列和常数使用 =、<=>、IN、NOT IN、IS NULL、IS NOT NULL、>、<、>=、<=、BETWEEN、!=（不等于也可以写成<>）或者 LIKE 操作符连接起来，就可以产生一个所谓的区间。
+
+**所有搜索条件都可以使用某个索引的情况**
+
+```sql
+SELECT * FROM single_table WHERE key2 > 100 AND key2 > 200; // 实际等于 WHERE key2 > 200
+SELECT * FROM single_table WHERE key2 > 100 OR key2 > 200;  // 实际等于 WHERE key2 > 100
+```
+
+**有的搜索条件无法使用索引的情况**
+
+```sql
+SELECT * FROM single_table WHERE key2 > 100 AND common_field = 'abc';
+```
+
+把用不到的替换成 TRUE，则上面变成：
+
+```sql
+SELECT * FROM single_table WHERE key2 > 100 AND TRUE;
+```
+
+则对 key2 使用 range 方式查询，范围为 `>100`
+
+如果是 OR 也一样：
+
+```sql
+SELECT * FROM single_table WHERE key2 > 100 OR common_field = 'abc';
+```
+
+化简后变成：
+
+```sql
+==> SELECT * FROM single_table WHERE key2 > 100 OR TRUE;
+==> SELECT * FROM single_table WHERE TRUE;
+```
+
+这说明如果强制使用 key2 索引列进行查询，那范围是所有，还不如全表查询。也就是说一个使用到索引的搜索条件和没有使用该索引的搜索条件使用 OR 连接起来后是无法使用该索引的。
+
+**复杂搜索条件下找出范围匹配的区间**
+
+略。
+
+#### 索引合并
+
+一般情况下查询时只能用到一个二级索引，特殊情况下可以用到多个，这种执行方法称之为 index merge，有三种合并算法：
+
+- Intersection 合并
+- Union 合并
+- Sort-Union 合并
+
+**Intersection 合并**
+
+示例：
+
+```sql
+SELECT * FROM single_table WHERE key1 = 'a' AND key3 = 'b';
+```
+
+分别通过 idx_key1 二级索引找到对应记录的 id，通过 idx_key3 找到对应记录的 id，取两者 id 的**交集**，再回表找完整记录。总共查找三次索引树。
+
+当然，如果 `key1='a'` 和 `key3='b'` 匹配的记录过多，那优化器也会用其它办法。这些情况都不是绝对的。
+
+**Union 合并**
+
+```sql
+SELECT * FROM single_table WHERE key1 = 'a' OR key3 = 'b';
+```
+
+分别通过 idx_key1 二级索引找到对应记录的 id，通过 idx_key3 找到对应记录的 id，取两者 id 的**并集**，再回表找完整记录。总共查找三次索引树。
+
+**Sort Union 合并**
+
+Union 索引合并的使用条件太苛刻，必须保证各个二级索引列在进行等值匹配的条件下才可能被用到，比方说下边这个查询就无法使用到 Union 索引合并：
+
+```sql
+SELECT * FROM single_table WHERE key1 < 'a' OR key3 > 'z';
+```
+
+但可以这样做：
+
+- 先根据 `key1 < 'a'` 条件从 idx_key1 二级索引中获取记录，并按照记录的主键值进行排序
+- 再根据 `key3 > 'z'` 条件从 idx_key3 二级索引中获取记录，并按照记录的主键值进行排序
+- 因为上述的两个二级索引主键值都是排好序的，剩下的操作和 Union 索引合并方式就一样了
+
