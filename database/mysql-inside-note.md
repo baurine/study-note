@@ -1392,3 +1392,107 @@ mysql> SHOW TABLES FROM mysql LIKE '%cost%';
 ```
 
 表的详细解读，先略过。
+
+## 14. 兵马未动，粮草先行 —— InnoDB 统计数据是如何收集的
+
+(简单了解)
+
+### 两种不同的统计数据存储方式
+
+内存或磁盘。
+
+InnoDB 默认是以表为单位来收集和存储统计数据的。不同的表可以按不同的方式存储统计数据。
+
+```sql
+CREATE TABLE 表名 (...) Engine=InnoDB, STATS_PERSISTENT = (1|0);
+ALTER TABLE 表名 Engine=InnoDB, STATS_PERSISTENT = (1|0);
+```
+
+1 表示硬盘，0 表示内存，如果没有指定则用系统变量 `innodb_stats_persistent` 值。
+
+### 基于磁盘的永久性统计数据
+
+统计数据会被存储在两个 mysql 数据库的表中。
+
+```
+mysql> SHOW TABLES FROM mysql LIKE 'innodb%';
++---------------------------+
+| Tables_in_mysql (innodb%) |
++---------------------------+
+| innodb_index_stats        |
+| innodb_table_stats        |
++---------------------------+
+2 rows in set (0.01 sec)
+```
+
+- `innodb_table_stats` 存储了关于表的统计数据，每一条记录对应着一个表的统计数据
+- `innodb_index_stats` 存储了关于索引的统计数据，每一条记录对应着一个索引的一个统计项的统计数据
+
+`innodb_table_stats` 的统计数据包括各表的 row 总数 (非精确)，聚簇索引占的页面数，其它索引占的页面数。
+
+这些数据是如何收集的，通过表空间结构，细节暂略。
+
+`innodb_index_stats`，主要的列：
+
+- stat_name - 统计项的名称
+- stat_value - 对应的统计项的值
+- sample_size - 为生成统计数据而采样的页面数量
+- stat_description - 对应的统计项的描述
+
+stat_name 表示各种统计项：
+
+- `n_leaf_pages` - 表示该索引的叶子节点占用多少页面
+- size - 表示该索引共占用多少页面
+- `n_diff_pfxNN` - 表示对应的索引列不重复的值有多少
+
+### 定期更新统计数据
+
+两种方式：
+
+- 自动，开启 `innodb_stats_auto_recalc` 为 ON，异步
+- 手动，调用 `ANALYZE TABLE xxx`，同步 (会影响业务)
+
+还可以手动更新 `innodb_table_stats` 和 `innodb_index_stats` 表，然后调用 `FLUSH TABLE xxx` 让 MySQL 查询优化器重新加载我们更改过的数据。
+
+### 基于内存的非永久性统计数据
+
+已经不常用，略过。
+
+### innodb_stats_method 的使用
+
+(innodb_stats_method 后面会解释，是用来处理索引列 NULL 值问题)
+
+**索引列不重复的值的数量**这个统计数据对于 MySQL 查询优化器十分重要，因为通过它可以计算出在索引列中平均一个值重复多少行。
+
+但计算这个值时比较烦人的是如果索引列出现 NULL 怎么办。比如：
+
+```
++------+
+| col  |
++------+
+|    1 |
+|    2 |
+| NULL |
+| NULL |
++------+
+```
+
+对于如何理解 NULL 值，有几种分歧：
+
+1. NULL 代表一个未确定的值，MySQL 规定任何和 NULL 做比较的表达式的值都是 NULL。
+
+   比如 `select 1 = NULL;`, `select 1 != NULL;`, `select NULL = NULL;`, `select NULL != NULL;` 返回值都是 NULL，而不是 boolean 值。(哦...原来如此，难怪之前在写 where 语句时，不能直接对 NULL 进行比较，而是要用 `IS NULL` 或 `NOT NULL` 这种写法)。
+
+   所以每一个 NULL 值都是独一无二的，也就是说统计索引列不重复的值的数量时，应该把 NULL 值当作一个独立的值，所以 col 列的不重复的值的数量就是：4（分别是 1、2、NULL、NULL 这四个值）。
+
+1. 认为所有 NULL 代表的意义是一样的，所以 col 列不重复的值的数量是 3 (1，2，NULL)
+
+1. 认为 NULL 没有意义，所以 col 列不重复的值的数量是 2
+
+针对上面三种处理办法，MySQL 提供了 `innodb_stats_method` 系统变量。有三个值：
+
+- `nulls_equal` - 认为所有 NULL 是相等的，默认值
+- `nulls_unequal` - 认为所有 NULL 都是不相等的
+- `nulls_ignored` - 忽略 NULL
+
+(把选择权交给了用户...)，结论就是**最好不在索引列中存放 NULL 值才是正解**。
