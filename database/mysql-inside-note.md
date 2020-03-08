@@ -1496,3 +1496,408 @@ stat_name 表示各种统计项：
 - `nulls_ignored` - 忽略 NULL
 
 (把选择权交给了用户...)，结论就是**最好不在索引列中存放 NULL 值才是正解**。
+
+## 15. 不好看就要多整容 —— MySQL 基于规则的优化（内含关于子查询优化二三事儿）
+
+前面我们说了这么多规则，如果要求每个开发人员都深刻地理解并掌握，那是不可能的。免不了一些人写出执行起来十分耗费性能的语句。MySQL 在内部会尽量去帮你优化查询语句，根据一些规则，转换成更高效的语句，这个过程称为**查询重写**。
+
+本章讲的这是依据的这些重写规则。
+
+### 条件化简
+
+MySQL 的查询优化器会简化复杂的表达式。
+
+#### 移除不必要的括号
+
+```sql
+((a = 5 AND b = c) OR ((a > c) AND (c < 5)))
+-->
+(a = 5 and b = c) OR (a > c AND c < 5)
+```
+
+#### 常量传递（constant_propagation）
+
+```sql
+a = 5 AND b > a
+-->
+a = 5 AND b > 5
+```
+
+#### 等值传递（equality_propagation）
+
+```sql
+a = b and b = c and c = 5
+-->
+a = 5 and b = 5 and c = 5
+```
+
+#### 移除没用的条件（trivial_condition_removal）
+
+对于一些明显永远为 TRUE 或者 FALSE 的表达式，优化器会移除掉它们。
+
+```sql
+(a < 1 and b = b) OR (a = 6 OR 5 != 5)
+-->
+(a < 1 and TRUE) OR (a = 6 OR FALSE)
+-->
+a < 1 OR a = 6
+```
+
+#### 表达式计算
+
+```sql
+a = 5 + 1
+-->
+a = 6
+```
+
+但像 `ABS(a)>5`，`-a < -8` 这种，优化器不会尝试进行化简。
+
+#### HAVING 子句和 WHERE 子句的合并
+
+如果查询语句中没有出现诸如 SUM、MAX 等等的聚集函数以及 GROUP BY 子句，优化器就把 HAVING 子句和 WHERE 子句合并起来。(soga)
+
+#### 常量表检测
+
+(暂时不是很理解)
+
+使用主键等值匹配或者唯一二级索引列等值匹配作为搜索条件来查询某个表，这种方式查询花费的时间特别少...把这种方式查询的表称之为**常量表**(constant tables)。
+
+优化器在分析一个查询语句时，先首先执行常量表查询，然后把查询中涉及到该表的条件全部替换成常数，最后再分析其余表的查询成本。比如：
+
+```sql
+SELECT * FROM table1 INNER JOIN table2
+    ON table1.column1 = table2.column2
+    WHERE table1.primary_key = 1;
+```
+
+这个查询可以使用主键和常量值的等值匹配来查询 table1 表，也就是在这个查询中 table1 表相当于常量表，在分析对 table2 表的查询成本之前，就会执行对 table1 表的查询，并把查询中涉及 table1 表的条件都替换掉。
+
+```sql
+SELECT table1表记录的各个字段的常量值, table2.* FROM table1 INNER JOIN table2
+    ON table1表column1列的常量值 = table2.column2;
+```
+
+### 外连接消除
+
+(总结就是说，有些 SQL 语句看着是外连接，实际可以转换成内连接。)
+
+因为内连接驱动表和被驱动表可以互换，所以可能可以通过驱地表和被驱动表互换来达到优化；而外连接驱动表和被驱动表是固定的，无法享受这种优化可能性。
+
+所以如果某种情况下，外连接可以转换成内连接的话，就能增加优化的可能性。
+
+那什么情况下外连接可以转换成内连接呢？对于外连接来说，如果驱动表中的记录无法在被驱动表中找到匹配 ON 子句中的过滤条件的话，那么该记录仍然会被加入到结果集中，对应的被驱动表记录的各个字段使用 NULL 值填充。
+
+比如下例：
+
+```sql
+mysql> SELECT * FROM t1 LEFT JOIN t2 ON t1.m1 = t2.m2;
++------+------+------+------+
+| m1   | n1   | m2   | n2   |
++------+------+------+------+
+|    2 | b    |    2 | b    |
+|    3 | c    |    3 | c    |
+|    1 | a    | NULL | NULL |
++------+------+------+------+
+3 rows in set (0.00 sec)
+```
+
+这时，如果你在查询语句中同时指定了 t2 表的列不为 NULL，即 `where t2.m2 IS NOT NULL`，比如：
+
+```sql
+mysql> SELECT * FROM t1 LEFT JOIN t2 ON t1.m1 = t2.m2 WHERE t2.n2 IS NOT NULL;
++------+------+------+------+
+| m1   | n1   | m2   | n2   |
++------+------+------+------+
+|    2 | b    |    2 | b    |
+|    3 | c    |    3 | c    |
++------+------+------+------+
+2 rows in set (0.01 sec)
+```
+
+那么这本质上是一个内连接！
+
+我们把这种在外连接查询中，指定的 WHERE 子句中包含被驱动表中的列不为 NULL 值的条件称之为空值拒绝（英文名：reject-NULL）。在被驱动表的 WHERE 子句符合空值拒绝的条件后，外连接和内连接可以相互转换。这种转换带来的好处就是查询优化器可以通过评估表的不同连接顺序的成本，选出成本最低的那种连接顺序来执行查询。
+
+(什么时候会在外连接中又同时指定被驱动表中的列不为 NULL，本质上这就是一种错误写法嘛，只不过优化器帮你纠正了)
+
+### 子查询优化
+
+#### 子查询语法
+
+查询可以嵌套，被嵌套的查询称之为子查询，它可以出现在外层查询的各种位置。
+
+- SELECT 子句中
+
+  ```sql
+   mysql> SELECT (SELECT m1 FROM t1 LIMIT 1);
+   +-----------------------------+
+   | (SELECT m1 FROM t1 LIMIT 1) |
+   +-----------------------------+
+   |                           1 |
+   +-----------------------------+
+   1 row in set (0.00 sec)
+  ```
+
+- FROM 子句中
+
+  ```sql
+  mysql> SELECT m, n FROM (SELECT m2 + 1 AS m, n2 AS n FROM t2 WHERE m2 > 2) AS t;
+  +------+------+
+  | m    | n    |
+  +------+------+
+  |    4 | c    |
+  |    5 | d    |
+  +------+------+
+  2 rows in set (0.00 sec)
+  ```
+
+  FROM 后面放的是表名，这种由子查询结果集组成的表称之为**派生表**。
+
+- WHERE 或 ON 子句
+
+  最常用的一种用法。
+
+  ```sql
+  mysql> SELECT * FROM t1 WHERE m1 IN (SELECT m2 FROM t2);
+  +------+------+
+  | m1   | n1   |
+  +------+------+
+  |    2 | b    |
+  |    3 | c    |
+  +------+------+
+  2 rows in set (0.00 sec)
+  ```
+
+- ORDER BY / GROUP BY 子句中
+
+  虽然支持，没啥意义。
+
+##### 按返回的结果集区分子查询
+
+- 标量子查询 - 只返回单一值的子查询 (相当于返回一行一列)
+
+  比如：`SELECT (SELECT m1 FROM t1 LIMIT 1);`，或 `SELECT * FROM t1 WHERE m1 = (SELECT MIN(m2) FROM t2);`。
+
+  这两个子查询都返回一个单一值，即标量。这些标量子查询可以作为一个单一值或者表达式出现在外层查询的各个地方。
+
+- 行子查询 - 返回一条记录，且这条记录包含多列
+
+  比如：`SELECT * FROM t1 WHERE (m1, n1) = (SELECT m2, n2 FROM t2 LIMIT 1);`。(哦，还可以同时进行多列比较，像这样：`WHERE (m1, n1) = (?, ?)`)
+
+- 列子查询 - 返回一列记录，但包含多行
+
+  比如：`SELECT * FROM t1 WHERE m1 IN (SELECT m2 FROM t2);`。
+
+- 表子查询 - 返回多行多列记录
+
+  比如：`SELECT * FROM t1 WHERE (m1, n1) IN (SELECT m2, n2 FROM t2);`。
+
+##### 按与外层查询关系来区分子查询
+
+- 不相关子查询
+
+  子查询可以单独运行出结果，而不依赖于外层查询的值。上面的例子全是不相关子查询。
+
+- 相关子查询
+
+  子查询的执行需要依赖于外层查询的值。比如：`SELECT * FROM t1 WHERE m1 IN (SELECT m2 FROM t2 WHERE n1 = n2);`。(那不是互相依赖了吗？)
+
+##### 子查询在布尔表达式中的使用
+
+虽然子查询可以出现在外层查询的各个地方，但像 `SELECT (SELECT m1 FROM t1 LIMIT 1);` 这种语句其实没啥意义。平时用子查询最多的地方就是把它作为布尔表达式的一部分来作为搜索条件用在 WHERE 子句或者 ON 子句里。
+
+- 用于比较：`=`, `>`, `<`...
+
+  `操作数 comparison_operator (子查询)`
+
+  这里子查询只能是标量或行子查询。比如：
+
+  ```sql
+  SELECT * FROM t1 WHERE m1 < (SELECT MIN(m2) FROM t2);
+  SELECT * FROM t1 WHERE (m1, n1) = (SELECT m2, n2 FROM t2 LIMIT 1);
+  ```
+
+- 用于包含：`[NOT] IN/ANY/SOME/ALL`
+
+  - `[NOT] IN` - `操作数 [NOT] IN (子查询)`
+
+    ```sql
+    SELECT * FROM t1 WHERE (m1, n1) IN (SELECT m2, n2 FROM t2);
+    ```
+
+  - `ANY/SOME` - `操作数 comparison_operator ANY/SOME(子查询)`
+
+    ```sql
+    SELECT * FROM t1 WHERE m1 > ANY(SELECT m2 FROM t2);
+    // 待价于
+    SELECT * FROM t1 WHERE m1 > (SELECT MIN(m2) FROM t2);
+    ```
+
+    `=ANY` 和 IN 是一样的效果。
+
+  - `ALL` - `操作数 comparison_operator ALL(子查询)`
+
+    ```sql
+    SELECT * FROM t1 WHERE m1 > ALL(SELECT m2 FROM t2);
+    // 等价于
+    SELECT * FROM t1 WHERE m1 > (SELECT MAX(m2) FROM t2);
+    ```
+
+- EXIST 子查询 - `[NOT] EXISTS (子查询)`
+
+  不在乎子查询结果具体是啥，只在乎子查询有没有结果。
+
+  ```sql
+  SELECT * FROM t1 WHERE EXISTS (SELECT 1 FROM t2);
+  ```
+
+##### 子查询语法注意事项
+
+- 子查询必须用小括号括起来
+
+- 在 SELECT 子句中的子查询必须是标量子查询
+
+- 在想要得到标量子查询或者行子查询，但又不能保证子查询的结果集只有一条记录时，应该使用 `LIMIT 1` 语句来限制记录数量
+
+- 对于 `[NOT] IN/ANY/SOME/ALL` 子查询来说，子查询中不允许有 LIMIT 语句
+
+  在这类子查询中，对子查询结果的排序，去重都不关心，所以这些子查询中 `order by`, `distinct` 没啥意义。
+
+- 不允许在一条语句中增删改某个表的记录时同时还对该表进行子查询
+
+#### 子查询在 MySQL 中是怎么执行的
+
+不同类型的子查询有不同的执行方式，有些和我们想的相似，即简单地先单独执行子查询，再将结果作为外层查询的参数进行查询；有些较复杂，会转换成内连接或半连接。
+
+##### 标量子查询、行子查询的执行方式
+
+如果是不相关的子查询，和我们想象的一样：
+
+```sql
+SELECT * FROM s1
+    WHERE key1 = (SELECT common_field FROM s2 WHERE key3 = 'a' LIMIT 1);
+```
+
+先单独执行子查询，将结果作为外层查询参数再进行一次查询。
+
+> 对于包含不相关的标量子查询或者行子查询的查询语句来说，MySQL 会分别独立的执行外层查询和子查询，就当作两个单表查询就好了。
+
+如果是相关子查询，比如：
+
+```sql
+SELECT * FROM s1 WHERE
+    key1 = (SELECT common_field FROM s2 WHERE s1.key3 = s2.key3 LIMIT 1);
+```
+
+它的执行方式：
+
+1. 先从外层查询中获取一条记录，本例中也就是先从 s1 表中获取一条记录。
+1. 将 s1.key3 代入子查询中，执行子查询
+1. 根据子查询的结果来检测外层查询的 WHERE 子句是否成立，成立则将结果加入结果集，否则丢弃
+1. 再回到第一步继续重复执行，依此类推
+
+(但我觉得实际肯定一次性批量拿到多条 s1 后再将 s1.key3 代入子查询执行子查询)
+
+##### IN 子查询优化
+
+(IN 子查询是最常用，所以 MySQL 对它进行了许多优化，在某些条件下将它转成 inner join 或 semi-join)
+
+**物化表**
+
+对于不相关的 IN 子查询，比如：
+
+```sql
+SELECT * FROM s1
+    WHERE key1 IN (SELECT common_field FROM s2 WHERE key3 = 'a');
+```
+
+如果子查询的结果很少，只有一两条，那么对子查询和外层查询单独执行，效率也很高。但如果子查询的结果集非常非常多，那么性能就变得特别差。
+
+优化：将子查询的结果集写入一个临时表中。过程如下：
+
+1. 该临时表的列就是子查询结果集中的列。
+1. 写入临时表的记录会被去重。(对列建唯一索引)
+1. 一般情况下子查询结果集不会大的离谱，所以会为它建立基于内存的使用 Memory 存储引擎的临时表，而且会为该表建立**哈希索引**。
+1. 如果子查询结果集太大，则转为存储到磁盘中，索引变为 B+ 树。
+
+MySQL 将子查询结果集中的记录保存到临时表的过程称之为物化（Materialize），相应的临时表则称之为物化表。因为物化表中的记录都建立了索引，通过索引执行 IN 语句判断某个操作数在不在子查询结果集中变得非常快，从而提升了子查询语句的性能。
+
+**物化表连接**
+
+有了物化表后，其实上面的查询可以转换成外表和物化表的内连接：
+
+```sql
+SELECT s1.* FROM s1 INNER JOIN materialized_table ON key1 = m_val;
+```
+
+接着就可以继续使用对内连接的优化进行进一步的优化了。
+
+**将子查询转换为 semi-join**
+
+不通过物化表，直接将原始子查询转换成连接查询。
+
+比如这个查询：
+
+```sql
+SELECT * FROM s1
+    WHERE key1 IN (SELECT common_field FROM s2 WHERE key3 = 'a');
+```
+
+和内连接很相似：
+
+```
+SELECT s1.* FROM s1 INNER JOIN s2
+    ON s1.key1 = s2.common_field
+    WHERE s2.key3 = 'a';
+```
+
+不同的地方在于，对于后者来说，一条 s1 表记录可能和多条 s2 表记录匹配，最终的记录集中可能出现一条 s1 表记录重复多次，但前者 s1 表一条记录只出现一次。
+
+对于 s1 表的某条记录来说，由于我们只关心 s2 表中是否存在记录满足 `s1.key1 = s2.common_field` 这个条件，而不关心具体有多少条记录与之匹配...MySQL 提出了一种**半连接 (semi-join)** 的概念：对于 s1 表的某条记录来说，我们只关心在 s2 表中是否存在与之匹配的记录是否存在，而不关心具体有多少条记录与之匹配，最终的结果集中只保留 s1 表的记录。
+
+转换后的内部 SQL 大约是这样：
+
+```sql
+SELECT s1.* FROM s1 SEMI JOIN s2
+    ON s1.key1 = s2.common_field
+    WHERE key3 = 'a';
+```
+
+实现方法 (先大致了解，细节先忽略)：
+
+- Table pullout (子查询中的表上拉)
+
+  如果 ON 条件中 s2 表相应的列是唯一二级索引 (意味着没有重复)，直接转换成内连接
+
+- DuplicateWeedout execution strategy (重复值消除)
+
+  通过中间临时表 `CREATE TABLE tmp (id PRIMARY KEY);` 消除重复，详略。
+
+- LooseScan execution strategy (松散扫描)
+
+- Semi-join Materialization execution strategy
+
+- FirstMatch execution strategy (首次匹配)
+
+**semi-join 的适用条件**
+
+需要时再详细了解
+
+**不适用于 semi-join 的情况**
+
+需要时再详细了解
+
+##### ANY/ALL 子查询优化
+
+可以转换成 MAX/MIN 子查询，前面有例子。
+
+##### [NOT] EXISTS 子查询的执行
+
+需要时再详细了解
+
+##### 对于派生表的优化
+
+需要时再详细了解
+
+总之，这一章就是告诉我们，MySQL 优化器会做很多事情，尽量帮我们优化 SQL 语句。但最好我们还是在源头能把 SQL 语句写得尽可能地好。
