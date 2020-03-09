@@ -164,3 +164,29 @@ mysql 是 MySQL 默认自带的数据库，里面放的是 MySQL 的管理数据
     mysql > source ~/path/dump.txt
 
 上面只是最简单的用法，更复杂的用法需要时再看。
+
+### group_concat()
+
+对分组后的字符串列的内容进行聚合，可以使用 group_concat() 方法，默认分隔符为 ","。
+
+- [MySQL GROUP_CONCAT Function](https://www.mysqltutorial.org/mysql-group_concat/)
+
+### `\G`
+
+将结果按列输出，比如：
+
+```sql
+mysql> select * from PERFORMANCE_SCHEMA.cluster_events_statements_summary_by_digest_history limit 1\G
+*************************** 1. row ***************************
+                  ADDRESS: 127.0.0.1:10080
+       SUMMARY_BEGIN_TIME: 2020-03-09 22:00:00
+         SUMMARY_END_TIME: 2020-03-09 22:30:00
+                STMT_TYPE: select
+              SCHEMA_NAME:
+                   DIGEST: e0cf0e2dccc824f34e52c6341356354f77cce9342074b393bc0185304e075ea3
+              DIGEST_TEXT: select original_sql , bind_sql , default_db , status , create_time , update_time , charset , collation from mysql . bind_info where update_time > ? order by update_time
+              TABLE_NAMES: mysql.bind_info
+              INDEX_NAMES: bind_info:time_index
+              SAMPLE_USER: NULL
+               EXEC_COUNT: 376
+```
