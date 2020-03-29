@@ -1901,3 +1901,174 @@ SELECT s1.* FROM s1 SEMI JOIN s2
 需要时再详细了解
 
 总之，这一章就是告诉我们，MySQL 优化器会做很多事情，尽量帮我们优化 SQL 语句。但最好我们还是在源头能把 SQL 语句写得尽可能地好。
+
+## 16. 查询优化的百科全书 —— Explain 详解（上）
+
+用 explain 显示执行计划。这一章就是用来 explain 的结果。
+
+```sql
+mysql> EXPLAIN SELECT 1;
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+----------------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra          |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+----------------+
+|  1 | SIMPLE      | NULL  | NULL       | NULL | NULL          | NULL | NULL    | NULL | NULL |     NULL | No tables used |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+----------------+
+1 row in set, 1 warning (0.00 sec)
+```
+
+各列的意义：
+
+| 列名          | 描述                                                      |
+| ------------- | --------------------------------------------------------- |
+| id            | 在一个大的查询语句中每个 SELECT 关键字都对应一个唯一的 id |
+| select_type   | SELECT 关键字对应的那个查询的类型                         |
+| table         | 表名                                                      |
+| partitions    | 匹配的分区信息                                            |
+| type          | 针对单表的访问方法                                        |
+| possible_keys | 可能用到的索引                                            |
+| key           | 实际上使用的索引                                          |
+| key_len       | 实际使用到的索引长度                                      |
+| ref           | 当使用索引列等值查询时，与索引列进行等值匹配的对象信息    |
+| rows          | 预估的需要读取的记录条数                                  |
+| filtered      | 某个表经过搜索条件过滤后剩余记录条数的百分比              |
+| Extra         | 一些额外的信息                                            |
+
+### 执行计划输出中各列详解
+
+#### table
+
+查询计划每一行都是对某个表的单表查询，table 就表示这一行是对哪个表进行单表查询。
+
+```sql
+mysql> EXPLAIN SELECT * FROM s1 INNER JOIN s2;
++----+-------------+-------+----
+| id | select_type | table | ...
++----+-------------+-------+----
+|  1 | SIMPLE      | s1    | ...
+|  1 | SIMPLE      | s2    | ...
++----+-------------+-------+----
+2 rows in set, 1 warning (0.00 sec)
+```
+
+#### id
+
+对每一个 select 会分配一个独立的 id。对于连接查询来说，只有一个 select，但涉及多个表的查询，这些表对应相同的 id。但显示在前面的表为驱动表，显示在后面的表为被驱动表。
+
+```sql
+mysql> EXPLAIN SELECT * FROM s1 INNER JOIN s2;
++----+-------------+-------+----
+| id | select_type | table | ...
++----+-------------+-------+----
+|  1 | SIMPLE      | s1    | ...
+|  1 | SIMPLE      | s2    | ...
++----+-------------+-------+----
+```
+
+对于子查询来说，涉及多个 select 关键字，每个 select 会对应一个唯一的 id 值。
+
+```sql
+mysql> EXPLAIN SELECT * FROM s1 WHERE key1 IN (SELECT key1 FROM s2) OR key3 = 'a';
++----+--------------------+-------+----
+| id | select_type        | table | ...
++----+--------------------+-------+----
+|  1 | PRIMARY            | s1    | ...
+|  2 | DEPENDENT SUBQUERY | s2    | ...
++----+--------------------+-------+----
+```
+
+如果查询优化器对子查询进行了重写，转换成了连接查询，可以从执行计划中看出，下面的执行计划两个表使用了相同的 id，表示转换成了连接查询。
+
+```sql
+mysql> EXPLAIN SELECT * FROM s1 WHERE key1 IN (SELECT key3 FROM s2 WHERE common_field = 'a');
++----+-------------+-------+----
+| id | select_type | table | ...
++----+-------------+-------+----
+|  1 | SIMPLE      | s1    | ...
+|  1 | SIMPLE      | s2    | ...
++----+-------------+-------+----
+```
+
+UNION，最后会做一个内部合并去重操作，所以会增加一行 id 为 NULL 的步骤。
+
+```sql
+mysql> EXPLAIN SELECT * FROM s1  UNION SELECT * FROM s2;
++------+--------------+------------+-
+| id   | select_type  | table      |
++------+--------------+------------+-
+|  1   | PRIMARY      | s1         |
+|  2   | UNION        | s2         |
+| NULL | UNION RESULT | <union1,2> |
++----+--------------+------------+---
+```
+
+#### select_type
+
+顾名思义，是指每一个 select 的类型。有这些值：SIMPLE / PRIMARY / UNION / UNION RESULT / SUBQUERY / DEPENDENT SUBQUERY / DEPENDENT UNION / DERIVED / MATERIALIZED / UNCACHEABLE SUBQUERY / UNCACHEABLE UNION
+
+具体每个类型用于哪些查询，先暂时跳过，实践中不理解再回来看。
+
+#### partitions
+
+一般都为 NULL，具体是啥小册上也没说，很少遇到。
+
+#### type
+
+对单表查询的访问方法，比如 const / ref / index 之类的。完整的值类型：system，const，eq_ref，ref，fulltext，ref_or_null，index_merge，unique_subquery，index_subquery，range，index，ALL。
+
+详细内容先跳过，需要时再细看。
+
+#### possible_keys 和 key
+
+possible_keys 表示查询时可能用到的索引，key 表示实际用到的索引。
+
+```sql
+mysql> EXPLAIN SELECT * FROM s1 WHERE key1 > 'z' AND key3 = 'a';
++----+-------------+-------+------------+------+-------------------+----------+-
+| id | select_type | table | partitions | type | possible_keys     | key      |
++----+-------------+-------+------------+------+-------------------+----------+-
+|  1 | SIMPLE      | s1    | NULL       | ref  | idx_key1,idx_key3 | idx_key3 |
++----+-------------+-------+------------+------+-------------------+----------|-
+```
+
+当直接使用 index 的访问方法时 (即 type 的值为 index)，possible_keys 为 NUL，key 为用到的索引。很好理解嘛，因为这时用哪个索引已经是确定的了，不需要查询优化器在多个索引之间比较。所以 possible_keys 不是越多越好，及时删除不再需要的索引。
+
+#### key_len
+
+表示查询用到的索引列的长度。详细计算方法暂略。
+
+#### ref
+
+当使用索引列等值匹配的条件去执行查询时，ref 列展示的就是与索引列作等值匹配的东东是个啥，比如只是一个常数或者是某个列。
+
+详略。
+
+#### rows
+
+如果查询优化器决定使用全表扫描的方式对某个表执行查询时，执行计划的 rows 列就代表预计需要扫描的行数，如果使用索引来执行查询时，执行计划的 rows 列就代表预计扫描的索引记录行数。
+
+#### filtered
+
+用来计算连接查询时驱动表的扇出值。比如对于驱动表来说 rows 为 9688，filtered 为 10.00，则驱动表的扇出值为 `9688 x 10% = 968`。
+
+---
+
+不过，TiDB 和 PostgreSQL 看到的执行计划的输出格式不是这样的啊...不是应该还有 Table Scan / Index Scan 之类的吗？
+
+PostgreSQL 中的一个[例子](https://ruby-china.org/topics/38152)：
+
+```sql
+[1] pry(main)> Episode.search_by_title('adventure').explain
+  Episode Load (85.9ms)  SELECT "episodes".* FROM "episodes" INNER JOIN (...
+                                               QUERY PLAN
+---------------------------------------------------------------------------------------------------------
+ Sort  (cost=4050.16..4051.01 rows=341 width=1513)
+   Sort Key: (ts_rank(episodes_1.tsv_title, '''adventure'':*'::tsquery, 2)) DESC, episodes.id
+   ->  Nested Loop  (cost=34.96..4035.81 rows=341 width=1513)
+         ->  Bitmap Heap Scan on episodes episodes_1  (cost=34.54..1306.26 rows=327 width=103)
+               Recheck Cond: (tsv_title @@ '''adventure'':*'::tsquery)
+               ->  Bitmap Index Scan on index_episodes_on_tsv_title  (cost=0.00..34.45 rows=327 width=0)
+                     Index Cond: (tsv_title @@ '''adventure'':*'::tsquery)
+         ->  Index Scan using episodes_pkey on episodes  (cost=0.42..8.34 rows=1 width=1509)
+               Index Cond: (id = episodes_1.id)
+(9 rows)
+```
