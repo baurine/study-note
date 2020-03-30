@@ -2072,3 +2072,54 @@ PostgreSQL 中的一个[例子](https://ruby-china.org/topics/38152)：
                Index Cond: (id = episodes_1.id)
 (9 rows)
 ```
+
+## 17. 查询优化的百科全书 —— Explain 详解（下）
+
+这一章主要讲的是上一章遗留的执行计划中的 extra 列的意义。
+
+> Extra 列是用来说明一些额外信息的，我们可以通过这些额外信息来更准确的理解 MySQL 到底将如何执行给定的查询语句。
+
+extra 列中常见的值：
+
+- No tables used
+- Impossible WHERE
+- No matching min/max row
+- Using index
+- Using index condition (索引条件下推)
+- Using where
+- Using join buffer (Block Nested Loop)
+- Not exists
+- Using intersect(...)、Using union(...) 和 Using sort_union(...)
+- Zero limit
+- Using filesort
+- Using temporary
+- Start temporary, End temporary
+- LooseScan
+- FirstMatch(tbl_name)
+
+详细细节先跳过，实践中遇到再回头。
+
+### JSON 格式的执行计划
+
+在 EXPLAIN 后加上 `FORMAT=JSON` 可以得到 json 格式的执行计划，里面包含表格形式缺失的成本的内容。
+
+详略。
+
+### Extented EXPLAIN
+
+在执行完 EXPLAIN 后紧接着马上执行 `SHOW WARNINGS` 语句可以得到和刚查询的执行计划相关的一些扩展信息。
+
+比如：
+
+```sql
+mysql> EXPLAIN SELECT ...
+...
+
+mysql> SHOW WARNINGS\G
+*************************** 1. row ***************************
+  Level: Note
+   Code: 1003
+Message: /* select#1 */ select `xiaohaizi`.`s1`.`key1` AS `key1`,`xiaohaizi`.`s2`.`key1` AS `key1` from `xiaohaizi`.`s1` join `xiaohaizi`.`s2` where ((`xiaohaizi`.`s1`.`key1` = `xiaohaizi`.`s2`.`key1`) and (`xiaohaizi`.`s2`.`common_field` is not null))
+```
+
+常见的是 Code 为 1003 的信息，当 Code 为 1003 时，Message 字段展示的信息类似于查询优化器将我们的查询语句重写后的语句。但注意它显示的是内部 SQL 语句，并不一定能在 MySQL 的 client 端里直接运行。
