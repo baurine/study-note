@@ -431,7 +431,7 @@ The former only changes the HEAD pointer, but the branch self doesn't change; wh
 **Rebasing over 9000 times:**
 
     $ // 当前在 master 分支
-    $ git rebase master bug_fix 
+    $ git rebase master bug_fix
     // 此命令的结果将导致切换到 bug_fix 分支, 并将 bug_fix 分支 rebase 到 master 分支上 (cool~!)
     // = git checkout bug_fix; git rebase master
     $ git rebase bug_fix side
@@ -451,7 +451,7 @@ The former only changes the HEAD pointer, but the branch self doesn't change; wh
 
 练习:
 
-    $ git branch -f bugWork HEAD~^2~ 
+    $ git branch -f bugWork HEAD~^2~
     // (cool, 一步完成以前 n 步做的事情)
 
 ### Remote Part
@@ -603,3 +603,27 @@ Example:
     $ git fetch origin bar~1:bug_fix; git merge origin/bug_fix
 
 Git pull 是 fetch + merge 操作的简写，它会影响本地所在的当前分支。
+
+---
+
+## Git Misc
+
+### signed-off
+
+commit 时自动在结尾加上像这样的签名：`Signed-off-by: name <email>`，使用 `-s` 或 `--signed-off` 参数，比如：
+
+```sh
+$ git commit -s
+$ git commit --signed-off
+$ git commit -s --amend
+```
+
+为了更加自动化，可以为 `commit -s` 设置 alias，比如：
+
+```sh
+$ git config --global alias.c 'commit -s'
+```
+
+然后就可以这样提交代码了：`git c`
+
+个人项目可以不用加签名，一般用于团队协作，尤其是使用 squash and merge 这种 PR 协作方式，这种方式有一个缺点，如果一个 PR 是由多人合作完成的，最终 merge 时只会记录最后一次提交者作为作者。所以可以使用 signed-off 把协作者也记录在 commit message 中。(但不知道 GitHub 会不会记录到 contributor 中)
