@@ -2123,3 +2123,41 @@ Message: /* select#1 */ select `xiaohaizi`.`s1`.`key1` AS `key1`,`xiaohaizi`.`s2
 ```
 
 常见的是 Code 为 1003 的信息，当 Code 为 1003 时，Message 字段展示的信息类似于查询优化器将我们的查询语句重写后的语句。但注意它显示的是内部 SQL 语句，并不一定能在 MySQL 的 client 端里直接运行。
+
+## 18. 神兵利器 —— optimizer trace 的神奇功效
+
+本章介绍 MySQL 提供的 optimizer trace 功能，它可以让我们方便的查看优化器生成执行计划的整个过程。
+
+开启和关闭由系统变量 optimizer_trace 决定。
+
+```sql
+mysql> SHOW VARIABLES LIKE 'optimizer_trace';
++-----------------+--------------------------+
+| Variable_name   | Value                    |
++-----------------+--------------------------+
+| optimizer_trace | enabled=off,one_line=off |
++-----------------+--------------------------+
+```
+
+完整步骤：
+
+```sql
+# 1. 打开optimizer trace功能 (默认情况下它是关闭的):
+SET optimizer_trace="enabled=on";
+
+# 2. 这里输入你自己的查询语句
+SELECT ...;
+
+# 3. 从OPTIMIZER_TRACE表中查看上一个查询的优化过程
+SELECT * FROM information_schema.OPTIMIZER_TRACE;
+
+# 4. 可能你还要观察其他语句执行的优化过程，重复上边的第2、3步
+...
+
+# 5. 当你停止查看语句的优化过程时，把optimizer trace功能关闭
+SET optimizer_trace="enabled=off";
+```
+
+OPTIMIZER_TRACE 表有 4 列，分别是 QUERY / TRACE / MISSING_BYTES_BEYOND_MAX_MEM_SIZE / INSUFFICIENT_PRIVILEGES，详略。
+
+优化过程分三个阶段：prepare / optimize / execute。
