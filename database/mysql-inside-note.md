@@ -2161,3 +2161,15 @@ SET optimizer_trace="enabled=off";
 OPTIMIZER_TRACE 表有 4 列，分别是 QUERY / TRACE / MISSING_BYTES_BEYOND_MAX_MEM_SIZE / INSUFFICIENT_PRIVILEGES，详略。
 
 优化过程分三个阶段：prepare / optimize / execute。
+
+## 19. 调节磁盘和 CPU 的矛盾 —— InnoDB 的 Buffer Pool
+
+这一节讲的是 MySQL 的缓存系统。如果每次查询都直接去访问硬盘，那就太慢了，所以 MySQL 设计了缓存系统 Buffer Pool，将访问过或即将访问的内容放到了内存中，操作单位是页。
+
+这一章的细节先跳过，需要时再细看，先知道其大致工作原理就行。
+
+使用多个链表来管理 Butter Pool，比如 free 链表，flush 链表。
+
+Buffer Pool 的更新使用 LRU 链表。
+
+在 Buffer Pool 中被修改的页称为脏页，脏页并不是立即刷新，而是被加入到 flush 链表中，待之后的某个时刻同步到磁盘上。
