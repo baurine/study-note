@@ -80,7 +80,7 @@ optimize:
 
 How we build TiKV
 
-B+ Tree / LSM 有写放大的问题  --> Titan 解决写放大的问题
+B+ Tree / LSM 有写放大的问题 --> Titan 解决写放大的问题
 
 Raft 一致性协议
 
@@ -104,7 +104,7 @@ PD: scheduler
 birth: 1970 IBM paper, 1972 Oracle, 1995 MySQL, 1996 PostgreSQL
 
 - 2003 Memcached key-value
-- 2006 no sql, google big table, 
+- 2006 no sql, google big table,
 - cassandra 2008
 - redis 2009
 
@@ -120,7 +120,7 @@ part 3 - 存储引擎
 
 B-tree / LSM
 
-B-tree: InnoDB / LMDB / WiredTiger (mongoDB?)  (firendly to HDD)
+B-tree: InnoDB / LMDB / WiredTiger (mongoDB?) (firendly to HDD)
 
 LSM-tree: LevelDB / RocksDB / WiredTiger (SSD)
 
@@ -131,11 +131,13 @@ part 4 - NoSQL
 Google and Amazon's work
 
 Google:
-- GFS 
+
+- GFS
 - MapReduce
-- BigTable， 底层存在 GFS 中  --> 开源版本: hbase
+- BigTable， 底层存在 GFS 中 --> 开源版本: hbase
 
 Amazon:
+
 - Dynamo --> 开源版本：Cassandra
 
 hadoop platform:
@@ -147,6 +149,7 @@ mongoDB: 创新在于数据模型，json，不要求每行 schema 一样，但�
 ElasticSearch: 全文检索引擎 ELK (ES+Logstash+Kibana)
 
 cache system:
+
 - memcached
 - redis
 
@@ -164,7 +167,7 @@ Hive: SQL --> 转成 map reduce，缺点：map reduce 很慢，不实时
 
 Impala / Kudu: MPP SQL Engine
 
-GreenPlum: 
+GreenPlum:
 
 Apache Kylin: 空间换时间
 
@@ -179,14 +182,17 @@ part 6 - distribution db / NewSQL
 - ACID
 
 Google Spanner / F1
+
 - spanner: no sql
 - F1: sql
 
 Cockroach DB
+
 - PostgreSQL
 - Pure Go
 
 TiDB
+
 - HTAP
 - TiDB / TiKV / TiSpark
 
@@ -227,15 +233,16 @@ part 2 - TiDB 的日常管理
 监控：prometheus / grafana
 
 工具和日志
+
 - tools
-    - PD control
-    - TiKV control
-    - TiDB control
+  - PD control
+  - TiKV control
+  - TiDB control
 - Logs
-    - TiDB logs
-    - TiKV logs
-    - PD logs
-    - ansible logs
+  - TiDB logs
+  - TiKV logs
+  - PD logs
+  - ansible logs
 
 扩缩容的操作
 
@@ -245,13 +252,14 @@ part 2 - TiDB 的日常管理
 
 TiDB 的启停操作： ansible / ssh
 
-TiDB log: `curl -X POST -d "tidb_general_log=1|0" http://ip/settings`  // 开启关闭 log
+TiDB log: `curl -X POST -d "tidb_general_log=1|0" http://ip/settings` // 开启关闭 log
 
 调整参数：ansible yml
 
 DML/DDL/用户权限管理: 兼容 MySQL 语法
 
 统计信息维护
+
 - show stats_healthy
 - analyze table table_name [index idx_name]
 - ...
@@ -291,3 +299,48 @@ skip
 唯一性约束，不支持外键
 
 其它的先不看了
+
+---
+
+CockroachDB
+
+- [Install CockroachDB on Mac](https://www.cockroachlabs.com/docs/stable/install-cockroachdb-mac.html)
+- [Start a Local Cluster (Insecure)](https://www.cockroachlabs.com/docs/stable/start-a-local-cluster.html)
+
+启动 cluster，start 三个节点：
+
+```sh
+$ cockroach start --insecure --store=node1 --listen-addr=localhost:26257 --http-addr=localhost:8080 --join=localhost:26257,localhost:26258,localhost:26259 --background
+
+$ cockroach start --insecure --store=node2 --listen-addr=localhost:26258 --http-addr=localhost:8081 --join=localhost:26257,localhost:26258,localhost:26259 --background
+
+$ cockroach start --insecure --store=node3 --listen-addr=localhost:26259 --http-addr=localhost:8082 --join=localhost:26257,localhost:26258,localhost:26259 --background
+```
+
+init：
+
+```sh
+cockroach init --insecure --host=localhost:26257
+```
+
+使用内置 sql client：
+
+```sh
+$ cockroach sql --insecure --host=localhost:26257
+
+> CREATE DATABASE bank;
+> CREATE TABLE bank.accounts (id INT PRIMARY KEY, balance DECIMAL);
+> INSERT INTO bank.accounts VALUES (1, 1000.50);
+> SELECT * FROM bank.accounts;
+> \q
+```
+
+访问 Admin UI：http://localhost:8080
+
+停止 cluster：
+
+```sh
+$ cockroach quit --insecure --host=localhost:26257
+$ cockroach quit --insecure --host=localhost:26258
+$ cockroach quit --insecure --host=localhost:26259
+```
