@@ -75,6 +75,8 @@ mysql> SHOW [GLOBAL|SESSION] VARIABLES [LIKE pattern];
 mysql> SHOW [GLOBAL|SESSION] STATUS [LIKE 匹配的模式];
 ```
 
+(其实，更好的办法是使用 `SELECT @@GLOBAL.xxx` 语法，相关参考：https://github.com/jinzhu/gorm/issues/2616)
+
 ## 4. 乱码的前世今生 —— 字符集和比较规则
 
 MySQL 中的 utf8 (实际是 utfbm3) 和 utfbm4
@@ -2173,3 +2175,96 @@ OPTIMIZER_TRACE 表有 4 列，分别是 QUERY / TRACE / MISSING_BYTES_BEYOND_MA
 Buffer Pool 的更新使用 LRU 链表。
 
 在 Buffer Pool 中被修改的页称为脏页，脏页并不是立即刷新，而是被加入到 flush 链表中，待之后的某个时刻同步到磁盘上。
+
+## 20. 从猫爷被杀说起 —— 事务简介
+
+事务，英文是 transaction，原意是交易。
+
+类似转账这种操作，要么失败，要么成功，不能有中间状态。
+
+实现事物的几条规则 - ACID
+
+- A: Atomicity 原子性
+- I: Isolation 隔离性
+- C: Consistency 一致性
+- D: Duration 持久性
+
+原子性好理解，要么全做，要么全不做 (回滚)。
+
+隔离性，A 向 B 转账，10 元分两次转账，每次 5 元，这两次转账之间是相互隔离没有关系的。
+
+一致性，比如 A 向 B 转账后，A 的余额不能为 0，A 和 B 的总额保持不变，这就是一致性。一致性可以在数据库内部保证，加 check 语句，但比较影响性能，一般在业务层来做。比如在业务层判断如果转账后 A 的余额为负数 (即转出数大于余额数) 则不允许转账。
+
+> 数据库某些操作的原子性和隔离性都是保证一致性的一种手段，在操作执行完成后保证符合所有既定的约束则是一种结果。
+
+持久性也好理解，转账结果一定要永久保存，进行持久化。
+
+### 事务的概念
+
+> 把需要保证原子性、隔离性、一致性和持久性的一个或多个数据库操作称之为一个事务（英文名是：transaction）
+
+事务的 5 个状态：
+
+![](../art/mysql-inside/transactions_status.png)
+
+### MySQL 中事务的语法
+
+#### 开启事物
+
+两种写法：
+
+- `BEGIN WORK;` (`WORK` 可以省略)
+- `START TRANSACTION;`
+
+后者可以跟一些修饰符，比如 `READ ONLY`, `READ WRITE`, `WITH CONSISTENT SNAPSHOT`。前两个好理解，第三个表示开启一致性读。(后面会解释)
+
+示例：`START TRANSACTION READ WRITE, WITH CONSISTENT SNAPSHOT;`。
+
+#### 提交事物
+
+`COMMIT WORK;`，`WORK` 可以省略。
+
+#### 手动终止事物
+
+`ROLLBACK WORK;`，`WORK` 可以省略。
+
+### 支持事物的存储引擎
+
+InnoDB 支持事物，MyISAM 不支持。
+
+### 自动提交
+
+如果变量 `autocommit` 为 ON，那么默认每一条 SQL 语句都是事物，不需要显式的 begin/commit，如果想关闭自动提交，两种方法：
+
+- 显式地使用 begin/commit
+- 设置 `autocommit` 为 OFF
+
+### 隐式提交
+
+某些语句会自动触发 commit。
+
+- DDL 语句
+
+  DDL，定义或修改数据库对象的数据定义语言。
+
+  所谓的数据库对象，指的就是数据库、表、视图、存储过程等等这些东西。当我们使用 CREATE、ALTER、DROP 等语句去修改这些所谓的数据库对象时，就会隐式的提交前边语句所属于的事务。
+
+  相对应的 DML 其实就是指 CRUD 中的 CUD。
+
+- 隐式使用或修改 mysql 数据库中的表
+
+  ALTER USER、CREATE USER、DROP USER、GRANT、RENAME USER、REVOKE、SET PASSWORD 等语句。
+
+- 事务控制或关于锁定的语句
+
+  当我们在一个事务还没提交或者回滚时就又使用 START TRANSACTION 或者 BEGIN 语句开启了另一个事务时，会隐式的提交上一个事务。
+
+- 其它，略...
+
+### 保存点
+
+```sql
+SAVEPOINT save_point_name;
+...
+ROLLBACK TO save_point_name;
+```
