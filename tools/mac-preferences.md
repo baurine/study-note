@@ -9,18 +9,20 @@
 - [Material theme for zsh / iTerm / terminal](https://github.com/carloscuesta/materialshell)
 - [Material theme for Android Studio](https://github.com/ChrisRM/material-theme-jetbrains)
 
-注意，主题只包括配色，不包括字体和字号，这个需要额外自己再配置。
+> 注意，主题只包括配色，不包括字体和字号，这个需要额外自己再配置。
 
 ## 字体
 
-- [Fira Mono](https://mozilla.github.io/Fira/)
-
 安装字体时，先打开 Font Book 应用，点击工具栏的 "+" 按钮，添加新字体，在弹出的窗口中，选择下载后解压生成的字体文件夹，这样可以将文件夹中的所有字体一次性全部安装上。不要在文件夹里一个字体一个字体双击安装。
+
+- [Fira Mono](https://mozilla.github.io/Fira/)
+- [JetBrains Mono](https://www.jetbrains.com/zh-cn/lp/mono/)
 
 ## 常用工具
 
 1. [LICEcap](https://www.cockos.com/licecap/) - GIF 格式录屏应用
 1. [Typora](https://typora.io/) - Markdown Editor
+1. ncdu - 命令行工具，通过 brew 安装，可以用来扫描磁盘上的大文件
 
 ## Chrome 插件
 
@@ -54,57 +56,57 @@ Code tree for Github, super useful! Github 的完美搭档。
 
 配置过程：
 
-1. 安装搜狗五笔 (官网下载安装)
-1. 安装 chrome (官网下载安装)
-1. 安装 [homebrew](https://brew.sh/) (官网有教程，一条指令)
+1.  安装搜狗五笔 (官网下载安装)
+1.  安装 chrome (官网下载安装)
+1.  安装 [homebrew](https://brew.sh/) (官网有教程，一条指令)
 
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-1. 安装 iTerm2 (官网下载安装)
-1. 安装 zsh 和 oh-my-zsh
+1.  安装 iTerm2 (官网下载安装)
+1.  安装 zsh 和 oh-my-zsh
 
-   zsh 是 shell，oh-my-zsh 是 zsh 扩展功能和主题集合，通过 homebrew 来安装。
+    zsh 是 shell，oh-my-zsh 是 zsh 扩展功能和主题集合，通过 homebrew 来安装。
 
-        # install zsh
-        $ brew install zsh zsh-completions
+         # install zsh
+         $ brew install zsh zsh-completions
 
-        # install oh-my-zsh
-        $ curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+         # install oh-my-zsh
+         $ curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
 
-1. 安装 [tmux](./tmux.md) (可选)
-1. 下载 material-theme 主题 (只是配色)，分别为 zsh 和 iTerm2 配置此主题，记得 2 个都要配置才行。
+1.  安装 [tmux](./tmux.md) (可选)
+1.  下载 material-theme 主题 (只是配色)，分别为 zsh 和 iTerm2 配置此主题，记得 2 个都要配置才行。
 
-   配置步骤在 material-theme 的 README 中有。
+    配置步骤在 material-theme 的 README 中有。
 
-   把 mac 自带的 terminal 也配置上此主题。
+    把 mac 自带的 terminal 也配置上此主题。
 
-   这个主题里有两种配色，一种是 dark，一种是 oceanic，选择 oceanic。
+    这个主题里有两种配色，一种是 dark，一种是 oceanic，选择 oceanic。
 
-1. 下载 Fira 家族字体，为 iTerm2 配置 Fira Mono 字体
-1. 安装 VSCode，修改字体为 Fira Mono，修改字号，显示 whitespace，设置 tabSize，安装 vim 插件
+1.  下载 Fira 家族字体，为 iTerm2 配置 Fira Mono 字体
+1.  安装 VSCode，修改字体为 Fira Mono，修改字号，显示 whitespace，设置 tabSize，安装 vim 插件
 
         {
           "editor.tabSize": 2,
           "editor.renderWhitespace": "all"
         }
 
-1. 安装最新版的 Git，配置基本信息和私钥 (看 Git Note config 部分)
+1.  安装最新版的 Git，配置基本信息和私钥 (看 Git Note config 部分)
 
-   使用 `git config --global` 配置 user.name 和 user.email，core.excludesfile
+    使用 `git config --global` 配置 user.name 和 user.email，core.excludesfile
 
-        $ git config --global user.name xxxx
-        $ git config --global user.email xxxx
-        $ git config --global core.excludesfile ~/.gitignore_global
+         $ git config --global user.name xxxx
+         $ git config --global user.email xxxx
+         $ git config --global core.excludesfile ~/.gitignore_global
 
-        # ~/.gitignore_global
-        *~
-        .DS_Store
-        .githook
-        _book
-        pods
-        *.xcbkptlist
+         # ~/.gitignore_global
+         *~
+         .DS_Store
+         .githook
+         _book
+         pods
+         *.xcbkptlist
 
-1. 安装 [GitUp](http://gitup.co/) (官网下载安装)
+1.  安装 [GitUp](http://gitup.co/) (官网下载安装)
 
 **brew**
 
@@ -165,8 +167,8 @@ Code tree for Github, super useful! Github 的完美搭档。
 
 ### iOS 开发环境
 
-1. 安装 XCode
-1. 安装 [CocoaPods](https://cocoapods.org/)
+1.  安装 XCode
+1.  安装 [CocoaPods](https://cocoapods.org/)
 
         $ sudo gem install cocoapods
 
