@@ -9,6 +9,8 @@
 
 由此可见，image 和 container 在某种形式上，和 git 的理念很相似，你可以把 image 理解为 git 中的 repository，把 container 理解为工作目录。可以通过 commit 把工作目录所做的修改提交到 repository 里，也可以通过 `git reset --hard` 清除工作目录所做的所有修改。
 
+(或者可以把 image 比较成二进制可执行程序，container 为该程序执行起来后的进程。)
+
 一般来说，一个 image 的最底层是一个微型的 linux 操作系统 (不以 OS 为基础，直接把可执行文件复制进镜像的做法也是不少的，比如用 Go 语言开发的应用)，这个微型的 linux 操作系统跑在 docker 之上，而 docker 之下是我们的宿主机操作系统 (Linux / macOS / Windows)，所以，docker 也是有两层操作系统的，这和 VM 一样，但它们最大的区别是，VM 中的操作系统有独立的硬件，内存，网络等，而且一般带 UI。而 docker image 中的操作系统，与宿主机的操作系统共用硬件，内存，网络等，而且它一般不带 UI，所以体积相比 VM 小非常多。
 
 docker container 启动的速度是毫秒级的，而 VM 可能是秒级甚至是分钟级的的。
