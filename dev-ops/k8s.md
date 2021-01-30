@@ -104,7 +104,13 @@ Node 是如何加入集群调度并运行服务的？归功于 Node 上的几个
 
 ### 4. 搭建 Kubernetes 集群 - 本地快速搭建
 
-minikube
+#### kind
+
+kind，在 docker 里布署 k8s (套娃...)
+
+安装 kind 后，直接 `kind create cluster` 就可以布署一个只有一个 node 的 k8s cluster。
+
+#### minikube
 
 配置：
 
@@ -517,3 +523,194 @@ prometheus + grafana
     - kubelet
     - kubeproxy
     - CR
+
+---
+
+2021.01.25 复习，重新学习
+
+`kubectl cluster-info`：获取当前集群信息
+
+获取所有 k8s 集群列表：
+
+```sh
+> kubectl config get-contexts --output=name
+arn:aws:eks:us-east-1:385595570414:cluster/dev-seed-us-east-1
+arn:aws:eks:us-west-2:385595570414:cluster/dev-base-us-west-2
+arn:aws:eks:us-west-2:385595570414:cluster/dev-seed-us-west-2
+arn:aws:eks:us-west-2:385595570414:cluster/stability-base-us-west-2
+arn:aws:eks:us-west-2:385595570414:cluster/stability-seed-us-west-2
+arn:aws:eks:us-west-2:385595570414:cluster/staging-base-us-west-2
+arn:aws:eks:us-west-2:385595570414:cluster/staging-seed-us-west-2
+garden
+kind-kind
+minikube
+```
+
+切换当前 k8s 集群：`kubectl ctx xxx`
+
+```sh
+# Switch to use the `dev-base` cluster.
+# You can also execute `kubectl ctx` to select a cluster (context) interactively.
+kubectl ctx `kubectl config get-contexts --output=name | grep dev-base`
+
+# List all pods in the nightly DBaaS backend in dev-base cluster.
+kubectl get po -n nightly
+```
+
+上面是用了插件 kubectx 实现的，纯原生命令：
+
+```sh
+kubectl config current-config
+kubectl config get-contexts // 获取所有集群
+kubectl config use-context xxx  // 切换集群
+```
+
+获取当前集群各种资源的信息：
+
+`kubectl get all|deployment|deploy|pods|pod|po|service|svc|namespace|ns|... [-n namespace]`
+
+`-n namespace` 用来过滤仅显示某个 namespace 下的资源信息。
+
+详细看 `kubectl get -h` 和 `kubectl api-resources`。
+
+布署一个 deployment：`kubectl run`
+
+```sh
+Usage:
+  kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [--command] -- [COMMAND] [args...] [options]
+```
+
+但实际操作都是写一个 yaml，然后用 `kubectl apply -f xxx.yaml`，yaml 里描述各种操作，比如 deployement 呀，service 呀。
+
+容器的端口转发：
+
+```sh
+kubectl port-forward pods/nginx-598b589c46-cvwp8 2334:80 -n default
+```
+
+`2334:80`，前面的是 local，后面的是容器内，或者说是 remote。
+
+但实际一般是对 service 进行端口转发，不直接操作容器或 pod。
+
+> Deployment 是一种高级别的抽象，允许我们进行扩容，滚动更新及降级等操作。我们使用 `kubectl run redis --image='redis:alpine` 命令便创建了一个名为 redis 的 Deployment，并指定了其使用的镜像为 redis:alpine。
+
+> 会默认添加一些标签，之后可以用 -l 来过滤标签。
+
+> ReplicaSet 是一种较低级别的结构，允许进行扩容。
+
+> 我们上面已经提到 Deployment 主要是声明一种预期的状态，并且会将 Pod 托管给 ReplicaSet，而 ReplicaSet 则会去检查当前的 Pod 数量及状态是否符合预期，并尽量满足这一预期。
+
+Deployment -> ReplicaSet -> Pod
+
+ReplicaSet 简写为 rs。
+
+> Service 简单点说就是为了能有个稳定的入口访问我们的应用服务或者是一组 Pod。通过 Service 可以很方便的实现服务发现和负载均衡。
+
+> Service 四种类型：ClusterIP / NodePort / LoadBalancer / ExternalName。
+
+> ClusterIP 只在集群内部可访问，使用端口转发可以使它在外部可访问。
+
+将 redis 暴露，使用 kubectl expose 命令
+
+```sh
+> kubectl expose deploy/redis --port=6379 --protocol=TCP --target-port=6379 --name=redis-server
+service/redis-server exposed
+> kubectl get service
+NAME           TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
+kubernetes     ClusterIP   10.96.0.1     <none>        443/TCP    16d
+redis-server   ClusterIP   10.97.49.44   <none>        6379/TCP   7s
+```
+
+目前这个 service 只在集群内可访问，需要使用端口转发把它暴露出去。
+
+```sh
+> kubectl port-forward svc/redis-server 6379:6379
+Forwarding from 127.0.0.1:6379 -> 6379
+Forwarding from [::1]:6379 -> 6379
+```
+
+客户端就可以用 redis-cli 来连接了
+
+```sh
+> redis-cli -h 127.0.0.1 -p 6379
+127.0.0.1:6379>
+```
+
+也可以通过 NodePort 类型的 service 暴露服务。
+
+> NodePort： 是通过在集群内所有 Node 上都绑定固定端口的方式将服务暴露出来，这样便可以通过 `<NodeIP>:<NodePort>` 访问服务了。
+
+Pod 是最小布署单元。
+
+service 和 pod 关联时，一般通过 label 来关联。
+
+对 redis 进行扩容：
+
+```sh
+> kubectl scale deploy/redis --replicas=2
+deployment.apps/redis scaled
+> kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-598b589c46-cvwp8   1/1     Running   5          16d
+redis-6485bc9d5b-7l65m   1/1     Running   0          13h
+redis-6485bc9d5b-qbb8c   1/1     Running   0          4s
+```
+
+namespace 是个啥概念？namespace 就是用来隔离 deployments 的。一个 cluster 可以有多个 namespace，每个 namespace 里都是一套独立（？独立否）的布署组件（包括 deployment, replicaset, service, pod ...)
+
+---
+
+扩展：
+
+如果查看一个 pod 里有哪些 container 呢？用 `kubectl describe`
+
+```yaml
+> kubectl describe pod/db-tidb-0 -n nightly
+Name:         db-tidb-0
+Namespace:    nightly
+...
+Containers:
+  slowlog:
+    ...
+    Image:         busybox:1.26.2
+    Command:
+      sh
+      -c
+      touch /var/log/tidb/slowlog; tail -n0 -F /var/log/tidb/slowlog;
+    ...
+    Mounts:
+      /var/log/tidb from slowlog (rw)
+    ...
+  tidb:
+    ...
+    Image:         pingcap/tidb:v4.0.0-rc.2
+    ...
+    Command:
+      /bin/sh
+      /usr/local/bin/tidb_start_script.sh
+    Environment:
+      CLUSTER_NAME:           db
+      TZ:
+      BINLOG_ENABLED:         false
+      SLOW_LOG_FILE:          /var/log/tidb/slowlog
+      POD_NAME:               db-tidb-0 (v1:metadata.name)
+      NAMESPACE:              nightly (v1:metadata.namespace)
+      HEADLESS_SERVICE_NAME:  db-tidb-peer
+    Mounts:
+      ...
+      /var/log/tidb from slowlog (rw)
+      ...
+```
+
+如何进入一个 pod 中的 container 执行 shell 呢？用 `kubectl exec`
+
+```sh
+> kubectl exec -it db-tidb-0 -c tidb -n nightly -- /bin/sh
+/ # ps aux | grep tidb-server
+    1 root      7d11 /tidb-server --store=tikv --advertise-address=db-tidb-0.db-tidb-peer.nightly.svc --host=0.0.0.0 --path=db-pd:2379 --config=/etc/tidb/tidb.toml --log-slow-query=/var/log/tidb/slowlog
+   54 root      0:00 grep tidb-server
+/ # cat /etc/tidb/tidb.toml
+[log]
+  [log.file]
+    max-backups = 3
+```
