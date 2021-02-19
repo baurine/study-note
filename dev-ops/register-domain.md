@@ -29,3 +29,17 @@ CNAME，指向的另一个域名。比如，我之前已经有一个解析正常
 如果一个域名既有 A 记录，又有 CNAME，那么 A 记录的优先级更高。
 
 注册域名过程中，有个 `auto-renew` 的选项，那是说是否自动续费的意思。
+
+---
+
+2021/02/19 Update
+
+我在 NameSilo 上注册了域名 (比如 `baurine.com`)，但我的人个网站是布署在 Netlify 上的，这时我需要在 Netlify 给个人网站项目添加自己的域名，然后 Netlify 会告诉你它自己的域名服务器 (NameServers)，我们复制下来，回到 NameSilo 中，将默认的 NameServers 改成 Netlify 的 NameServers。
+
+Netlify NameServers:
+
+![Netlify NameServers](../art/netlify-nameservers.jpg)
+
+NameSilo NameServers:
+
+![NameSilo NameServers](../art/namesilo-nameservers.jpg)
