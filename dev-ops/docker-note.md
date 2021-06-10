@@ -375,6 +375,12 @@ docker 挂载数据卷默认权限是读写，可以通过 `:ro` 指定为只读
 
     $ docker run -it --name container-test -v /src/data:/opt/data:ro ubuntu
 
+注意，挂载时源路径和目标路径都必须是绝对路径，不能使用相对路径。
+
+也可以挂载单个文件，比如：
+
+    $ docker run -v /Users/baurine/Desktop/test-fluent-bit-docker/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf -v /Users/baurine/Desktop/test-fluent-bit-docker:/var/log grafana/fluent-bit-plugin-loki:main-babed45-WIP
+
 **查看数据卷的具体信息**
 
     $ docker inspect container-test
