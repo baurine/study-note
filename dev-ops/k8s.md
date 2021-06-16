@@ -714,3 +714,25 @@ Containers:
   [log.file]
     max-backups = 3
 ```
+
+---
+
+# Helm
+
+常用命令：
+
+```
+helm list
+
+helm install mychart .
+helm uninstall mychart
+helm upgrade mychart .
+
+helm get mainfest mychart -n mynamespace
+helm template mychart . --set varA=aaa --set varB=bbb
+helm install mychart --dry-run --debug . --set varA=aaa --set varB=bbb
+
+helm init
+helm create mychart
+helm repo add pingcap https://charts.pingcap.org/
+```

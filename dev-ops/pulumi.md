@@ -89,3 +89,5 @@ export const name = deployment.metadata.name
 yaml 成了中间层。感觉有点像用 react 用 virtual dom 去生成 html。
 
 `pulumi up` 执行操作，`pulumi destroy` 销毁操作。和 vagrant 的命令相似。
+
+pulumi 的常见概念介绍在这里：https://www.pulumi.com/docs/intro/concepts/
