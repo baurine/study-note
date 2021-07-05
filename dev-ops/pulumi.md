@@ -45,13 +45,13 @@ const isMinikube = config.requireBoolean('isMinikube')
 $ pulumi config set myAuth xxxxx --secret
 ```
 
-在代码中可以用 `getSecret()` 获取其值。(`requireSecret()`?)
+在代码中可以用 `getSecret()` 或 `requireSecret()` 获取其值。
 
 ```ts
 import * as pulumi from '@pulumi/pulumi'
 
 const config = new pulumi.Config()
-const isMinikube = config.getSecret('myAuth')
+const myAuth = config.getSecret('myAuth')
 ```
 
 这些值保存在 yaml 文件中，假如 stack 取名是 quickstart-dev，则保存在 Pulumi.quickstart-dev.yaml 中。打开 Pulumi.quickstart-dev.yaml 看一下内容：
@@ -166,6 +166,8 @@ export declare type LiftedObject<T, K extends keyof T> = {
     ? Output<T2>
     : Output<T[P]>
 }
+// 最终结果大致会变成 {k1: Output<T1>; k2: Output<T2>; k3: Output<T3>}
+
 // 定义一个类型 T 中非函数的属性名称
 // 比如 T 为 {A:string, B:()=>void, C:number}
 // 则 NonFunctionPropertyNames<T> 为 "A" | "C"
@@ -173,6 +175,7 @@ export declare type LiftedObject<T, K extends keyof T> = {
 declare type NonFunctionPropertyNames<T> = {
   [K in keyof T]: T[K] extends Function ? never : K
 }[keyof T]
+
 //
 export declare type LiftedArray<T> = {
   /**
@@ -189,3 +192,10 @@ Input 一般是作为需要创建的 Resource 的参数，Output 一般是作为
 ![](../art/pulumi-programming-model-diagram.svg)
 
 但是一般情况下，并不会需要直接使用 `Output<T>` 中包裹的 T 的值，要么直接把 `Ouput<T>` 作为下一个 Resource 的输入参数 `Input<T>`, 要么把 `Output<T>` 通过 apply() 方法或 pulumi.interpolate 等方法转换成 `Output<U>` 再作为下一个 Resource 的输入参数。
+
+用 config.getSecret() 或 config.requireSecret() 得到的 `Output<string>` 类型。
+
+```ts
+const config = new pulumi.Config()
+const myAuth = config.getSecret('myAuth')
+```
