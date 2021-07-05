@@ -715,6 +715,22 @@ Containers:
     max-backups = 3
 ```
 
+直接在 k8s 跑一个 container，比如：
+
+```
+kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- bash
+```
+
+删除用 `kubectl apply -f xxx.yaml` 的所有资源，可以用 `kubectl delete -f xxx.yaml`。
+
+删除某个类型的资源，比如部署了类型为 kibana 的一个集群，名字叫 kibana-sample，用 `kubectl delete kibana kibana-sample` 来删除它。
+
+重启某个 namespace 下的所有 pod，比如：
+
+```
+kubectl delete --all pods -n baoling
+```
+
 ---
 
 # Helm
@@ -736,3 +752,12 @@ helm init
 helm create mychart
 helm repo add pingcap https://charts.pingcap.org/
 ```
+
+如果 heml install 遇到错误，还可以这样做：
+
+```
+helm template mychart . --set varA=aaa --set varB=bbb > mychart.yaml
+kubectl apply -f mychart.yaml
+```
+
+用 heml template 直接生成完整的 k8s 配置，用 kubectl 命令部署，绕过 heml。
