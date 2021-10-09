@@ -51,6 +51,8 @@ EC2 其实就是一台虚拟主机，云主机，我们可以用 SSH 远程登�
 
 首次登录到服务器后，为了避免每次 ssh 的时候都要指定 pem 文件，我们把我们本地的公钥 `~/.ssh/id_rsa.pub` 添加到服务器的 `~/.ssh/authorized_keys` 里，之后就可以直接用 `ssh ubuntu@ip` 登录了。
 
+也可以用命令 `ssh-copy-id username@ip` 来自动完成将 id_rsa.pub 添加到服务器 authorized_keys 中的操作。
+
 网上的教程都建议新建一个 deploy 的普通用户来进行部署，我觉得 deploy 和 ubunut 用户的作用是一样的，就跳过了这一步。
 
 2017/9/3 update：后来学习到，通过将 ssh 命令的各种参数 (key，用户名，服务器地址) 配置到 `~/.ssh/config` 中，就可以避免每次在命令行输一长串命令，比如上面的命令 `ssh -i ~/.ssh/aws-ec2.pem ubuntu@52.34.86.207`，我在 `~/.ssh/config` 中增加一条如下的配置：

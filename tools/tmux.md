@@ -23,13 +23,15 @@ Note for [Wrangle your terminal with tmux](https://egghead.io/courses/wrangle-yo
 
 **1. pane**
 
-以下用 `^` 表示 mac 上的 `ctrl` 键。
+以下用 `^` 表示 mac 上的 `ctrl` (control) 键。
 
 - `^b"`：左右分 pane
 - `^b%`：上面分 pane
 - `^b + 方向键`：切换 pane
 - `^d` 或 `exit` shell 命令：关闭 pane
 - `^b?`：帮助
+
+`^b"` 表示，先同时按下 `^b` 两个按键，然后松开，再同时按下 shift + `"|'` 键。
 
 **2. window**
 
