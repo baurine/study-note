@@ -63,7 +63,7 @@ Code tree for Github, super useful! Github 的完美搭档。
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 1.  安装 iTerm2 (官网下载安装)
-1.  安装 zsh 和 oh-my-zsh
+1.  安装 zsh, oh-my-zsh 和 powerlevel10k
 
     zsh 是 shell，oh-my-zsh 是 zsh 扩展功能和主题集合，通过 homebrew 来安装。
 

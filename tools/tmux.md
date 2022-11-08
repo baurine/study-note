@@ -135,3 +135,9 @@ super cool~!
     PROMPT_COMMAND="history -a;history -c;history -r; $PROMPT_COMMAND"
 
 DONE!
+
+## Note 2
+
+使用 iTerm2 的 tmux mode，tmux 的一个 window 可以独享一个 iTerm2 的 tab。
+
+- [使用 iTerm2 管理 Tmux 会话](http://ponder.work/2021/08/02/iterm2-tmux-integration/)
